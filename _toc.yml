@@ -1,0 +1,50 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+
+format: jb-book
+root: references.md
+options:
+  numbered: true
+chapters:
+  - file: Chapter1/intro.md
+    title: Introduction
+    sections:
+      - file: Chapter1/what.md
+      - file: Chapter1/data.md
+      - file: Chapter1/pynotebook.md
+      - file: Chapter1/project.md
+  - file: Chapter2/intro.md
+    title: k-NN
+    sections:
+      - file: Chapter2/knn.md
+      # - file: Chapter2/knnproj1.ipynb
+      # - file: Chapter2/knnproj2.ipynb
+      - file: Chapter2/project.md
+  - file: Chapter3/intro.md
+    title: Decision Tree
+    sections:
+      - file: Chapter3/dt.md
+      - file: Chapter3/project.md
+  - file: Chapter4/intro.md
+    title: Support Vector machine
+    sections:
+      - file: Chapter4/svm.md
+      - file: Chapter4/project.md
+  - file: Chapter5/intro.md
+    title: Ensemble method 
+    sections:
+      - file: Chapter5/randomforest.md
+      - file: Chapter5/adaboost.md
+      - file: Chapter5/XGBoost.md
+      - file: Chapter5/project.md
+  - file: Chapter6/intro.md
+    title: Regression
+    sections:
+      - file: Chapter6/regression.md
+      - file: Chapter6/project.md
+  - file: Chapter7/intro.md
+    title: NN
+    sections:
+      - file: Chapter7/nn.md
+      - file: Chapter7/project.md
