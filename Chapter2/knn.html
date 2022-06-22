@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2.2. project" href="project.html" />
-    <link rel="prev" title="2. more advanced techniques" href="intro.html" />
+    <link rel="prev" title="2. k-Nearest Neighbors algorithm (k-NN)" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -106,7 +106,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../references.html">
-                    References
+                    References {-}
                 </a>
             </li>
         </ul>
@@ -402,21 +402,21 @@ title="Print to PDF"
 <h1><span class="section-number">2.1. </span>k-Nearest Neighbors algorithm (k-NN)<a class="headerlink" href="#k-nearest-neighbors-algorithm-k-nn" title="Permalink to this headline">#</a></h1>
 <section id="ideas">
 <h2><span class="section-number">2.1.1. </span>Ideas<a class="headerlink" href="#ideas" title="Permalink to this headline">#</a></h2>
-<p>Assume that we have a set of labeled data ${(X_i, y_i)}$ where $y_i$ denotes the label. Given a new data $X$, how do we determine the label of it?</p>
-<p>k-NN algorithm starts from a very straightforward idea. We use the distances from the new data point $X$ to the known data points to identify the label. If $X$ is closer to $y_i$ points, then we will label $X$ as $y_i$.</p>
+<p>Assume that we have a set of labeled data <span class="math notranslate nohighlight">\(\{(X_i, y_i)\}\)</span> where <span class="math notranslate nohighlight">\(y_i\)</span> denotes the label. Given a new data <span class="math notranslate nohighlight">\(X\)</span>, how do we determine the label of it?</p>
+<p>k-NN algorithm starts from a very straightforward idea. We use the distances from the new data point <span class="math notranslate nohighlight">\(X\)</span> to the known data points to identify the label. If <span class="math notranslate nohighlight">\(X\)</span> is closer to <span class="math notranslate nohighlight">\(y_i\)</span> points, then we will label <span class="math notranslate nohighlight">\(X\)</span> as <span class="math notranslate nohighlight">\(y_i\)</span>.</p>
 <p>You may take cities and countries as an example. <span style="color:red">New York</span> and <span style="color:red">Los Angeles</span> are U.S cities, and <span style="color:grey">Beijing</span> and <span style="color:grey">Shanghai</span> are Chinese cities. Since Tianjin is closer to <span style="color:grey">Beijing</span> and <span style="color:grey">Shanghai</span> comparing to <span style="color:red">New York</span> and <span style="color:red">Los Angeles</span>, we classify Tianjin as a Chinese city. Meanwhile, since Russellville is closer to <span style="color:red">New York</span> and <span style="color:red">Los Angeles</span> comparing to <span style="color:grey">Beijing</span> and <span style="color:grey">Shanghai</span>, we classify it as a U.S. city.</p>
 <p><img alt="" src="../_images/2022-04-07-22-11-10.png" /></p>
 <p>This naive example explains the idea of k-NN. Here is a more detailed description of the algorithm.</p>
 </section>
 <section id="the-algorithm">
 <h2><span class="section-number">2.1.2. </span>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this headline">#</a></h2>
-<p>We are given the training data set ${(X_i, y_i)}$ where $X_i=(x_i^1,x_i^2,\ldots,x_i^n)$ represents $n$ features and $y_i$ represents labels. Let $\tilde{X}=(\tilde{x}^1,\tilde{x}^2,\ldots,\tilde{x}^n)$ be the new data point. We want to find the best label for $\tilde{X}$.</p>
+<p>We are given the training data set <span class="math notranslate nohighlight">\(\{(X_i, y_i)\}\)</span> where <span class="math notranslate nohighlight">\(X_i=(x_i^1,x_i^2,\ldots,x_i^n)\)</span> represents <span class="math notranslate nohighlight">\(n\)</span> features and <span class="math notranslate nohighlight">\(y_i\)</span> represents labels. Let <span class="math notranslate nohighlight">\(\tilde{X}=(\tilde{x}^1,\tilde{x}^2,\ldots,\tilde{x}^n)\)</span> be the new data point. We want to find the best label for <span class="math notranslate nohighlight">\(\tilde{X}\)</span>.</p>
 <ol class="simple">
-<li><p>Compute the distance from $\tilde{X}$ to each $X_i$.</p></li>
+<li><p>Compute the distance from <span class="math notranslate nohighlight">\(\tilde{X}\)</span> to each <span class="math notranslate nohighlight">\(X_i\)</span>.</p></li>
 <li><p>Sort all these distances from the nearest to the furthest.</p></li>
-<li><p>Find the nearest $k$ data points.</p></li>
-<li><p>Determine the labels for each of these $k$ nearest points, and compute the frenqucy of each labels.</p></li>
-<li><p>The most frequent label is considered to be the label of $\tilde{X}$.</p></li>
+<li><p>Find the nearest <span class="math notranslate nohighlight">\(k\)</span> data points.</p></li>
+<li><p>Determine the labels for each of these <span class="math notranslate nohighlight">\(k\)</span> nearest points, and compute the frenqucy of each labels.</p></li>
+<li><p>The most frequent label is considered to be the label of <span class="math notranslate nohighlight">\(\tilde{X}\)</span>.</p></li>
 </ol>
 </section>
 <section id="details">
@@ -424,19 +424,19 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>The distance between two data points are defined by the Euclidean distance:</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-0a21b464-531f-4ecf-a6e4-2ed4a7630e9b">
-<span class="eqno">(2.1)<a class="headerlink" href="#equation-0a21b464-531f-4ecf-a6e4-2ed4a7630e9b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2a46cabe-b019-423e-8b76-feffceae17d1">
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-2a46cabe-b019-423e-8b76-feffceae17d1" title="Permalink to this equation">#</a></span>\[\begin{equation}
 dist\left((x^j_i)_{j=1}^n, (\tilde{x}^j)_{j=1}^n\right)=\sqrt{\sum_{j=1}^n(x^j_i-\tilde{x}^j)^2}.
 \end{equation}\]</div>
 <ul class="simple">
 <li><p>Using linear algebra notations:</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-e8560297-c360-4be6-ae32-e62df999a7a1">
-<span class="eqno">(2.2)<a class="headerlink" href="#equation-e8560297-c360-4be6-ae32-e62df999a7a1" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-81af66d5-1598-4706-a80e-d94d2fe0615a">
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-81af66d5-1598-4706-a80e-d94d2fe0615a" title="Permalink to this equation">#</a></span>\[\begin{equation}
 dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
 \end{equation}\]</div>
 <ul class="simple">
-<li><p>All the distances are stored in a $1$-dim numpy array, and we will combine it together with another $1$-dim array that store the labels of each point.</p></li>
+<li><p>All the distances are stored in a <span class="math notranslate nohighlight">\(1\)</span>-dim numpy array, and we will combine it together with another <span class="math notranslate nohighlight">\(1\)</span>-dim array that store the labels of each point.</p></li>
 </ul>
 </section>
 <section id="the-codes">
@@ -508,8 +508,8 @@ dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
 a_1=b_1+c_1\\
 a_2=b_2+c_2-d_2+e_2
 \end{gather*}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-6112ebb0-7600-4f38-97da-99fef205aae9">
-<span class="eqno">(2.3)<a class="headerlink" href="#equation-6112ebb0-7600-4f38-97da-99fef205aae9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1ecdae58-d4b6-4264-9ad6-b9d4a43fe0b1">
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-1ecdae58-d4b6-4264-9ad6-b9d4a43fe0b1" title="Permalink to this equation">#</a></span>\[\begin{align}
 a_{11}&amp; =b_{11}&amp;
   a_{12}&amp; =b_{12}\\
 a_{21}&amp; =b_{21}&amp;
@@ -549,7 +549,7 @@ a_{21}&amp; =b_{21}&amp;
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">2. </span>more advanced techniques</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>k-Nearest Neighbors algorithm (k-NN)</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="project.html" title="next page">
