@@ -1,4 +1,4 @@
-# References
+# References {-}
 This course consults the following materials.
 
 
