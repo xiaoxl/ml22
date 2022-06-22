@@ -24,15 +24,15 @@ We are given the training data set $\{(X_i, y_i)\}$ where $X_i=(x_i^1,x_i^2,\ldo
 ## Details
 - The distance between two data points are defined by the Euclidean distance:
   
-$$
+\begin{equation}
 dist\left((x^j_i)_{j=1}^n, (\tilde{x}^j)_{j=1}^n\right)=\sqrt{\sum_{j=1}^n(x^j_i-\tilde{x}^j)^2}.
-$$
+\end{equation}
   
 - Using linear algebra notations: 
   
-$$
+\begin{equation}
 dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
-$$
+\end{equation}
 
 - All the distances are stored in a $1$-dim numpy array, and we will combine it together with another $1$-dim array that store the labels of each point.
 
