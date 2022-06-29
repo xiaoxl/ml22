@@ -77,6 +77,7 @@ X_train_norm, parameters = encodeNorm(X_train)
 X_test_norm, _ = encodeNorm(X_test, parameters=parameters)
 
 
+
 # In[5]:
 
 
@@ -97,13 +98,13 @@ neigh.fit(X_train_norm, y_train)
 r2 = neigh.predict(X_test_norm)
 
 
-# In[7]:
+# In[8]:
 
 
 r = np.array([classify_kNN(inX, X_train_norm, y_train, k=10) for inX in X_test_norm])
 
 
-# In[8]:
+# In[9]:
 
 
 r-r2

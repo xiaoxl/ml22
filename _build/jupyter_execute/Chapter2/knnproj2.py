@@ -18,7 +18,7 @@ import tensorflow as tf
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
 
-# In[2]:
+# In[9]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -27,34 +27,34 @@ neigh = KNeighborsClassifier(n_neighbors=10, weights='distance',
 x_train.shape
 
 
-# In[3]:
+# In[4]:
 
 
 X_train_norm = tf.reshape(x_train, (x_train.shape[0], 28*28))
 X_test_norm = tf.reshape(x_test, (x_test.shape[0], 28*28))
 
 
-# In[4]:
+# In[5]:
 
 
 import matplotlib.pyplot as plt
 plt.imshow(x_train[0])
 
 
-# In[5]:
+# In[6]:
 
 
 a = X_train_norm[0]
 b = tf.reshape(a, (28, 28))
 
 
-# In[6]:
+# In[36]:
 
 
 plt.imshow(b)
 
 
-# In[7]:
+# In[10]:
 
 
 neigh.fit(X_train_norm, y_train)
@@ -67,31 +67,31 @@ r2 = neigh.predict(X_test_norm)
 r2
 
 
-# In[9]:
+# In[39]:
 
 
 r2-y_test
 
 
-# In[10]:
+# In[40]:
 
 
 plt.plot(r2-y_test)
 
 
-# In[11]:
+# In[43]:
 
 
 max(r2)
 
 
-# In[12]:
+# In[ ]:
 
 
 y_test
 
 
-# In[13]:
+# In[ ]:
 
 
 rr = 0
@@ -101,7 +101,7 @@ for i in range(len(r2)):
 pp = rr/len(r2)
 
 
-# In[14]:
+# In[11]:
 
 
 from knn import classify_kNN, dataSplit, classify_kNN_test, encodeNorm, decodeNorm
