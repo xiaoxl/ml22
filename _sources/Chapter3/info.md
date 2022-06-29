@@ -2,7 +2,9 @@
 
 Based on the naive idea, we need to use the information thoery to discuss how to divide the dataset. Here we need two concepts: *self-information* and *entropy*.
 
-````{prf:definition}
+````{prf:remark}
+:label: my-definition
+
 Given an event $x$ with probability $p(x)$, the *self-information* is defined as 
 
 $$
