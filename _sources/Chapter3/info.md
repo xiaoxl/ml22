@@ -27,6 +27,8 @@ It can be proved that there is a unique function of probability that meets these
 ````
 
 
+
+````{prf:example}
 There are two type of chickens (orange and blue):
 | Group      | Orange    | Blue    |
 | :---:          |    :---:       |  :--:    |
@@ -40,3 +42,4 @@ The self-information is calculated in the following table. The base is chosen to
 |1|$-\log_2(6/7)\approx0.22$|$-\log_2(1/7)\approx2.81$|
 |2|$-\log_2(1/11)\approx 3.46$|$-\log_2(10/11)\approx 0.14$|
 |3|$-\log_2(7/14)=1$|$-\log_2(7/14)=1$|
+````
