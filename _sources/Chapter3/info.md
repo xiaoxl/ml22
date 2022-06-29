@@ -26,7 +26,7 @@ Shannon's definition of *self-information* was chosen to meet several axioms:
 It can be proved that there is a unique function of probability that meets these three axioms, up to a scaling factor. The scaling factor behaves as the base $b$ in the above definition.
 ````
 
-
+Let us do more things
 
 ````{prf:example}
 There are two type of chickens (orange and blue):
