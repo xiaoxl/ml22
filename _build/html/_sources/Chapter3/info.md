@@ -99,7 +99,7 @@ $$
 $$
 ````
 
-## Codes for Self-information and entropy
+## Codes for Self-information and Entropy
 
 
 ````{prf:algorithm} Computing Self-information
@@ -168,3 +168,4 @@ def entropy(S):
 ```{note}
 In the above code when we compute entropy, we could also use `selfInfo(S, label)` to compute `-np.log2(labelList[label]/n)`. However since we already compute the counts for each label in the previous codes, we don't need to call `selfInfo` to count the labels again.
 ```
+

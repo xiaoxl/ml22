@@ -7,13 +7,13 @@ root: references.md
 options:
   numbered: true
 chapters:
-  # - file: Chapter1/intro.md
-  #   title: Introduction
-  #   sections:
-  #     - file: Chapter1/what.md
-  #     - file: Chapter1/data.md
-  #     - file: Chapter1/pynotebook.md
-  #     - file: Chapter1/project.md
+  - file: Chapter1/intro.md
+    title: Introduction
+    sections:
+      - file: Chapter1/what.md
+      - file: Chapter1/data.md
+      - file: Chapter1/pynotebook.md
+      - file: Chapter1/project.md
   # - file: Chapter2/intro.md
   #   title: k-NN
   #   sections:
@@ -24,8 +24,10 @@ chapters:
   - file: Chapter3/intro.md
     title: Decision Tree
     sections:
-      - file: Chapter3/info.md
+      # - file: Chapter3/info.md
+      - file: Chapter3/gini.md
       - file: Chapter3/code.md
+      - file: Chapter3/dt.ipynb
       - file: Chapter3/project.md
   # - file: Chapter4/intro.md
   #   title: Support Vector machine
