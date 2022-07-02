@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proof Index &#8212; Machine Learning</title>
+    <title>Proof Index &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -97,7 +97,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <h1 class="site-logo" id="site-title">Machine Learning</h1>
+      <h1 class="site-logo" id="site-title">Machine Learning Notes - 2022 Fall</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -147,8 +147,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Chapter2/intro.html">
-   2. k-NN
+  <a class="reference internal" href="Chapter3/intro.html">
+   2. Decision Tree
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -157,13 +157,23 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter2/knn.html">
-     2.1. k-Nearest Neighbors algorithm (k-NN)
+    <a class="reference internal" href="Chapter3/gini.html">
+     2.1. Gini impurity
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter2/project.html">
-     2.2. project
+    <a class="reference internal" href="Chapter3/code.html">
+     2.2. CART Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Chapter3/dt.html">
+     2.3.
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Chapter3/project.html">
+     2.4. project
     </a>
    </li>
   </ul>
@@ -260,28 +270,118 @@ title="Fullscreen mode"
    <h1>Proof Index</h1>
 
    <div class="modindex-jumpbox">
+   <a href="#cap-algorithm-0"><strong>algorithm-0</strong></a> | 
+   <a href="#cap-algorithm-1"><strong>algorithm-1</strong></a> | 
+   <a href="#cap-algorithm-3"><strong>algorithm-3</strong></a> | 
+   <a href="#cap-algorithm-6"><strong>algorithm-6</strong></a> | 
+   <a href="#cap-algorithm-7"><strong>algorithm-7</strong></a> | 
+   <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
+   <a href="#cap-definition-2"><strong>definition-2</strong></a> | 
+   <a href="#cap-example-1"><strong>example-1</strong></a> | 
    <a href="#cap-example-2"><strong>example-2</strong></a> | 
-   <a href="#cap-my-definition"><strong>my-definition</strong></a> | 
+   <a href="#cap-example-3"><strong>example-3</strong></a> | 
+   <a href="#cap-example-4"><strong>example-4</strong></a> | 
+   <a href="#cap-example-5"><strong>example-5</strong></a> | 
    <a href="#cap-remark-1"><strong>remark-1</strong></a>
    </div>
 
    <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-algorithm-0"><td></td><td>
+       <strong>algorithm-0</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/code.html#algorithm-0"><code class="xref">algorithm-0</code></a> <em>(Chapter3/code)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-algorithm-1"><td></td><td>
+       <strong>algorithm-1</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/code.html#algorithm-1"><code class="xref">algorithm-1</code></a> <em>(Chapter3/code)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-algorithm-3"><td></td><td>
+       <strong>algorithm-3</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/gini.html#algorithm-3"><code class="xref">algorithm-3</code></a> <em>(Chapter3/gini)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-algorithm-6"><td></td><td>
+       <strong>algorithm-6</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/info.html#algorithm-6"><code class="xref">algorithm-6</code></a> <em>(Chapter3/info)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-algorithm-7"><td></td><td>
+       <strong>algorithm-7</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/info.html#algorithm-7"><code class="xref">algorithm-7</code></a> <em>(Chapter3/info)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-0"><td></td><td>
+       <strong>definition-0</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/gini.html#definition-0"><code class="xref">definition-0</code></a> <em>(Chapter3/gini)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-2"><td></td><td>
+       <strong>definition-2</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/info.html#definition-2"><code class="xref">definition-2</code></a> <em>(Chapter3/info)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-example-1"><td></td><td>
+       <strong>example-1</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/gini.html#example-1"><code class="xref">example-1</code></a> <em>(Chapter3/gini)</em></td><td>
+       <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-example-2"><td></td><td>
        <strong>example-2</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="Chapter3/info.html#example-2"><code class="xref">example-2</code></a> <em>(Chapter3/info)</em></td><td>
+       <a href="Chapter3/gini.html#example-2"><code class="xref">example-2</code></a> <em>(Chapter3/gini)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-my-definition"><td></td><td>
-       <strong>my-definition</strong></td><td></td></tr>
+     <tr class="cap" id="cap-example-3"><td></td><td>
+       <strong>example-3</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="Chapter3/info.html#my-definition"><code class="xref">my-definition</code></a> <em>(Chapter3/info)</em></td><td>
-       <em>definition</em></td></tr>
+       <a href="Chapter3/info.html#example-3"><code class="xref">example-3</code></a> <em>(Chapter3/info)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-example-4"><td></td><td>
+       <strong>example-4</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/info.html#example-4"><code class="xref">example-4</code></a> <em>(Chapter3/info)</em></td><td>
+       <em>example</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-example-5"><td></td><td>
+       <strong>example-5</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="Chapter3/info.html#example-5"><code class="xref">example-5</code></a> <em>(Chapter3/info)</em></td><td>
+       <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-remark-1"><td></td><td>
        <strong>remark-1</strong></td><td></td></tr>
