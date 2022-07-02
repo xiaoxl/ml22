@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>2. Decision Trees &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>3. Decision Trees &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.1. Gini impurity" href="gini.html" />
-    <link rel="prev" title="1.4. project" href="../Chapter1/project.html" />
+    <link rel="next" title="3.1. Gini impurity" href="gini.html" />
+    <link rel="prev" title="2.2. project" href="../Chapter2/project.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -142,34 +142,56 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   2. Decision Tree
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter2/intro.html">
+   2. k-NN
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knn.html">
+     2.1. k-Nearest Neighbors algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/project.html">
+     2.2. project
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   3. Decision Tree
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
     <a class="reference internal" href="gini.html">
-     2.1. Gini impurity
+     3.1. Gini impurity
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="code.html">
-     2.2. CART Algorithms
+     3.2. CART Algorithms
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="dt.html">
-     2.3.
+     3.3.
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     2.4. project
+     3.4. project
     </a>
    </li>
   </ul>
@@ -309,7 +331,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="decision-trees">
-<h1><span class="section-number">2. </span>Decision Trees<a class="headerlink" href="#decision-trees" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">3. </span>Decision Trees<a class="headerlink" href="#decision-trees" title="Permalink to this headline">#</a></h1>
 <!-- ## Naive ideas -->
 <p>Given a dataset with labels, the decision tree algorithm firstly trys to split the whole dataset into two different groups, based on some speicific features. Choose which feature to use and set the threshold for the split are done.</p>
 <div class="toctree-wrapper compound">
@@ -343,17 +365,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../Chapter1/project.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../Chapter2/project.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">1.4. </span>project</p>
+            <p class="prev-next-title"><span class="section-number">2.2. </span>project</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="gini.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2.1. </span>Gini impurity</p>
+        <p class="prev-next-title"><span class="section-number">3.1. </span>Gini impurity</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
