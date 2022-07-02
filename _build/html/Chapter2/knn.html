@@ -55,6 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.2. project" href="project.html" />
+    <link rel="prev" title="2. k-Nearest Neighbors algorithm (k-NN)" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -109,10 +111,10 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Chapter3/intro.html">
-   1. Decision Tree
+  <a class="reference internal" href="../Chapter1/intro.html">
+   1. Introduction
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -121,23 +123,77 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/info.html">
-     1.2. A little bit Infomation Theory
+    <a class="reference internal" href="../Chapter1/what.html">
+     1.1. What is Machine Learning?
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/data.html">
+     1.2. Basic setting for Machine learning problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/pynotebook.html">
+     1.3. Python Notebook quick guide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/project.html">
+     1.4. project
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   2. k-NN
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     2.1. k-Nearest Neighbors algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="project.html">
+     2.2. project
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter3/intro.html">
+   3. Decision Tree
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/gini.html">
-     1.3. Gini impurity
+     3.1. Gini impurity
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/code.html">
-     1.4. Algorithms
+     3.2. CART Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/dt.html">
+     3.3.
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/project.html">
-     1.5. project
+     3.4. project
     </a>
    </li>
   </ul>
@@ -376,9 +432,9 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="k-nearest-neighbors-algorithm-k-nn">
-<h1>k-Nearest Neighbors algorithm (k-NN)<a class="headerlink" href="#k-nearest-neighbors-algorithm-k-nn" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">2.1. </span>k-Nearest Neighbors algorithm (k-NN)<a class="headerlink" href="#k-nearest-neighbors-algorithm-k-nn" title="Permalink to this headline">#</a></h1>
 <section id="ideas">
-<h2>Ideas<a class="headerlink" href="#ideas" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1.1. </span>Ideas<a class="headerlink" href="#ideas" title="Permalink to this headline">#</a></h2>
 <p>Assume that we have a set of labeled data <span class="math notranslate nohighlight">\(\{(X_i, y_i)\}\)</span> where <span class="math notranslate nohighlight">\(y_i\)</span> denotes the label. Given a new data <span class="math notranslate nohighlight">\(X\)</span>, how do we determine the label of it?</p>
 <p>k-NN algorithm starts from a very straightforward idea. We use the distances from the new data point <span class="math notranslate nohighlight">\(X\)</span> to the known data points to identify the label. If <span class="math notranslate nohighlight">\(X\)</span> is closer to <span class="math notranslate nohighlight">\(y_i\)</span> points, then we will label <span class="math notranslate nohighlight">\(X\)</span> as <span class="math notranslate nohighlight">\(y_i\)</span>.</p>
 <p>You may take cities and countries as an example. <span style="color:red">New York</span> and <span style="color:red">Los Angeles</span> are U.S cities, and <span style="color:grey">Beijing</span> and <span style="color:grey">Shanghai</span> are Chinese cities. Since Tianjin is closer to <span style="color:grey">Beijing</span> and <span style="color:grey">Shanghai</span> comparing to <span style="color:red">New York</span> and <span style="color:red">Los Angeles</span>, we classify Tianjin as a Chinese city. Meanwhile, since Russellville is closer to <span style="color:red">New York</span> and <span style="color:red">Los Angeles</span> comparing to <span style="color:grey">Beijing</span> and <span style="color:grey">Shanghai</span>, we classify it as a U.S. city.</p>
@@ -386,7 +442,7 @@ title="Print to PDF"
 <p>This naive example explains the idea of k-NN. Here is a more detailed description of the algorithm.</p>
 </section>
 <section id="the-algorithm">
-<h2>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1.2. </span>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this headline">#</a></h2>
 <p>We are given the training data set <span class="math notranslate nohighlight">\(\{(X_i, y_i)\}\)</span> where <span class="math notranslate nohighlight">\(X_i=(x_i^1,x_i^2,\ldots,x_i^n)\)</span> represents <span class="math notranslate nohighlight">\(n\)</span> features and <span class="math notranslate nohighlight">\(y_i\)</span> represents labels. Let <span class="math notranslate nohighlight">\(\tilde{X}=(\tilde{x}^1,\tilde{x}^2,\ldots,\tilde{x}^n)\)</span> be the new data point. We want to find the best label for <span class="math notranslate nohighlight">\(\tilde{X}\)</span>.</p>
 <ol class="simple">
 <li><p>Compute the distance from <span class="math notranslate nohighlight">\(\tilde{X}\)</span> to each <span class="math notranslate nohighlight">\(X_i\)</span>.</p></li>
@@ -397,19 +453,19 @@ title="Print to PDF"
 </ol>
 </section>
 <section id="details">
-<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1.3. </span>Details<a class="headerlink" href="#details" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>The distance between two data points are defined by the Euclidean distance:</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-e4a7ff51-ef88-4482-9317-32b4cdbd54a7">
-<span class="eqno">()<a class="headerlink" href="#equation-e4a7ff51-ef88-4482-9317-32b4cdbd54a7" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-85043b6c-54c1-4c76-8e20-4cb662709e32">
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-85043b6c-54c1-4c76-8e20-4cb662709e32" title="Permalink to this equation">#</a></span>\[\begin{equation}
 dist\left((x^j_i)_{j=1}^n, (\tilde{x}^j)_{j=1}^n\right)=\sqrt{\sum_{j=1}^n(x^j_i-\tilde{x}^j)^2}.
 \end{equation}\]</div>
 <ul class="simple">
 <li><p>Using linear algebra notations:</p></li>
 </ul>
-<div class="amsmath math notranslate nohighlight" id="equation-cf21a59e-73a7-4d39-a36c-d439d3f235c3">
-<span class="eqno">()<a class="headerlink" href="#equation-cf21a59e-73a7-4d39-a36c-d439d3f235c3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-068c7a2d-51f7-4a69-b78e-7e724cf2d3e1">
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-068c7a2d-51f7-4a69-b78e-7e724cf2d3e1" title="Permalink to this equation">#</a></span>\[\begin{equation}
 dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
 \end{equation}\]</div>
 <ul class="simple">
@@ -417,7 +473,7 @@ dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
 </ul>
 </section>
 <section id="the-codes">
-<h2>The codes<a class="headerlink" href="#the-codes" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1.4. </span>The codes<a class="headerlink" href="#the-codes" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">argsort</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">get</span></code></p></li>
@@ -443,7 +499,7 @@ dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
 </div>
 </section>
 <section id="sklearn-packages">
-<h2><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> packages<a class="headerlink" href="#sklearn-packages" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1.5. </span><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> packages<a class="headerlink" href="#sklearn-packages" title="Permalink to this headline">#</a></h2>
 <p>You may also directly use the kNN function <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code> packaged in <code class="docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code>. You may check the description of the function online from <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">here</a>.</p>
 <p>There are many ways to modify the kNN algorithm. What we just mentioned is the simplest idea. It is correspondent to the argument <code class="docutils literal notranslate"><span class="pre">weights='distance'</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
@@ -454,7 +510,7 @@ dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
 </div>
 </section>
 <section id="normalization">
-<h2>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.1.6. </span>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">#</a></h2>
 <p>Different features may have different scales. It might be unfair for those features that have small scales. Therefore usually it is better to rescale all the features to make them have similar scales.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">encodeNorm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># parameters contains minVals and ranges</span>
@@ -485,8 +541,8 @@ dist(X_i,\tilde{X})=\sqrt{(X_i-\tilde{X})\cdot(X_i-\tilde{X})}.
 a_1=b_1+c_1\\
 a_2=b_2+c_2-d_2+e_2
 \end{gather*}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-c0d7636c-79fb-41b1-846b-d35bf0e26a6f">
-<span class="eqno">()<a class="headerlink" href="#equation-c0d7636c-79fb-41b1-846b-d35bf0e26a6f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-21db7f41-63c2-42ae-afab-6196d5b82602">
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-21db7f41-63c2-42ae-afab-6196d5b82602" title="Permalink to this equation">#</a></span>\[\begin{align}
 a_{11}&amp; =b_{11}&amp;
   a_{12}&amp; =b_{12}\\
 a_{21}&amp; =b_{21}&amp;
@@ -522,6 +578,20 @@ a_{21}&amp; =b_{21}&amp;
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>k-Nearest Neighbors algorithm (k-NN)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="project.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>project</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
