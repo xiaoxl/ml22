@@ -67,7 +67,7 @@ plt.show()
 # In[4]:
 
 
-from knn import classify_kNN, dataSplit, classify_kNN_test, encodeNorm, decodeNorm
+from assests.codes.knn import classify_kNN, dataSplit, classify_kNN_test, encodeNorm, decodeNorm
 
 X = np.array(df[['Mileage', 'Gamingtime', 'Icecream']])
 y = np.array(df['Rating'])
@@ -98,16 +98,82 @@ neigh.fit(X_train_norm, y_train)
 r2 = neigh.predict(X_test_norm)
 
 
-# In[8]:
+# In[7]:
 
 
 r = np.array([classify_kNN(inX, X_train_norm, y_train, k=10) for inX in X_test_norm])
 
 
-# In[9]:
+# In[8]:
 
 
 r-r2
+
+
+# In[9]:
+
+
+d = df.to_numpy()
+
+
+# In[10]:
+
+
+d
+
+
+# In[11]:
+
+
+d.shape
+
+
+# In[12]:
+
+
+from sklearn.datasets import load_iris
+import numpy as np
+
+
+# In[13]:
+
+
+from sklearn.tree import DecisionTreeClassifier
+
+
+# In[14]:
+
+
+X = d[:, :3]
+y = d[:,-1]
+
+
+# In[15]:
+
+
+treeclf = DecisionTreeClassifier(max_depth=3)
+treeclf.fit(X, y)
+
+
+# In[16]:
+
+
+treeclf
+
+
+# In[17]:
+
+
+print(treeclf)
+
+
+# In[18]:
+
+
+from sklearn import tree
+plt.figure(figsize=(20,20))
+tree.plot_tree(treeclf, filled=True)
+
 
 
 # In[ ]:

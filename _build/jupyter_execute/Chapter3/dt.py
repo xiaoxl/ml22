@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 
+# # Example: the Iris dataset
+# 
+# We are going to use the Decision Tree model to study the iris dataset. This 
 
 # In[1]:
 

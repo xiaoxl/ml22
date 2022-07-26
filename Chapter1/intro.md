@@ -1,13 +1,11 @@
-# introduction
+# Introduction
 
+In this Chapter we will discuss
+- What is Machine Learning?
+- What do typical Machine Learning problems look like?
+- What is the basic structure of Machine Learning models?
+- What is the basic work flow to use Machine Learning to solve problems? 
+- Some supplementary materials, such as Linear Algebra and Python.
 
 {cite:p}`ucimlrepo`
 
-
-{cite:p}`mlinaction`
-
-$$\begin{equation}
-  \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
-\end{equation}$$
-
-$\qty(\frac12)$

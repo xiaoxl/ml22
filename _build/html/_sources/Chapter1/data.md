@@ -1,8 +1,10 @@
 # Basic setting for Machine learning problems
 
 ```{note}
-We mainly focus on **supervised** **classification** problem in this section.
+We by default assume that we are dealing with a **Supervised** **Classification** problem.
 ```
+
+
 
 linear algebra
 
@@ -13,8 +15,54 @@ python
 
 
 ## Input data structure
-Input data is organized as row vectors. 
+Since we are dealing with Supervised Classification problems, the desired solutions are given. These desired solutions in Classification problems are also called *labels*. The properties that the data are used to describe are called *features*. Both features and labels are usually organized as row vectors. 
 
+
+````{prf:example} 
+The example is extracted from {cite:p}`Har2012`. There are some sample data shown in the following table. We would like to use these information to classify bird species.
+
+```{list-table} Bird species classification based on four features
+:header-rows: 1
+:name: example-table
+
+* - Weight (g)
+  - Wingspan (cm)
+  - Webbed feet?
+  - Back color
+  - Species
+* - 1000.1
+  - 125.0
+  - No
+  - Brown
+  - Buteo jamaicensis
+* - 3000.7
+  - 200.0
+  - No
+  - Gray
+  - Sagittarius serpentarius
+* - 3300.0
+  - 220.3
+  - No
+  - Gray
+  - Sagittarius serpentarius
+* - 4100.0
+  - 136.0
+  - Yes
+  - Black
+  - Gavia immer
+* - 3.0
+  - 11.0
+  - No
+  - Green
+  - Calothorax lucifer
+* - 570.0
+  - 75.0
+  - No
+  - Black
+  - Campephilus principalis
+```
+
+````
 
 
 ## Output data structure
