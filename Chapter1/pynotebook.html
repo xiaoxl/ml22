@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>1.3. Python Notebook quick guide &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>1.3. Python quick guide &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1.4. project" href="project.html" />
+    <link rel="next" title="1.4. Exercises" href="project.html" />
     <link rel="prev" title="1.2. Basic setting for Machine learning problems" href="data.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -132,19 +132,19 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     1.3. Python Notebook quick guide
+     1.3. Python quick guide
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     1.4. project
+     1.4. Exercises
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Chapter3/intro.html">
-   2. Decision Tree
+  <a class="reference internal" href="../Chapter2/intro.html">
+   2. k-NN
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -153,18 +153,45 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knn.html">
+     2.1. k-Nearest Neighbors algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/project.html">
+     2.2. project
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter3/intro.html">
+   3. Decision Tree
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/gini.html">
-     2.1. Gini impurity
+     3.1. Gini impurity
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/code.html">
-     2.2. Algorithms
+     3.2. CART Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/dt.html">
+     3.3. Example: the Iris dataset
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/project.html">
-     2.3. project
+     3.4. project
     </a>
    </li>
   </ul>
@@ -279,23 +306,126 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-notebook">
+   1.3.1. Python Notebook
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-fundamentals">
+   1.3.2. Python fundamentals
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indentation">
+     1.3.2.1. Indentation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#list-and-dict">
+     1.3.2.2.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loop-through-lists">
+     1.3.2.3. Loop through lists
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Python Notebook quick guide</h1>
+                <h1>Python quick guide</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-notebook">
+   1.3.1. Python Notebook
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-fundamentals">
+   1.3.2. Python fundamentals
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indentation">
+     1.3.2.1. Indentation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#list-and-dict">
+     1.3.2.2.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loop-through-lists">
+     1.3.2.3. Loop through lists
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -303,8 +433,120 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="python-notebook-quick-guide">
-<h1><span class="section-number">1.3. </span>Python Notebook quick guide<a class="headerlink" href="#python-notebook-quick-guide" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="python-quick-guide">
+<h1><span class="section-number">1.3. </span>Python quick guide<a class="headerlink" href="#python-quick-guide" title="Permalink to this headline">#</a></h1>
+<section id="python-notebook">
+<h2><span class="section-number">1.3.1. </span>Python Notebook<a class="headerlink" href="#python-notebook" title="Permalink to this headline">#</a></h2>
+<p>We mainly use Python Notebook (.ipynb) to write documents for this course. Currently all main stream Python IDE support Python Notebook. All of them are not entirely identical but the differences are not huge and you may choose any you like.</p>
+<p>One of the easiest ways to use Python Notebook is through <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>. The best part about it is that you don’t need to worry about installation and configuration in the first place, and you can directly start to code.</p>
+<p>To use Google Colab, all you need is a Google account. After login, you will see the following page.
+<img alt="" src="../_images/20220726214822.png" /></p>
+<p>There are two buttons <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">Code</span></code> and <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">Text</span></code> under the menu bar. You may choose them according to your needs to write codes or texts. The syntax for texts is Markdown which is a very simple light wighted language. In most cases you may just ignore the syntax and write plain texts.</p>
+<p><img alt="" src="../_images/20220726215325.png" /><br />
+To write codes, you first click <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">Code</span></code> button to start a new code block, and then type any Python codes you like inside. You may either use the triangle button on the left to execute the codes, or click <code class="docutils literal notranslate"><span class="pre">ctrl</span> <span class="pre">+</span> <span class="pre">enter</span></code>.</p>
+<p>Colab already contains popular packages, so it is totally ok if you would like to play with some simple things or even many materials in this course. However since it is online evironment, it has some limitations, like hardware power is capped even if you are paid users, or any runtime instance will be released after around 24 hours. You should also upload any of your own datasets to it since the platform is online. Therefore it is still recommended to set up a local environment once you get familiar with Python Notebook. We will put some instructions in the Appendix.</p>
+</section>
+<section id="python-fundamentals">
+<h2><span class="section-number">1.3.2. </span>Python fundamentals<a class="headerlink" href="#python-fundamentals" title="Permalink to this headline">#</a></h2>
+<p>We will put some very basic Python commands here for you to warm up. The main reference for this part is <span id="id1">[<a class="reference internal" href="../references.html#id28" title="Peter Harrington. Machine Learning in Action. MANNING PUBN, April 2012. ISBN 9781617290183. URL: https://www.manning.com/books/machine-learning-in-action.">4</a>]</span>.</p>
+<section id="indentation">
+<h3><span class="section-number">1.3.2.1. </span>Indentation<a class="headerlink" href="#indentation" title="Permalink to this headline">#</a></h3>
+<p>Python is using indentation to denote code blocks. It is not convienent to write in the first place, but it forces you to write clean, readable code.</p>
+<p>By the way, the <code class="docutils literal notranslate"><span class="pre">if</span></code> and <code class="docutils literal notranslate"><span class="pre">for</span></code> block are actually straightforward.</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+One!</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">jj</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">jj</span> <span class="o">=</span> <span class="n">jj</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It is smaller than 3.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Two!</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">jj</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">jj</span> <span class="o">=</span> <span class="n">jj</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It is smaller than 3.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Three!</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Four!</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Please tell the differences between the above codes.</p>
+</section>
+<section id="list-and-dict">
+<h3><span class="section-number">1.3.2.2. </span><code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">dict</span></code><a class="headerlink" href="#list-and-dict" title="Permalink to this headline">#</a></h3>
+<p>Here are some very basic usage of lists of dictionaries in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">newlist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">newlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">newlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newlist</span><span class="p">)</span>
+
+<span class="n">newlisttwo</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newlisttwo</span><span class="p">)</span>
+
+<span class="n">newdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">newdict</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;good&#39;</span>
+<span class="n">newdict</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;yes&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newdict</span><span class="p">)</span>
+
+<span class="n">newdicttwo</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newdicttwo</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="loop-through-lists">
+<h3><span class="section-number">1.3.2.3. </span>Loop through lists<a class="headerlink" href="#loop-through-lists" title="Permalink to this headline">#</a></h3>
+<p>When creating <code class="docutils literal notranslate"><span class="pre">for</span></code> loops we may let Python directly loop through lists. Here is an example. The code is almost self-explained.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">alist</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -344,7 +586,7 @@ title="Print to PDF"
     <a class='right-next' id="next-link" href="project.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1.4. </span>project</p>
+        <p class="prev-next-title"><span class="section-number">1.4. </span>Exercises</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
