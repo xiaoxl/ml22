@@ -3,20 +3,29 @@
 ## Python Notebook
 We mainly use Python Notebook (.ipynb) to write documents for this course. Currently all main stream Python IDE support Python Notebook. All of them are not entirely identical but the differences are not huge and you may choose any you like.
 
-One of the easiest ways to use Python Notebook is through [Google Colab](https://colab.research.google.com/). The best part about it is that you don't need to worry about installation and configuration in the first place, and you can directly start to code. 
+One of the easiest ways to use Python Notebook is through [JupyterLab](https://jupyter.org/try). The best part about it is that you don't need to worry about installation and configuration in the first place, and you can directly start to code. 
 
-To use Google Colab, all you need is a Google account. After login, you will see the following page. 
-![](assests/img/20220726214822.png)  
+Click the above link and choose JupyterLab. Then you will see the following page. 
 
-There are two buttons `+ Code` and `+ Text` under the menu bar. You may choose them according to your needs to write codes or texts. The syntax for texts is Markdown which is a very simple light wighted language. In most cases you may just ignore the syntax and write plain texts. 
+![](assests/img/20220727120418.png)  
 
-![](assests/img/20220726215325.png)  
-To write codes, you first click `+ Code` button to start a new code block, and then type any Python codes you like inside. You may either use the triangle button on the left to execute the codes, or click `ctrl + enter`. 
+The webapp you just started is called JupyterLite. This is a demo version. The full JupyterLab installation instruction can also be found from the link.
 
-Colab already contains popular packages, so it is totally ok if you would like to play with some simple things or even many materials in this course. However since it is online evironment, it has some limitations, like hardware power is capped even if you are paid users, or any runtime instance will be released after around 24 hours. You should also upload any of your own datasets to it since the platform is online. Therefore it is still recommended to set up a local environment once you get familiar with Python Notebook. We will put some instructions in the Appendix.
+
+There is a small button `+` under the tab bar. This is the place where you click to start a new cell. You may type codes or markdown documents or raw texts in the cell according to your needs. The drag-down menu at the end of the row which is named `Code` or `Markdown` or `Raw` can help you make the switch. Markdown is a very simple light wighted language to write documents. In most cases it behaves very similar to plain texts. Codes are just regular Python codes (while some other languages are supported). You may either use the triangle button in the menu to execute the codes, or hit `shift + enter`. 
+
+![](assests/img/20220727120505.png)  
+JupyterLite contains a few popular packages. Therefore it is totally ok if you would like to play with some simple things. However since it is an online evironment, it has many limitations. Therefore it is still recommended to set up a local environment once you get familiar with Python Notebook. Please check the following links for some popular choices for notebooks and Python installations in general, either local and online.
+
+- [Jupyter Notebook / JupyterLab](https://jupyter.org/install)
+- [VS Code](https://code.visualstudio.com/docs/languages/python)
+- [PyCharm](https://www.jetbrains.com/help/pycharm/jupyter-notebook-support.html)
+- [Google Colab](https://colab.research.google.com/)
+- [Anaconda](https://www.anaconda.com/)
+
 
 ## Python fundamentals
-We will put some very basic Python commands here for you to warm up. The main reference for this part is {cite:p}`Har2012`.
+We will put some very basic Python commands here for you to warm up. More advanced Python knowledge will be covered during the rest of the semester. The main reference for this part is {cite:p}`Har2012`. 
 ### Indentation
 Python is using indentation to denote code blocks. It is not convienent to write in the first place, but it forces you to write clean, readable code.
 

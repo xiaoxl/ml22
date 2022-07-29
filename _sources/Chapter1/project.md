@@ -1,5 +1,10 @@
 # Exercises 
 These exercises are from {cite:p}`Klo2021`, {cite:p}`Ger2019` and {cite:p}`Har2012`. 
+
+## Python Notebook
+### Hello world!
+Please set up a Python Notebook environment and type `print('Hello World!')`.
+
 <!-- 
 ## Python Notebook
 
