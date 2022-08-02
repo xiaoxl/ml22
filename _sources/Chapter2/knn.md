@@ -1,4 +1,4 @@
-# k-Nearest Neighbors algorithm (k-NN)
+# k-Nearest Neighbors Algorithm (k-NN)
 
 ## Ideas
 Assume that we have a set of labeled data $\{(X_i, y_i)\}$ where $y_i$ denotes the label. Given a new data $X$, how do we determine the label of it? 

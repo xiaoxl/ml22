@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2.3. project" href="project.html" />
-    <link rel="prev" title="2.1. k-Nearest Neighbors algorithm (k-NN)" href="knn.html" />
+    <link rel="prev" title="2.1. k-Nearest Neighbors Algorithm (k-NN)" href="knn.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -156,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="knn.html">
-     2.1. k-Nearest Neighbors algorithm (k-NN)
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -542,7 +542,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7333333333333333
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8
 </pre></div>
 </div>
 </div>
@@ -567,7 +567,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7333333333333333
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6666666666666666
 </pre></div>
 </div>
 </div>
@@ -593,16 +593,13 @@ title="Print to PDF"
     <span class="p">)</span>
 <span class="n">disp</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_test_norm</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">disp</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">disp</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">disp</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1.0)
-</pre></div>
-</div>
-<img alt="../_images/knnproj1_15_1.png" src="../_images/knnproj1_15_1.png" />
+<img alt="../_images/knnproj1_15_0.png" src="../_images/knnproj1_15_0.png" />
 </div>
 </div>
 <p>Note that using this approach the features in the plot are normalized, since we perform the normalization process outside the classifier. Again this can be solve by rewrite our codes, which will be discussed when we have time.</p>
@@ -640,7 +637,7 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">2.1. </span>k-Nearest Neighbors algorithm (k-NN)</p>
+            <p class="prev-next-title"><span class="section-number">2.1. </span>k-Nearest Neighbors Algorithm (k-NN)</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="project.html" title="next page">
