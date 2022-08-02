@@ -19,22 +19,15 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 ------------------
 import tensorflow as tf
 # import keras
-(X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
-X_train = X_train.reshape((X_train.shape[0], X_train.shape[1]*X_train.shape[2]))
-X_test = X_test.reshape((X_test.shape[0], X_test.shape[1]*X_test.shape[2]))
-
-X_test = X_test[1000:1200, :]
-y_test = y_test[1000:1200]
-
-
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 ------------------
 
-[1;31m---------------------------------------[0m
+[1;31m---------------------------------[0m
 [1;31mModuleNotFoundError[0mTraceback (most recent call last)
-Input [1;32mIn [9][0m, in [0;36m<cell line: 1>[1;34m()[0m
+Input [1;32mIn [1][0m, in [0;36m<cell line: 1>[1;34m()[0m
 [1;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mtensorflow[39;00m [38;5;28;01mas[39;00m [38;5;21;01mtf[39;00m
 [0;32m      2[0m [38;5;66;03m# import keras[39;00m
-[0;32m      3[0m (X_train, y_train), (X_test, y_test) [38;5;241m=[39m tf[38;5;241m.[39mkeras[38;5;241m.[39mdatasets[38;5;241m.[39mmnist[38;5;241m.[39mload_data()
+[0;32m      3[0m (x_train, y_train), (x_test, y_test) [38;5;241m=[39m tf[38;5;241m.[39mkeras[38;5;241m.[39mdatasets[38;5;241m.[39mmnist[38;5;241m.[39mload_data()
 
 [1;31mModuleNotFoundError[0m: No module named 'tensorflow'
 ModuleNotFoundError: No module named 'tensorflow'

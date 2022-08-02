@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title> &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>2.2. k-NN project: Iris Classification &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -51,8 +51,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3. project" href="project.html" />
+    <link rel="prev" title="2.1. k-Nearest Neighbors algorithm (k-NN)" href="knn.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -107,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter1/intro.html">
    1. Introduction
@@ -140,24 +144,29 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="intro.html">
    2. k-NN
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="knn.html">
      2.1. k-Nearest Neighbors algorithm (k-NN)
     </a>
    </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     2.2. k-NN project: Iris Classification
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     2.2. project
+     2.3. project
     </a>
    </li>
   </ul>
@@ -345,7 +354,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1></h1>
+                <h1>k-NN project: Iris Classification</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -357,385 +366,316 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="k-nn-project-iris-classification">
+<h1><span class="section-number">2.2. </span>k-NN project: Iris Classification<a class="headerlink" href="#k-nn-project-iris-classification" title="Permalink to this headline">#</a></h1>
+<p>This data is from <code class="docutils literal notranslate"><span class="pre">sklearn.datasets</span></code>. This dataset consists of 3 different types of irises’ petal / sepal length / width, stored in a <span class="math notranslate nohighlight">\(150\times4\)</span> <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>. We already explored the dataset briefly in the previous chapter. This time we will try to use the feature provided to predict the type of the irises. For the purpose of plotting, we will only use the first two features: <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">length</span></code> and <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">width</span></code>.</p>
+<p>We first load the dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neighbors</span><span class="p">,</span> <span class="n">datasets</span>
-<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">DecisionBoundaryDisplay</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;data&#39;: array([[5.1, 3.5, 1.4, 0.2],
-        [4.9, 3. , 1.4, 0.2],
-        [4.7, 3.2, 1.3, 0.2],
-        [4.6, 3.1, 1.5, 0.2],
-        [5. , 3.6, 1.4, 0.2],
-        [5.4, 3.9, 1.7, 0.4],
-        [4.6, 3.4, 1.4, 0.3],
-        [5. , 3.4, 1.5, 0.2],
-        [4.4, 2.9, 1.4, 0.2],
-        [4.9, 3.1, 1.5, 0.1],
-        [5.4, 3.7, 1.5, 0.2],
-        [4.8, 3.4, 1.6, 0.2],
-        [4.8, 3. , 1.4, 0.1],
-        [4.3, 3. , 1.1, 0.1],
-        [5.8, 4. , 1.2, 0.2],
-        [5.7, 4.4, 1.5, 0.4],
-        [5.4, 3.9, 1.3, 0.4],
-        [5.1, 3.5, 1.4, 0.3],
-        [5.7, 3.8, 1.7, 0.3],
-        [5.1, 3.8, 1.5, 0.3],
-        [5.4, 3.4, 1.7, 0.2],
-        [5.1, 3.7, 1.5, 0.4],
-        [4.6, 3.6, 1. , 0.2],
-        [5.1, 3.3, 1.7, 0.5],
-        [4.8, 3.4, 1.9, 0.2],
-        [5. , 3. , 1.6, 0.2],
-        [5. , 3.4, 1.6, 0.4],
-        [5.2, 3.5, 1.5, 0.2],
-        [5.2, 3.4, 1.4, 0.2],
-        [4.7, 3.2, 1.6, 0.2],
-        [4.8, 3.1, 1.6, 0.2],
-        [5.4, 3.4, 1.5, 0.4],
-        [5.2, 4.1, 1.5, 0.1],
-        [5.5, 4.2, 1.4, 0.2],
-        [4.9, 3.1, 1.5, 0.2],
-        [5. , 3.2, 1.2, 0.2],
-        [5.5, 3.5, 1.3, 0.2],
-        [4.9, 3.6, 1.4, 0.1],
-        [4.4, 3. , 1.3, 0.2],
-        [5.1, 3.4, 1.5, 0.2],
-        [5. , 3.5, 1.3, 0.3],
-        [4.5, 2.3, 1.3, 0.3],
-        [4.4, 3.2, 1.3, 0.2],
-        [5. , 3.5, 1.6, 0.6],
-        [5.1, 3.8, 1.9, 0.4],
-        [4.8, 3. , 1.4, 0.3],
-        [5.1, 3.8, 1.6, 0.2],
-        [4.6, 3.2, 1.4, 0.2],
-        [5.3, 3.7, 1.5, 0.2],
-        [5. , 3.3, 1.4, 0.2],
-        [7. , 3.2, 4.7, 1.4],
-        [6.4, 3.2, 4.5, 1.5],
-        [6.9, 3.1, 4.9, 1.5],
-        [5.5, 2.3, 4. , 1.3],
-        [6.5, 2.8, 4.6, 1.5],
-        [5.7, 2.8, 4.5, 1.3],
-        [6.3, 3.3, 4.7, 1.6],
-        [4.9, 2.4, 3.3, 1. ],
-        [6.6, 2.9, 4.6, 1.3],
-        [5.2, 2.7, 3.9, 1.4],
-        [5. , 2. , 3.5, 1. ],
-        [5.9, 3. , 4.2, 1.5],
-        [6. , 2.2, 4. , 1. ],
-        [6.1, 2.9, 4.7, 1.4],
-        [5.6, 2.9, 3.6, 1.3],
-        [6.7, 3.1, 4.4, 1.4],
-        [5.6, 3. , 4.5, 1.5],
-        [5.8, 2.7, 4.1, 1. ],
-        [6.2, 2.2, 4.5, 1.5],
-        [5.6, 2.5, 3.9, 1.1],
-        [5.9, 3.2, 4.8, 1.8],
-        [6.1, 2.8, 4. , 1.3],
-        [6.3, 2.5, 4.9, 1.5],
-        [6.1, 2.8, 4.7, 1.2],
-        [6.4, 2.9, 4.3, 1.3],
-        [6.6, 3. , 4.4, 1.4],
-        [6.8, 2.8, 4.8, 1.4],
-        [6.7, 3. , 5. , 1.7],
-        [6. , 2.9, 4.5, 1.5],
-        [5.7, 2.6, 3.5, 1. ],
-        [5.5, 2.4, 3.8, 1.1],
-        [5.5, 2.4, 3.7, 1. ],
-        [5.8, 2.7, 3.9, 1.2],
-        [6. , 2.7, 5.1, 1.6],
-        [5.4, 3. , 4.5, 1.5],
-        [6. , 3.4, 4.5, 1.6],
-        [6.7, 3.1, 4.7, 1.5],
-        [6.3, 2.3, 4.4, 1.3],
-        [5.6, 3. , 4.1, 1.3],
-        [5.5, 2.5, 4. , 1.3],
-        [5.5, 2.6, 4.4, 1.2],
-        [6.1, 3. , 4.6, 1.4],
-        [5.8, 2.6, 4. , 1.2],
-        [5. , 2.3, 3.3, 1. ],
-        [5.6, 2.7, 4.2, 1.3],
-        [5.7, 3. , 4.2, 1.2],
-        [5.7, 2.9, 4.2, 1.3],
-        [6.2, 2.9, 4.3, 1.3],
-        [5.1, 2.5, 3. , 1.1],
-        [5.7, 2.8, 4.1, 1.3],
-        [6.3, 3.3, 6. , 2.5],
-        [5.8, 2.7, 5.1, 1.9],
-        [7.1, 3. , 5.9, 2.1],
-        [6.3, 2.9, 5.6, 1.8],
-        [6.5, 3. , 5.8, 2.2],
-        [7.6, 3. , 6.6, 2.1],
-        [4.9, 2.5, 4.5, 1.7],
-        [7.3, 2.9, 6.3, 1.8],
-        [6.7, 2.5, 5.8, 1.8],
-        [7.2, 3.6, 6.1, 2.5],
-        [6.5, 3.2, 5.1, 2. ],
-        [6.4, 2.7, 5.3, 1.9],
-        [6.8, 3. , 5.5, 2.1],
-        [5.7, 2.5, 5. , 2. ],
-        [5.8, 2.8, 5.1, 2.4],
-        [6.4, 3.2, 5.3, 2.3],
-        [6.5, 3. , 5.5, 1.8],
-        [7.7, 3.8, 6.7, 2.2],
-        [7.7, 2.6, 6.9, 2.3],
-        [6. , 2.2, 5. , 1.5],
-        [6.9, 3.2, 5.7, 2.3],
-        [5.6, 2.8, 4.9, 2. ],
-        [7.7, 2.8, 6.7, 2. ],
-        [6.3, 2.7, 4.9, 1.8],
-        [6.7, 3.3, 5.7, 2.1],
-        [7.2, 3.2, 6. , 1.8],
-        [6.2, 2.8, 4.8, 1.8],
-        [6.1, 3. , 4.9, 1.8],
-        [6.4, 2.8, 5.6, 2.1],
-        [7.2, 3. , 5.8, 1.6],
-        [7.4, 2.8, 6.1, 1.9],
-        [7.9, 3.8, 6.4, 2. ],
-        [6.4, 2.8, 5.6, 2.2],
-        [6.3, 2.8, 5.1, 1.5],
-        [6.1, 2.6, 5.6, 1.4],
-        [7.7, 3. , 6.1, 2.3],
-        [6.3, 3.4, 5.6, 2.4],
-        [6.4, 3.1, 5.5, 1.8],
-        [6. , 3. , 4.8, 1.8],
-        [6.9, 3.1, 5.4, 2.1],
-        [6.7, 3.1, 5.6, 2.4],
-        [6.9, 3.1, 5.1, 2.3],
-        [5.8, 2.7, 5.1, 1.9],
-        [6.8, 3.2, 5.9, 2.3],
-        [6.7, 3.3, 5.7, 2.5],
-        [6.7, 3. , 5.2, 2.3],
-        [6.3, 2.5, 5. , 1.9],
-        [6.5, 3. , 5.2, 2. ],
-        [6.2, 3.4, 5.4, 2.3],
-        [5.9, 3. , 5.1, 1.8]]),
- &#39;target&#39;: array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]),
- &#39;frame&#39;: None,
- &#39;target_names&#39;: array([&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;], dtype=&#39;&lt;U10&#39;),
- &#39;DESCR&#39;: &#39;.. _iris_dataset:\n\nIris plants dataset\n--------------------\n\n**Data Set Characteristics:**\n\n    :Number of Instances: 150 (50 in each of three classes)\n    :Number of Attributes: 4 numeric, predictive attributes and the class\n    :Attribute Information:\n        - sepal length in cm\n        - sepal width in cm\n        - petal length in cm\n        - petal width in cm\n        - class:\n                - Iris-Setosa\n                - Iris-Versicolour\n                - Iris-Virginica\n                \n    :Summary Statistics:\n\n    ============== ==== ==== ======= ===== ====================\n                    Min  Max   Mean    SD   Class Correlation\n    ============== ==== ==== ======= ===== ====================\n    sepal length:   4.3  7.9   5.84   0.83    0.7826\n    sepal width:    2.0  4.4   3.05   0.43   -0.4194\n    petal length:   1.0  6.9   3.76   1.76    0.9490  (high!)\n    petal width:    0.1  2.5   1.20   0.76    0.9565  (high!)\n    ============== ==== ==== ======= ===== ====================\n\n    :Missing Attribute Values: None\n    :Class Distribution: 33.3% for each of 3 classes.\n    :Creator: R.A. Fisher\n    :Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)\n    :Date: July, 1988\n\nThe famous Iris database, first used by Sir R.A. Fisher. The dataset is taken\nfrom Fisher\&#39;s paper. Note that it\&#39;s the same as in R, but not as in the UCI\nMachine Learning Repository, which has two wrong data points.\n\nThis is perhaps the best known database to be found in the\npattern recognition literature.  Fisher\&#39;s paper is a classic in the field and\nis referenced frequently to this day.  (See Duda &amp; Hart, for example.)  The\ndata set contains 3 classes of 50 instances each, where each class refers to a\ntype of iris plant.  One class is linearly separable from the other 2; the\nlatter are NOT linearly separable from each other.\n\n.. topic:: References\n\n   - Fisher, R.A. &quot;The use of multiple measurements in taxonomic problems&quot;\n     Annual Eugenics, 7, Part II, 179-188 (1936); also in &quot;Contributions to\n     Mathematical Statistics&quot; (John Wiley, NY, 1950).\n   - Duda, R.O., &amp; Hart, P.E. (1973) Pattern Classification and Scene Analysis.\n     (Q327.D83) John Wiley &amp; Sons.  ISBN 0-471-22361-1.  See page 218.\n   - Dasarathy, B.V. (1980) &quot;Nosing Around the Neighborhood: A New System\n     Structure and Classification Rule for Recognition in Partially Exposed\n     Environments&quot;.  IEEE Transactions on Pattern Analysis and Machine\n     Intelligence, Vol. PAMI-2, No. 1, 67-71.\n   - Gates, G.W. (1972) &quot;The Reduced Nearest Neighbor Rule&quot;.  IEEE Transactions\n     on Information Theory, May 1972, 431-433.\n   - See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al&quot;s AUTOCLASS II\n     conceptual clustering system finds 3 classes in the data.\n   - Many, many more ...&#39;,
- &#39;feature_names&#39;: [&#39;sepal length (cm)&#39;,
-  &#39;sepal width (cm)&#39;,
-  &#39;petal length (cm)&#39;,
-  &#39;petal width (cm)&#39;],
- &#39;filename&#39;: &#39;iris.csv&#39;,
- &#39;data_module&#39;: &#39;sklearn.datasets.data&#39;}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Then we would like to split the dataset into trainning data and test data. Here we are going to use <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.train_test_split</span></code> function. Besides the dataset, we should also provide the propotion of the test set comparing to the whole dataset. We will choose <code class="docutils literal notranslate"><span class="pre">0.1</span></code> here, which means that the size of the test set is 0.1 times the size of the whole dataset.</p>
+<p>The split will be randomly. You may set the argument <code class="docutils literal notranslate"><span class="pre">random_state</span></code> to be a certain number to control the random process. If you set a <code class="docutils literal notranslate"><span class="pre">random_state</span></code>, the result of the random process will stay the same. This is for reproducible output across multiple function calls.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Before we start to play with k-NN, let us look at the data first. Since we only choose two features, it is able to plot these data points on a 2D plane, with different colors representing different classes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Plot the scatter plot.</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Generate legends.</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span> <span class="s1">&#39;virginica&#39;</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">scatter</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+           <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Labels&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[5.1, 3.5],
-       [4.9, 3. ],
-       [4.7, 3.2],
-       [4.6, 3.1],
-       [5. , 3.6],
-       [5.4, 3.9],
-       [4.6, 3.4],
-       [5. , 3.4],
-       [4.4, 2.9],
-       [4.9, 3.1],
-       [5.4, 3.7],
-       [4.8, 3.4],
-       [4.8, 3. ],
-       [4.3, 3. ],
-       [5.8, 4. ],
-       [5.7, 4.4],
-       [5.4, 3.9],
-       [5.1, 3.5],
-       [5.7, 3.8],
-       [5.1, 3.8],
-       [5.4, 3.4],
-       [5.1, 3.7],
-       [4.6, 3.6],
-       [5.1, 3.3],
-       [4.8, 3.4],
-       [5. , 3. ],
-       [5. , 3.4],
-       [5.2, 3.5],
-       [5.2, 3.4],
-       [4.7, 3.2],
-       [4.8, 3.1],
-       [5.4, 3.4],
-       [5.2, 4.1],
-       [5.5, 4.2],
-       [4.9, 3.1],
-       [5. , 3.2],
-       [5.5, 3.5],
-       [4.9, 3.6],
-       [4.4, 3. ],
-       [5.1, 3.4],
-       [5. , 3.5],
-       [4.5, 2.3],
-       [4.4, 3.2],
-       [5. , 3.5],
-       [5.1, 3.8],
-       [4.8, 3. ],
-       [5.1, 3.8],
-       [4.6, 3.2],
-       [5.3, 3.7],
-       [5. , 3.3],
-       [7. , 3.2],
-       [6.4, 3.2],
-       [6.9, 3.1],
-       [5.5, 2.3],
-       [6.5, 2.8],
-       [5.7, 2.8],
-       [6.3, 3.3],
-       [4.9, 2.4],
-       [6.6, 2.9],
-       [5.2, 2.7],
-       [5. , 2. ],
-       [5.9, 3. ],
-       [6. , 2.2],
-       [6.1, 2.9],
-       [5.6, 2.9],
-       [6.7, 3.1],
-       [5.6, 3. ],
-       [5.8, 2.7],
-       [6.2, 2.2],
-       [5.6, 2.5],
-       [5.9, 3.2],
-       [6.1, 2.8],
-       [6.3, 2.5],
-       [6.1, 2.8],
-       [6.4, 2.9],
-       [6.6, 3. ],
-       [6.8, 2.8],
-       [6.7, 3. ],
-       [6. , 2.9],
-       [5.7, 2.6],
-       [5.5, 2.4],
-       [5.5, 2.4],
-       [5.8, 2.7],
-       [6. , 2.7],
-       [5.4, 3. ],
-       [6. , 3.4],
-       [6.7, 3.1],
-       [6.3, 2.3],
-       [5.6, 3. ],
-       [5.5, 2.5],
-       [5.5, 2.6],
-       [6.1, 3. ],
-       [5.8, 2.6],
-       [5. , 2.3],
-       [5.6, 2.7],
-       [5.7, 3. ],
-       [5.7, 2.9],
-       [6.2, 2.9],
-       [5.1, 2.5],
-       [5.7, 2.8],
-       [6.3, 3.3],
-       [5.8, 2.7],
-       [7.1, 3. ],
-       [6.3, 2.9],
-       [6.5, 3. ],
-       [7.6, 3. ],
-       [4.9, 2.5],
-       [7.3, 2.9],
-       [6.7, 2.5],
-       [7.2, 3.6],
-       [6.5, 3.2],
-       [6.4, 2.7],
-       [6.8, 3. ],
-       [5.7, 2.5],
-       [5.8, 2.8],
-       [6.4, 3.2],
-       [6.5, 3. ],
-       [7.7, 3.8],
-       [7.7, 2.6],
-       [6. , 2.2],
-       [6.9, 3.2],
-       [5.6, 2.8],
-       [7.7, 2.8],
-       [6.3, 2.7],
-       [6.7, 3.3],
-       [7.2, 3.2],
-       [6.2, 2.8],
-       [6.1, 3. ],
-       [6.4, 2.8],
-       [7.2, 3. ],
-       [7.4, 2.8],
-       [7.9, 3.8],
-       [6.4, 2.8],
-       [6.3, 2.8],
-       [6.1, 2.6],
-       [7.7, 3. ],
-       [6.3, 3.4],
-       [6.4, 3.1],
-       [6. , 3. ],
-       [6.9, 3.1],
-       [6.7, 3.1],
-       [6.9, 3.1],
-       [5.8, 2.7],
-       [6.8, 3.2],
-       [6.7, 3.3],
-       [6.7, 3. ],
-       [6.3, 2.5],
-       [6.5, 3. ],
-       [6.2, 3.4],
-       [5.9, 3. ]])
+<img alt="../_images/knnproj3_5_0.png" src="../_images/knnproj3_5_0.png" />
+</div>
+</div>
+<p>Now let us apply k-NN to this dataset. We first use our codes. Here I use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">assests.codes.knn</span></code> to import our functions since I put all our functions in <code class="docutils literal notranslate"><span class="pre">./assests/codes/knn.py</span></code>. Then the poential code is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">classify_kNN</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the above code is actually wrong. The issue ist that our function <code class="docutils literal notranslate"><span class="pre">classify_kNN</span></code> can only classify one row of data. To classify many rows, we need to use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">assests.codes.knn</span> <span class="kn">import</span> <span class="n">classify_kNN</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">:</span>
+    <span class="n">row_pred</span> <span class="o">=</span> <span class="n">classify_kNN</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">y_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_pred</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We could use list comprehension to simply the above codes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">assests.codes.knn</span> <span class="kn">import</span> <span class="n">classify_kNN</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">classify_kNN</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> is the result we got for the test set. We may compare it with the real answer <code class="docutils literal notranslate"><span class="pre">y_test</span></code>, can calcuate our accuracy. Here we use list comprehension again to find all datapoints that are classified correctly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cor</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_pred</span> <span class="k">if</span> <span class="n">data</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8
+</pre></div>
+</div>
+</div>
+</div>
+<p>80%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Markdown</span> <span class="k">as</span> <span class="n">md</span>
+<span class="n">md</span><span class="p">(</span><span class="s2">&quot;From the result shown above, we know that our classifier has a tested accuracy </span><span class="si">{}</span><span class="s2">%.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<p>From the result shown above, we know that our classifier has a tested accuracy 80.0%.</p>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 0, 1, 0, 2, 0, 1, 0, 0, 2, 1, 1, 2, 0, 2])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="c1"># import keras</span>
+<span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="mi">1000</span><span class="p">:</span><span class="mi">1200</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">[</span><span class="mi">1000</span><span class="p">:</span><span class="mi">1200</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span>Traceback (most recent call last)
+<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># import keras</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">myknn</span><span class="o">.</span><span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_norm</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">myknn</span><span class="o">.</span><span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">X_train_norm</span><span class="p">,</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">myknn</span><span class="o">.</span><span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_norm</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">myknn</span><span class="o">.</span><span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+                                     <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;brute&#39;</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_p</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
+
+
+<span class="n">resb</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">y_p</span><span class="o">-</span><span class="n">y_test</span> <span class="k">if</span> <span class="n">item</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">resb</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">resb</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_p</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+0.05
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">myknn</span><span class="o">.</span><span class="n">classify_kNN</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)])</span>
+
+
+
+<span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">y_p</span><span class="o">-</span><span class="n">y_m</span> <span class="k">if</span> <span class="n">item</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_p</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 200/200 [01:04&lt;00:00,  3.10it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+0.015
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">y_p</span><span class="o">-</span><span class="n">y_m</span> <span class="k">if</span> <span class="n">item</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_p</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+0.015
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">y_p</span><span class="o">-</span><span class="n">y_m</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_m</span><span class="p">[</span><span class="mi">33</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_p</span><span class="p">[</span><span class="mi">33</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="mi">33</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+0
+4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_m</span> <span class="k">if</span> <span class="n">item</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_p</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>318
+0.0318
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">hiknn</span><span class="o">.</span><span class="n">classify0</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)])</span>
+
+
+<span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">y_h</span><span class="o">-</span><span class="n">y_m</span> <span class="k">if</span> <span class="n">item</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_p</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 15/15 [00:00&lt;00:00, 12863.33it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+0.0
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># idxpm = np.nonzero(y_p-y_m)</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">y_test</span> <span class="o">-</span> <span class="n">y_m</span><span class="p">)</span>
+
+<span class="c1"># idx = np.intersect1d(idxpm, idxmd)</span>
+
+<span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([13, 14], dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">pic1</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pic1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">((</span><span class="n">y_test</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]],</span> <span class="n">y_m</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]],</span> <span class="n">y_h</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_17452</span><span class="o">/</span><span class="mf">871209841.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pic1</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pic1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">((</span><span class="n">y_test</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]],</span> <span class="n">y_p</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]],</span> <span class="n">y_m</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]],</span> <span class="n">y_h</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ii</span><span class="p">]]))</span>
+
+<span class="ne">ValueError</span>: cannot reshape array of size 4 into shape (28,28)
 </pre></div>
 </div>
 </div>
@@ -775,7 +715,53 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/knnproj3_7_0.png" src="../_images/knnproj3_7_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_12204</span><span class="o">/</span><span class="mf">1764336737.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="c1"># _, ax = plt.subplots()</span>
+<span class="ne">----&gt; </span><span class="mi">7</span>     <span class="n">disp</span> <span class="o">=</span> <span class="n">DecisionBoundaryDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>         <span class="n">clf</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>         <span class="n">X</span><span class="p">,</span>
+
+<span class="nn">c:\Users\Xinli\anaconda3\envs\tf2\lib\site-packages\sklearn\inspection\_plot\decision_boundary.py</span> in <span class="ni">from_estimator</span><span class="nt">(cls, estimator, X, grid_resolution, eps, plot_method, response_method, xlabel, ylabel, ax, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span> 
+<span class="g g-Whitespace">    </span><span class="mi">305</span>         <span class="n">pred_func</span> <span class="o">=</span> <span class="n">_check_boundary_response_method</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">response_method</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">306</span>         <span class="n">response</span> <span class="o">=</span> <span class="n">pred_func</span><span class="p">(</span><span class="n">X_grid</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">307</span> 
+<span class="g g-Whitespace">    </span><span class="mi">308</span>         <span class="c1"># convert classes predictions into integers</span>
+
+<span class="nn">c:\Users\Xinli\anaconda3\envs\tf2\lib\site-packages\sklearn\neighbors\_classification.py</span> in <span class="ni">predict</span><span class="nt">(self, X)</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span>             <span class="c1"># In that case, we do not need the distances to perform</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>             <span class="c1"># the weighting so we do not compute them.</span>
+<span class="ne">--&gt; </span><span class="mi">219</span>             <span class="n">neigh_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_distance</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span>             <span class="n">neigh_dist</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span>         <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">c:\Users\Xinli\anaconda3\envs\tf2\lib\site-packages\sklearn\neighbors\_base.py</span> in <span class="ni">kneighbors</span><span class="nt">(self, X, n_neighbors, return_distance)</span>
+<span class="g g-Whitespace">    </span><span class="mi">743</span>                 <span class="n">X</span> <span class="o">=</span> <span class="n">_check_precomputed</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">744</span>             <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">745</span>                 <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">746</span> 
+<span class="g g-Whitespace">    </span><span class="mi">747</span>         <span class="n">n_samples_fit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_samples_fit_</span>
+
+<span class="nn">c:\Users\Xinli\anaconda3\envs\tf2\lib\site-packages\sklearn\base.py</span> in <span class="ni">_validate_data</span><span class="nt">(self, X, y, reset, validate_separately, **check_params)</span>
+<span class="g g-Whitespace">    </span><span class="mi">598</span> 
+<span class="g g-Whitespace">    </span><span class="mi">599</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">no_val_X</span> <span class="ow">and</span> <span class="n">check_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ensure_2d&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">600</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_check_n_features</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="n">reset</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">601</span> 
+<span class="g g-Whitespace">    </span><span class="mi">602</span>         <span class="k">return</span> <span class="n">out</span>
+
+<span class="nn">c:\Users\Xinli\anaconda3\envs\tf2\lib\site-packages\sklearn\base.py</span> in <span class="ni">_check_n_features</span><span class="nt">(self, X, reset)</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span> 
+<span class="g g-Whitespace">    </span><span class="mi">399</span>         <span class="k">if</span> <span class="n">n_features</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">400</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span>                 <span class="sa">f</span><span class="s2">&quot;X has </span><span class="si">{</span><span class="n">n_features</span><span class="si">}</span><span class="s2"> features, but </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span>                 <span class="sa">f</span><span class="s2">&quot;is expecting </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="si">}</span><span class="s2"> features as input.&quot;</span>
+
+<span class="ne">ValueError</span>: X has 2 features, but KNeighborsClassifier is expecting 3 features as input.
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -795,72 +781,6 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(150, 2)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;,
-       &#39;setosa&#39;, &#39;setosa&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;,
-       &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;versicolor&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;,
-       &#39;virginica&#39;, &#39;virginica&#39;, &#39;virginica&#39;], dtype=&#39;&lt;U10&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;setosa&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;virginica&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">}</span>
 </pre></div>
 </div>
@@ -868,168 +788,44 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newy</span> <span class="o">=</span> <span class="p">[</span><span class="n">ma</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 1,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 100,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200,
- 200]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False,  True, False,  True])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1., 2., 3., 5.])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1., 1., 1., 1.])
 </pre></div>
 </div>
 </div>
@@ -1063,6 +859,20 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="knn.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">2.1. </span>k-Nearest Neighbors algorithm (k-NN)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="project.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2.3. </span>project</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
