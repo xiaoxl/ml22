@@ -152,44 +152,33 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="knn.html">
-     2.1. k-Nearest Neighbors algorithm (k-NN)
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj1.html">
+     2.2. k-NN Project 1: Iris Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj2.html">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     2.2. project
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Chapter3/intro.html">
-   3. Decision Tree
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/gini.html">
-     3.1. Gini impurity
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/code.html">
-     3.2. CART Algorithms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/dt.html">
-     3.3. Example: the Iris dataset
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/project.html">
-     3.4. project
+     2.5. project
     </a>
    </li>
   </ul>
@@ -595,8 +584,8 @@ Installing collected packages: pandas
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ERROR: Command errored out with exit status 1:
-   command: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-1r1onie_\\pandas_9e6b46464b5a4c91a184479cb6d60854\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-1r1onie_\\pandas_9e6b46464b5a4c91a184479cb6d60854\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; bdist_wheel -d &#39;C:\Users\Xinli\AppData\Local\Temp\pip-wheel-0beeozow&#39;
-       cwd: C:\Users\Xinli\AppData\Local\Temp\pip-install-1r1onie_\pandas_9e6b46464b5a4c91a184479cb6d60854\
+   command: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-mh9kd2gg\\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-mh9kd2gg\\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; bdist_wheel -d &#39;C:\Users\Xinli\AppData\Local\Temp\pip-wheel-_fla4d36&#39;
+       cwd: C:\Users\Xinli\AppData\Local\Temp\pip-install-mh9kd2gg\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\
   Complete output (841 lines):
   running bdist_wheel
   running build
@@ -1442,8 +1431,8 @@ Installing collected packages: pandas
   ----------------------------------------
   ERROR: Failed building wheel for pandas
     ERROR: Command errored out with exit status 1:
-     command: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-1r1onie_\\pandas_9e6b46464b5a4c91a184479cb6d60854\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-1r1onie_\\pandas_9e6b46464b5a4c91a184479cb6d60854\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; install --record &#39;C:\Users\Xinli\AppData\Local\Temp\pip-record-b06suqgt\install-record.txt&#39; --single-version-externally-managed --compile --install-headers &#39;C:\Users\Xinli\anaconda3\envs\ml22\Include\pandas&#39;
-         cwd: C:\Users\Xinli\AppData\Local\Temp\pip-install-1r1onie_\pandas_9e6b46464b5a4c91a184479cb6d60854\
+     command: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-mh9kd2gg\\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-mh9kd2gg\\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; install --record &#39;C:\Users\Xinli\AppData\Local\Temp\pip-record-g65msi7v\install-record.txt&#39; --single-version-externally-managed --compile --install-headers &#39;C:\Users\Xinli\anaconda3\envs\ml22\Include\pandas&#39;
+         cwd: C:\Users\Xinli\AppData\Local\Temp\pip-install-mh9kd2gg\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\
     Complete output (886 lines):
     running install
     C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\command\install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
@@ -2288,7 +2277,7 @@ Installing collected packages: pandas
     running build_ext
     Traceback (most recent call last):
       File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
-      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-1r1onie_\pandas_9e6b46464b5a4c91a184479cb6d60854\setup.py&quot;, line 730, in &lt;module&gt;
+      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-mh9kd2gg\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\setup.py&quot;, line 730, in &lt;module&gt;
         setup(name=DISTNAME,
       File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\__init__.py&quot;, line 87, in setup
         return distutils.core.setup(**attrs)
@@ -2322,9 +2311,9 @@ Installing collected packages: pandas
         cmd_obj.run()
       File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\command\build_ext.py&quot;, line 339, in run
         self.build_extensions()
-      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-1r1onie_\pandas_9e6b46464b5a4c91a184479cb6d60854\setup.py&quot;, line 372, in build_extensions
+      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-mh9kd2gg\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\setup.py&quot;, line 372, in build_extensions
         self.check_cython_extensions(self.extensions)
-      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-1r1onie_\pandas_9e6b46464b5a4c91a184479cb6d60854\setup.py&quot;, line 366, in check_cython_extensions
+      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-mh9kd2gg\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\setup.py&quot;, line 366, in check_cython_extensions
         raise Exception(&quot;&quot;&quot;Cython-generated file &#39;{src}&#39; not found.
     Exception: Cython-generated file &#39;pandas\_libs/algos.c&#39; not found.
                     Cython is required to compile pandas from a development branch.
@@ -2332,24 +2321,19 @@ Installing collected packages: pandas
     
     pandas._libs.algos: -&gt; [[&#39;pandas\\_libs/algos.c&#39;]]
     ----------------------------------------
-ERROR: Command errored out with exit status 1: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-1r1onie_\\pandas_9e6b46464b5a4c91a184479cb6d60854\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-1r1onie_\\pandas_9e6b46464b5a4c91a184479cb6d60854\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; install --record &#39;C:\Users\Xinli\AppData\Local\Temp\pip-record-b06suqgt\install-record.txt&#39; --single-version-externally-managed --compile --install-headers &#39;C:\Users\Xinli\anaconda3\envs\ml22\Include\pandas&#39; Check the logs for full command output.
+ERROR: Command errored out with exit status 1: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-mh9kd2gg\\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-mh9kd2gg\\pandas_dbdd2573ad1a475aa799bbde80f0a5f3\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; install --record &#39;C:\Users\Xinli\AppData\Local\Temp\pip-record-g65msi7v\install-record.txt&#39; --single-version-externally-managed --compile --install-headers &#39;C:\Users\Xinli\anaconda3\envs\ml22\Include\pandas&#39; Check the logs for full command output.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pandas_ml==0.6.1
-  Using cached pandas_ml-0.6.1-py3-none-any.whl (100 kB)
-Collecting enum34
-  Using cached enum34-1.1.10-py3-none-any.whl (11 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas_ml==0.6.1 in c:\users\xinli\appdata\roaming\python\python310\site-packages (0.6.1)
 Requirement already satisfied: pandas&gt;=0.19.0 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas_ml==0.6.1) (1.4.2)
+Requirement already satisfied: enum34 in c:\users\xinli\appdata\roaming\python\python310\site-packages (from pandas_ml==0.6.1) (1.1.10)
+Requirement already satisfied: numpy&gt;=1.21.0 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (1.22.3)
 Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (2.8.2)
 Requirement already satisfied: pytz&gt;=2020.1 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (2022.1)
-Requirement already satisfied: numpy&gt;=1.21.0 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (1.22.3)
 Requirement already satisfied: six&gt;=1.5 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (1.16.0)
-Installing collected packages: enum34, pandas-ml
-Successfully installed enum34-1.1.10 pandas-ml-0.6.1
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
-Collecting matplotlib==3.1.0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^CCollecting matplotlib==3.1.0
   Downloading matplotlib-3.1.0.tar.gz (37.2 MB)
 </pre></div>
 </div>

@@ -152,44 +152,33 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="knn.html">
-     2.1. k-Nearest Neighbors algorithm (k-NN)
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj1.html">
+     2.2. k-NN Project 1: Iris Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj2.html">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     2.2. project
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Chapter3/intro.html">
-   3. Decision Tree
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/gini.html">
-     3.1. Gini impurity
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/code.html">
-     3.2. CART Algorithms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/dt.html">
-     3.3. Example: the Iris dataset
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/project.html">
-     3.4. project
+     2.5. project
     </a>
    </li>
   </ul>
@@ -581,9 +570,8 @@ The shell command pip install is used to install Python modules. Some installs r
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
-Collecting pandas==0.24.2
-  Downloading pandas-0.24.2.tar.gz (11.8 MB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pandas==0.24.2
+  Using cached pandas-0.24.2.tar.gz (11.8 MB)
 Requirement already satisfied: python-dateutil&gt;=2.5.0 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas==0.24.2) (2.8.2)
 Requirement already satisfied: pytz&gt;=2011k in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas==0.24.2) (2022.1)
 Requirement already satisfied: numpy&gt;=1.12.0 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas==0.24.2) (1.22.3)
@@ -592,11 +580,24 @@ Building wheels for collected packages: pandas
   Building wheel for pandas (setup.py): started
   Building wheel for pandas (setup.py): finished with status &#39;error&#39;
   Running setup.py clean for pandas
+Failed to build pandas
+Installing collected packages: pandas
+  Attempting uninstall: pandas
+    Found existing installation: pandas 1.4.2
+    Uninstalling pandas-1.4.2:
+      Successfully uninstalled pandas-1.4.2
+    Running setup.py install for pandas: started
+    Running setup.py install for pandas: finished with status &#39;error&#39;
+  Rolling back uninstall of pandas
+  Moving to c:\users\xinli\anaconda3\envs\ml22\lib\site-packages\pandas-1.4.2.dist-info\
+   from C:\Users\Xinli\anaconda3\envs\ml22\Lib\site-packages\~andas-1.4.2.dist-info
+  Moving to c:\users\xinli\anaconda3\envs\ml22\lib\site-packages\pandas\
+   from C:\Users\Xinli\anaconda3\envs\ml22\Lib\site-packages\~andas
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ERROR: Command errored out with exit status 1:
-   command: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-ie9ur317\\pandas_6869043c19cc41d2b259e1dc43c60782\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-ie9ur317\\pandas_6869043c19cc41d2b259e1dc43c60782\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; bdist_wheel -d &#39;C:\Users\Xinli\AppData\Local\Temp\pip-wheel-79aqxcu2&#39;
-       cwd: C:\Users\Xinli\AppData\Local\Temp\pip-install-ie9ur317\pandas_6869043c19cc41d2b259e1dc43c60782\
+   command: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-95_1wkl4\\pandas_58775e17d99b44ac8e0c3bad75c6aa45\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-95_1wkl4\\pandas_58775e17d99b44ac8e0c3bad75c6aa45\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; bdist_wheel -d &#39;C:\Users\Xinli\AppData\Local\Temp\pip-wheel-e8_xigb7&#39;
+       cwd: C:\Users\Xinli\AppData\Local\Temp\pip-install-95_1wkl4\pandas_58775e17d99b44ac8e0c3bad75c6aa45\
   Complete output (841 lines):
   running bdist_wheel
   running build
@@ -1441,6 +1442,911 @@ Building wheels for collected packages: pandas
   error: Microsoft Visual C++ 14.0 or greater is required. Get it with &quot;Microsoft C++ Build Tools&quot;: https://visualstudio.microsoft.com/visual-cpp-build-tools/
   ----------------------------------------
   ERROR: Failed building wheel for pandas
+    ERROR: Command errored out with exit status 1:
+     command: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-95_1wkl4\\pandas_58775e17d99b44ac8e0c3bad75c6aa45\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-95_1wkl4\\pandas_58775e17d99b44ac8e0c3bad75c6aa45\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; install --record &#39;C:\Users\Xinli\AppData\Local\Temp\pip-record-n_5whaut\install-record.txt&#39; --single-version-externally-managed --compile --install-headers &#39;C:\Users\Xinli\anaconda3\envs\ml22\Include\pandas&#39;
+         cwd: C:\Users\Xinli\AppData\Local\Temp\pip-install-95_1wkl4\pandas_58775e17d99b44ac8e0c3bad75c6aa45\
+    Complete output (886 lines):
+    running install
+    C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\command\install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+      warnings.warn(
+    running build
+    running build_py
+    creating build
+    creating build\lib.win-amd64-3.10
+    creating build\lib.win-amd64-3.10\pandas
+    copying pandas\conftest.py -&gt; build\lib.win-amd64-3.10\pandas
+    copying pandas\testing.py -&gt; build\lib.win-amd64-3.10\pandas
+    copying pandas\_version.py -&gt; build\lib.win-amd64-3.10\pandas
+    copying pandas\__init__.py -&gt; build\lib.win-amd64-3.10\pandas
+    creating build\lib.win-amd64-3.10\pandas\api
+    copying pandas\api\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\api
+    creating build\lib.win-amd64-3.10\pandas\arrays
+    copying pandas\arrays\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\arrays
+    creating build\lib.win-amd64-3.10\pandas\compat
+    copying pandas\compat\chainmap.py -&gt; build\lib.win-amd64-3.10\pandas\compat
+    copying pandas\compat\chainmap_impl.py -&gt; build\lib.win-amd64-3.10\pandas\compat
+    copying pandas\compat\pickle_compat.py -&gt; build\lib.win-amd64-3.10\pandas\compat
+    copying pandas\compat\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\compat
+    creating build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\accessor.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\algorithms.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\api.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\apply.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\base.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\categorical.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\common.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\config.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\config_init.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\frame.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\generic.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\index.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\indexing.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\missing.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\nanops.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\ops.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\panel.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\resample.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\series.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\sorting.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\strings.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\window.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    copying pandas\core\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core
+    creating build\lib.win-amd64-3.10\pandas\errors
+    copying pandas\errors\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\errors
+    creating build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\api.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\clipboards.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\common.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\date_converters.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\excel.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\feather_format.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\gbq.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\gcs.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\html.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\packers.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\parquet.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\parsers.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\pickle.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\pytables.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\s3.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\sql.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\stata.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    copying pandas\io\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\io
+    creating build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\_compat.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\_converter.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\_core.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\_misc.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\_style.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\_timeseries.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\_tools.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    copying pandas\plotting\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\plotting
+    creating build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_algos.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_base.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_common.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_compat.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_config.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_downstream.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_errors.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_expressions.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_join.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_lib.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_multilevel.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_nanops.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_panel.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_register_accessor.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_sorting.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_strings.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_take.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\test_window.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    copying pandas\tests\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests
+    creating build\lib.win-amd64-3.10\pandas\tseries
+    copying pandas\tseries\api.py -&gt; build\lib.win-amd64-3.10\pandas\tseries
+    copying pandas\tseries\converter.py -&gt; build\lib.win-amd64-3.10\pandas\tseries
+    copying pandas\tseries\frequencies.py -&gt; build\lib.win-amd64-3.10\pandas\tseries
+    copying pandas\tseries\holiday.py -&gt; build\lib.win-amd64-3.10\pandas\tseries
+    copying pandas\tseries\offsets.py -&gt; build\lib.win-amd64-3.10\pandas\tseries
+    copying pandas\tseries\plotting.py -&gt; build\lib.win-amd64-3.10\pandas\tseries
+    copying pandas\tseries\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tseries
+    creating build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\testing.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_decorators.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_depr_module.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_doctools.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_exceptions.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_print_versions.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_tester.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_test_decorators.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\_validators.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    copying pandas\util\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\util
+    creating build\lib.win-amd64-3.10\pandas\_libs
+    copying pandas\_libs\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\_libs
+    creating build\lib.win-amd64-3.10\pandas\api\extensions
+    copying pandas\api\extensions\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\api\extensions
+    creating build\lib.win-amd64-3.10\pandas\api\types
+    copying pandas\api\types\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\api\types
+    creating build\lib.win-amd64-3.10\pandas\compat\numpy
+    copying pandas\compat\numpy\function.py -&gt; build\lib.win-amd64-3.10\pandas\compat\numpy
+    copying pandas\compat\numpy\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\compat\numpy
+    creating build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\array_.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\base.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\categorical.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\datetimelike.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\datetimes.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\integer.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\interval.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\numpy_.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\period.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\sparse.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\timedeltas.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\_ranges.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    copying pandas\core\arrays\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\arrays
+    creating build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\align.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\api.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\check.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\common.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\engines.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\eval.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\expr.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\expressions.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\ops.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\pytables.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\scope.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    copying pandas\core\computation\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\computation
+    creating build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\api.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\base.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\cast.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\common.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\concat.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\dtypes.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\generic.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\inference.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\missing.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    copying pandas\core\dtypes\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\dtypes
+    creating build\lib.win-amd64-3.10\pandas\core\groupby
+    copying pandas\core\groupby\base.py -&gt; build\lib.win-amd64-3.10\pandas\core\groupby
+    copying pandas\core\groupby\categorical.py -&gt; build\lib.win-amd64-3.10\pandas\core\groupby
+    copying pandas\core\groupby\generic.py -&gt; build\lib.win-amd64-3.10\pandas\core\groupby
+    copying pandas\core\groupby\groupby.py -&gt; build\lib.win-amd64-3.10\pandas\core\groupby
+    copying pandas\core\groupby\grouper.py -&gt; build\lib.win-amd64-3.10\pandas\core\groupby
+    copying pandas\core\groupby\ops.py -&gt; build\lib.win-amd64-3.10\pandas\core\groupby
+    copying pandas\core\groupby\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\groupby
+    creating build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\accessors.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\api.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\base.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\category.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\datetimelike.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\datetimes.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\frozen.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\interval.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\multi.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\numeric.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\period.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\range.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\timedeltas.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    copying pandas\core\indexes\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\indexes
+    creating build\lib.win-amd64-3.10\pandas\core\internals
+    copying pandas\core\internals\arrays.py -&gt; build\lib.win-amd64-3.10\pandas\core\internals
+    copying pandas\core\internals\blocks.py -&gt; build\lib.win-amd64-3.10\pandas\core\internals
+    copying pandas\core\internals\concat.py -&gt; build\lib.win-amd64-3.10\pandas\core\internals
+    copying pandas\core\internals\construction.py -&gt; build\lib.win-amd64-3.10\pandas\core\internals
+    copying pandas\core\internals\managers.py -&gt; build\lib.win-amd64-3.10\pandas\core\internals
+    copying pandas\core\internals\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\internals
+    creating build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\api.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\concat.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\melt.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\merge.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\pivot.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\reshape.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\tile.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\util.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    copying pandas\core\reshape\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\reshape
+    creating build\lib.win-amd64-3.10\pandas\core\sparse
+    copying pandas\core\sparse\api.py -&gt; build\lib.win-amd64-3.10\pandas\core\sparse
+    copying pandas\core\sparse\frame.py -&gt; build\lib.win-amd64-3.10\pandas\core\sparse
+    copying pandas\core\sparse\scipy_sparse.py -&gt; build\lib.win-amd64-3.10\pandas\core\sparse
+    copying pandas\core\sparse\series.py -&gt; build\lib.win-amd64-3.10\pandas\core\sparse
+    copying pandas\core\sparse\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\sparse
+    creating build\lib.win-amd64-3.10\pandas\core\tools
+    copying pandas\core\tools\datetimes.py -&gt; build\lib.win-amd64-3.10\pandas\core\tools
+    copying pandas\core\tools\numeric.py -&gt; build\lib.win-amd64-3.10\pandas\core\tools
+    copying pandas\core\tools\timedeltas.py -&gt; build\lib.win-amd64-3.10\pandas\core\tools
+    copying pandas\core\tools\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\tools
+    creating build\lib.win-amd64-3.10\pandas\core\util
+    copying pandas\core\util\hashing.py -&gt; build\lib.win-amd64-3.10\pandas\core\util
+    copying pandas\core\util\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\core\util
+    creating build\lib.win-amd64-3.10\pandas\io\clipboard
+    copying pandas\io\clipboard\clipboards.py -&gt; build\lib.win-amd64-3.10\pandas\io\clipboard
+    copying pandas\io\clipboard\exceptions.py -&gt; build\lib.win-amd64-3.10\pandas\io\clipboard
+    copying pandas\io\clipboard\windows.py -&gt; build\lib.win-amd64-3.10\pandas\io\clipboard
+    copying pandas\io\clipboard\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\io\clipboard
+    creating build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\console.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\css.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\csvs.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\excel.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\format.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\html.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\latex.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\printing.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\style.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\terminal.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    copying pandas\io\formats\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\io\formats
+    creating build\lib.win-amd64-3.10\pandas\io\json
+    copying pandas\io\json\json.py -&gt; build\lib.win-amd64-3.10\pandas\io\json
+    copying pandas\io\json\normalize.py -&gt; build\lib.win-amd64-3.10\pandas\io\json
+    copying pandas\io\json\table_schema.py -&gt; build\lib.win-amd64-3.10\pandas\io\json
+    copying pandas\io\json\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\io\json
+    creating build\lib.win-amd64-3.10\pandas\io\msgpack
+    copying pandas\io\msgpack\exceptions.py -&gt; build\lib.win-amd64-3.10\pandas\io\msgpack
+    copying pandas\io\msgpack\_version.py -&gt; build\lib.win-amd64-3.10\pandas\io\msgpack
+    copying pandas\io\msgpack\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\io\msgpack
+    creating build\lib.win-amd64-3.10\pandas\io\sas
+    copying pandas\io\sas\sas7bdat.py -&gt; build\lib.win-amd64-3.10\pandas\io\sas
+    copying pandas\io\sas\sasreader.py -&gt; build\lib.win-amd64-3.10\pandas\io\sas
+    copying pandas\io\sas\sas_constants.py -&gt; build\lib.win-amd64-3.10\pandas\io\sas
+    copying pandas\io\sas\sas_xport.py -&gt; build\lib.win-amd64-3.10\pandas\io\sas
+    copying pandas\io\sas\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\io\sas
+    creating build\lib.win-amd64-3.10\pandas\tests\api
+    copying pandas\tests\api\test_api.py -&gt; build\lib.win-amd64-3.10\pandas\tests\api
+    copying pandas\tests\api\test_types.py -&gt; build\lib.win-amd64-3.10\pandas\tests\api
+    copying pandas\tests\api\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\api
+    creating build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    copying pandas\tests\arithmetic\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    copying pandas\tests\arithmetic\test_datetime64.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    copying pandas\tests\arithmetic\test_numeric.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    copying pandas\tests\arithmetic\test_object.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    copying pandas\tests\arithmetic\test_period.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    copying pandas\tests\arithmetic\test_timedelta64.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    copying pandas\tests\arithmetic\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arithmetic
+    creating build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\test_array.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\test_datetimelike.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\test_datetimes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\test_integer.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\test_numpy.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\test_period.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\test_timedeltas.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    copying pandas\tests\arrays\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays
+    creating build\lib.win-amd64-3.10\pandas\tests\computation
+    copying pandas\tests\computation\test_compat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\computation
+    copying pandas\tests\computation\test_eval.py -&gt; build\lib.win-amd64-3.10\pandas\tests\computation
+    copying pandas\tests\computation\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\computation
+    creating build\lib.win-amd64-3.10\pandas\tests\dtypes
+    copying pandas\tests\dtypes\test_common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes
+    copying pandas\tests\dtypes\test_concat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes
+    copying pandas\tests\dtypes\test_dtypes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes
+    copying pandas\tests\dtypes\test_generic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes
+    copying pandas\tests\dtypes\test_inference.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes
+    copying pandas\tests\dtypes\test_missing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes
+    copying pandas\tests\dtypes\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes
+    creating build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_categorical.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_datetime.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_external_block.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_integer.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_interval.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_period.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\test_sparse.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    copying pandas\tests\extension\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension
+    creating build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_alter_axes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_analytics.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_api.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_apply.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_arithmetic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_asof.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_axis_select_reindex.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_block_internals.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_combine_concat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_constructors.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_convert_to.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_dtypes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_duplicates.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_join.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_missing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_mutate_columns.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_nonunique_indexes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_operators.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_period.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_quantile.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_query_eval.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_rank.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_replace.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_repr_info.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_reshape.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_sorting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_sort_values_level_as_str.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_subclass.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_timeseries.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_timezones.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_to_csv.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\test_validate.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    copying pandas\tests\frame\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\frame
+    creating build\lib.win-amd64-3.10\pandas\tests\generic
+    copying pandas\tests\generic\test_frame.py -&gt; build\lib.win-amd64-3.10\pandas\tests\generic
+    copying pandas\tests\generic\test_generic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\generic
+    copying pandas\tests\generic\test_label_or_level_utils.py -&gt; build\lib.win-amd64-3.10\pandas\tests\generic
+    copying pandas\tests\generic\test_panel.py -&gt; build\lib.win-amd64-3.10\pandas\tests\generic
+    copying pandas\tests\generic\test_series.py -&gt; build\lib.win-amd64-3.10\pandas\tests\generic
+    copying pandas\tests\generic\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\generic
+    creating build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_apply.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_bin_groupby.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_categorical.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_counting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_filters.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_function.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_groupby.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_grouping.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_index_as_string.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_nth.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_rank.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_timegrouper.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_transform.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_value_counts.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\test_whitelist.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    copying pandas\tests\groupby\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby
+    creating build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\datetimelike.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\test_base.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\test_category.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\test_common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\test_frozen.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\test_numeric.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\test_range.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    copying pandas\tests\indexes\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes
+    creating build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_callable.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_categorical.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_chaining_and_caching.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_coercion.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_datetime.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_floats.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_iloc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_indexing_engines.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_indexing_slow.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_ix.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_loc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_panel.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_partial.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_scalar.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\test_timedelta.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    copying pandas\tests\indexing\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing
+    creating build\lib.win-amd64-3.10\pandas\tests\internals
+    copying pandas\tests\internals\test_internals.py -&gt; build\lib.win-amd64-3.10\pandas\tests\internals
+    copying pandas\tests\internals\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\internals
+    creating build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\generate_legacy_storage_files.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_clipboard.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_compression.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_date_converters.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_excel.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_feather.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_gbq.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_gcs.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_html.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_packers.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_parquet.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_pickle.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_pytables.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_s3.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_sql.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\test_stata.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    copying pandas\tests\io\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io
+    creating build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_boxplot_method.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_converter.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_datetimelike.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_frame.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_groupby.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_hist_method.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_misc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\test_series.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    copying pandas\tests\plotting\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\plotting
+    creating build\lib.win-amd64-3.10\pandas\tests\reductions
+    copying pandas\tests\reductions\test_reductions.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reductions
+    copying pandas\tests\reductions\test_stat_reductions.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reductions
+    copying pandas\tests\reductions\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reductions
+    creating build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\test_base.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\test_datetime_index.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\test_period_index.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\test_resampler_grouper.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\test_resample_api.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\test_timedelta.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\test_time_grouper.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    copying pandas\tests\resample\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\resample
+    creating build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_concat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_cut.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_melt.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_pivot.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_qcut.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_reshape.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_union_categoricals.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\test_util.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    copying pandas\tests\reshape\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape
+    creating build\lib.win-amd64-3.10\pandas\tests\scalar
+    copying pandas\tests\scalar\test_nat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar
+    copying pandas\tests\scalar\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar
+    creating build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_alter_axes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_analytics.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_api.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_apply.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_arithmetic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_asof.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_block_internals.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_combine_concat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_constructors.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_datetime_values.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_dtypes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_duplicates.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_internals.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_io.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_missing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_operators.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_period.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_quantile.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_rank.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_replace.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_repr.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_sorting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_subclass.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_timeseries.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_timezones.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\test_validate.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    copying pandas\tests\series\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series
+    creating build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\test_combine_concat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\test_format.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\test_groupby.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\test_pivot.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\test_reshape.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    copying pandas\tests\sparse\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse
+    creating build\lib.win-amd64-3.10\pandas\tests\tools
+    copying pandas\tests\tools\test_numeric.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tools
+    copying pandas\tests\tools\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tools
+    creating build\lib.win-amd64-3.10\pandas\tests\tseries
+    copying pandas\tests\tseries\test_frequencies.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries
+    copying pandas\tests\tseries\test_holiday.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries
+    copying pandas\tests\tseries\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries
+    creating build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_api.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_array_to_datetime.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_ccalendar.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_conversion.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_libfrequencies.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_liboffsets.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_normalize_date.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_parse_iso8601.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_parsing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_period_asfreq.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_timedeltas.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\test_timezones.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    copying pandas\tests\tslibs\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tslibs
+    creating build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_almost_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_categorical_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_extension_array_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_frame_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_index_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_interval_array_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_numpy_array_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_assert_series_equal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_deprecate.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_deprecate_kwarg.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_hashing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_locale.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_move.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_safe_import.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_util.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_validate_args.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_validate_args_and_kwargs.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\test_validate_kwargs.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    copying pandas\tests\util\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\util
+    creating build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_algos.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_analytics.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_api.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_constructors.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_dtypes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_missing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_operators.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_repr.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_sorting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_subclass.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\test_warnings.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    copying pandas\tests\arrays\categorical\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\categorical
+    creating build\lib.win-amd64-3.10\pandas\tests\arrays\interval
+    copying pandas\tests\arrays\interval\test_interval.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\interval
+    copying pandas\tests\arrays\interval\test_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\interval
+    copying pandas\tests\arrays\interval\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\interval
+    creating build\lib.win-amd64-3.10\pandas\tests\arrays\sparse
+    copying pandas\tests\arrays\sparse\test_arithmetics.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\sparse
+    copying pandas\tests\arrays\sparse\test_array.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\sparse
+    copying pandas\tests\arrays\sparse\test_dtype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\sparse
+    copying pandas\tests\arrays\sparse\test_libsparse.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\sparse
+    copying pandas\tests\arrays\sparse\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\arrays\sparse
+    creating build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_construct_from_scalar.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_construct_ndarray.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_construct_object_arr.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_convert_objects.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_downcast.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_find_common_type.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_infer_datetimelike.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\test_infer_dtype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    copying pandas\tests\dtypes\cast\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\dtypes\cast
+    creating build\lib.win-amd64-3.10\pandas\tests\extension\arrow
+    copying pandas\tests\extension\arrow\bool.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\arrow
+    copying pandas\tests\extension\arrow\test_bool.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\arrow
+    copying pandas\tests\extension\arrow\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\arrow
+    creating build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\base.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\casting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\constructors.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\dtype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\getitem.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\groupby.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\interface.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\io.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\methods.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\missing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\printing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\reduce.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\reshaping.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\setitem.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    copying pandas\tests\extension\base\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\base
+    creating build\lib.win-amd64-3.10\pandas\tests\extension\decimal
+    copying pandas\tests\extension\decimal\array.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\decimal
+    copying pandas\tests\extension\decimal\test_decimal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\decimal
+    copying pandas\tests\extension\decimal\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\decimal
+    creating build\lib.win-amd64-3.10\pandas\tests\extension\json
+    copying pandas\tests\extension\json\array.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\json
+    copying pandas\tests\extension\json\test_json.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\json
+    copying pandas\tests\extension\json\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\json
+    creating build\lib.win-amd64-3.10\pandas\tests\extension\numpy_
+    copying pandas\tests\extension\numpy_\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\numpy_
+    copying pandas\tests\extension\numpy_\test_numpy.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\numpy_
+    copying pandas\tests\extension\numpy_\test_numpy_nested.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\numpy_
+    copying pandas\tests\extension\numpy_\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\extension\numpy_
+    creating build\lib.win-amd64-3.10\pandas\tests\groupby\aggregate
+    copying pandas\tests\groupby\aggregate\test_aggregate.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby\aggregate
+    copying pandas\tests\groupby\aggregate\test_cython.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby\aggregate
+    copying pandas\tests\groupby\aggregate\test_other.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby\aggregate
+    copying pandas\tests\groupby\aggregate\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\groupby\aggregate
+    creating build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_arithmetic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_astype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_construction.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_datetime.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_datetimelike.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_date_range.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_formats.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_misc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_missing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_partial_slicing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_scalar_compat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_setops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_timezones.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\test_tools.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    copying pandas\tests\indexes\datetimes\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\datetimes
+    creating build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    copying pandas\tests\indexes\interval\test_astype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    copying pandas\tests\indexes\interval\test_construction.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    copying pandas\tests\indexes\interval\test_interval.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    copying pandas\tests\indexes\interval\test_interval_new.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    copying pandas\tests\indexes\interval\test_interval_range.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    copying pandas\tests\indexes\interval\test_interval_tree.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    copying pandas\tests\indexes\interval\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\interval
+    creating build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_analytics.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_astype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_compat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_constructor.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_contains.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_conversion.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_copy.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_drop.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_duplicates.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_equivalence.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_format.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_get_set.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_integrity.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_join.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_missing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_monotonic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_names.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_partial_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_reindex.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_reshape.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_set_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\test_sorting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    copying pandas\tests\indexes\multi\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\multi
+    creating build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_arithmetic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_asfreq.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_astype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_construction.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_formats.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_partial_slicing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_period.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_period_range.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_scalar_compat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_setops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\test_tools.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    copying pandas\tests\indexes\period\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\period
+    creating build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_arithmetic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_astype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_construction.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_formats.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_partial_slicing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_scalar_compat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_setops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_timedelta.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_timedelta_range.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\test_tools.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    copying pandas\tests\indexes\timedeltas\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexes\timedeltas
+    creating build\lib.win-amd64-3.10\pandas\tests\indexing\interval
+    copying pandas\tests\indexing\interval\test_interval.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\interval
+    copying pandas\tests\indexing\interval\test_interval_new.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\interval
+    copying pandas\tests\indexing\interval\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\interval
+    creating build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_chaining_and_caching.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_datetime.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_getitem.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_iloc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_indexing_slow.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_ix.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_loc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_multiindex.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_panel.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_partial.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_setitem.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_set_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_slice.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_sorted.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\test_xs.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    copying pandas\tests\indexing\multiindex\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\indexing\multiindex
+    creating build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_console.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_css.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_eng_formatting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_format.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_printing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_style.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_to_csv.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_to_excel.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_to_html.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\test_to_latex.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    copying pandas\tests\io\formats\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\formats
+    creating build\lib.win-amd64-3.10\pandas\tests\io\json
+    copying pandas\tests\io\json\test_compression.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\json
+    copying pandas\tests\io\json\test_json_table_schema.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\json
+    copying pandas\tests\io\json\test_normalize.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\json
+    copying pandas\tests\io\json\test_pandas.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\json
+    copying pandas\tests\io\json\test_readlines.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\json
+    copying pandas\tests\io\json\test_ujson.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\json
+    copying pandas\tests\io\json\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\json
+    creating build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_buffer.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_case.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_except.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_extension.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_format.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_limits.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_newspec.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_obj.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_pack.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_read_size.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_seq.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_sequnpack.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_subtype.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_unpack.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\test_unpack_raw.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    copying pandas\tests\io\msgpack\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\msgpack
+    creating build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_comment.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_compression.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_converters.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_c_parser_only.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_dialect.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_dtypes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_header.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_index_col.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_mangle_dupes.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_multi_thread.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_na_values.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_network.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_parse_dates.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_python_parser_only.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_quoting.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_read_fwf.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_skiprows.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_textreader.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_unsupported.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\test_usecols.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    copying pandas\tests\io\parser\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\parser
+    creating build\lib.win-amd64-3.10\pandas\tests\io\sas
+    copying pandas\tests\io\sas\test_sas.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\sas
+    copying pandas\tests\io\sas\test_sas7bdat.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\sas
+    copying pandas\tests\io\sas\test_xport.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\sas
+    copying pandas\tests\io\sas\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\io\sas
+    creating build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    copying pandas\tests\reshape\merge\test_join.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    copying pandas\tests\reshape\merge\test_merge.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    copying pandas\tests\reshape\merge\test_merge_asof.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    copying pandas\tests\reshape\merge\test_merge_index_as_string.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    copying pandas\tests\reshape\merge\test_merge_ordered.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    copying pandas\tests\reshape\merge\test_multi.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    copying pandas\tests\reshape\merge\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\reshape\merge
+    creating build\lib.win-amd64-3.10\pandas\tests\scalar\interval
+    copying pandas\tests\scalar\interval\test_interval.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\interval
+    copying pandas\tests\scalar\interval\test_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\interval
+    copying pandas\tests\scalar\interval\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\interval
+    creating build\lib.win-amd64-3.10\pandas\tests\scalar\period
+    copying pandas\tests\scalar\period\test_asfreq.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\period
+    copying pandas\tests\scalar\period\test_period.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\period
+    copying pandas\tests\scalar\period\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\period
+    creating build\lib.win-amd64-3.10\pandas\tests\scalar\timedelta
+    copying pandas\tests\scalar\timedelta\test_arithmetic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timedelta
+    copying pandas\tests\scalar\timedelta\test_construction.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timedelta
+    copying pandas\tests\scalar\timedelta\test_formats.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timedelta
+    copying pandas\tests\scalar\timedelta\test_timedelta.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timedelta
+    copying pandas\tests\scalar\timedelta\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timedelta
+    creating build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    copying pandas\tests\scalar\timestamp\test_arithmetic.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    copying pandas\tests\scalar\timestamp\test_comparisons.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    copying pandas\tests\scalar\timestamp\test_rendering.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    copying pandas\tests\scalar\timestamp\test_timestamp.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    copying pandas\tests\scalar\timestamp\test_timezones.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    copying pandas\tests\scalar\timestamp\test_unary_ops.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    copying pandas\tests\scalar\timestamp\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\scalar\timestamp
+    creating build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_alter_index.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_boolean.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_callable.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_datetime.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_iloc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_loc.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\test_numeric.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    copying pandas\tests\series\indexing\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\series\indexing
+    creating build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\test_analytics.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\test_apply.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\test_frame.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\test_to_csv.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\test_to_from_scipy.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    copying pandas\tests\sparse\frame\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\frame
+    creating build\lib.win-amd64-3.10\pandas\tests\sparse\series
+    copying pandas\tests\sparse\series\test_indexing.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\series
+    copying pandas\tests\sparse\series\test_series.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\series
+    copying pandas\tests\sparse\series\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\sparse\series
+    creating build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\common.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\conftest.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\test_fiscal.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\test_offsets.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\test_offsets_properties.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\test_ticks.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\test_yqm_offsets.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    copying pandas\tests\tseries\offsets\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\tests\tseries\offsets
+    creating build\lib.win-amd64-3.10\pandas\_libs\tslibs
+    copying pandas\_libs\tslibs\__init__.py -&gt; build\lib.win-amd64-3.10\pandas\_libs\tslibs
+    creating build\lib.win-amd64-3.10\pandas\io\formats\templates
+    copying pandas\io\formats\templates\html.tpl -&gt; build\lib.win-amd64-3.10\pandas\io\formats\templates
+    UPDATING build\lib.win-amd64-3.10\pandas/_version.py
+    set build\lib.win-amd64-3.10\pandas/_version.py to &#39;0.24.2&#39;
+    running build_ext
+    Traceback (most recent call last):
+      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-95_1wkl4\pandas_58775e17d99b44ac8e0c3bad75c6aa45\setup.py&quot;, line 730, in &lt;module&gt;
+        setup(name=DISTNAME,
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\__init__.py&quot;, line 87, in setup
+        return distutils.core.setup(**attrs)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\core.py&quot;, line 148, in setup
+        return run_commands(dist)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\core.py&quot;, line 163, in run_commands
+        dist.run_commands()
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\dist.py&quot;, line 967, in run_commands
+        self.run_command(cmd)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\dist.py&quot;, line 1214, in run_command
+        super().run_command(command)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\dist.py&quot;, line 986, in run_command
+        cmd_obj.run()
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\command\install.py&quot;, line 68, in run
+        return orig.install.run(self)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\command\install.py&quot;, line 664, in run
+        self.run_command(&#39;build&#39;)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\cmd.py&quot;, line 313, in run_command
+        self.distribution.run_command(command)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\dist.py&quot;, line 1214, in run_command
+        super().run_command(command)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\dist.py&quot;, line 986, in run_command
+        cmd_obj.run()
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\command\build.py&quot;, line 135, in run
+        self.run_command(cmd_name)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\cmd.py&quot;, line 313, in run_command
+        self.distribution.run_command(command)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\dist.py&quot;, line 1214, in run_command
+        super().run_command(command)
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\dist.py&quot;, line 986, in run_command
+        cmd_obj.run()
+      File &quot;C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\setuptools\_distutils\command\build_ext.py&quot;, line 339, in run
+        self.build_extensions()
+      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-95_1wkl4\pandas_58775e17d99b44ac8e0c3bad75c6aa45\setup.py&quot;, line 372, in build_extensions
+        self.check_cython_extensions(self.extensions)
+      File &quot;C:\Users\Xinli\AppData\Local\Temp\pip-install-95_1wkl4\pandas_58775e17d99b44ac8e0c3bad75c6aa45\setup.py&quot;, line 366, in check_cython_extensions
+        raise Exception(&quot;&quot;&quot;Cython-generated file &#39;{src}&#39; not found.
+    Exception: Cython-generated file &#39;pandas\_libs/algos.c&#39; not found.
+                    Cython is required to compile pandas from a development branch.
+                    Please install Cython or download a release package of pandas.
+    
+    pandas._libs.algos: -&gt; [[&#39;pandas\\_libs/algos.c&#39;]]
+    ----------------------------------------
+ERROR: Command errored out with exit status 1: &#39;C:\Users\Xinli\anaconda3\envs\ml22\python.exe&#39; -u -c &#39;import io, os, sys, setuptools, tokenize; sys.argv[0] = &#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-95_1wkl4\\pandas_58775e17d99b44ac8e0c3bad75c6aa45\\setup.py&#39;&quot;&#39;&quot;&#39;; __file__=&#39;&quot;&#39;&quot;&#39;C:\\Users\\Xinli\\AppData\\Local\\Temp\\pip-install-95_1wkl4\\pandas_58775e17d99b44ac8e0c3bad75c6aa45\\setup.py&#39;&quot;&#39;&quot;&#39;;f = getattr(tokenize, &#39;&quot;&#39;&quot;&#39;open&#39;&quot;&#39;&quot;&#39;, open)(__file__) if os.path.exists(__file__) else io.StringIO(&#39;&quot;&#39;&quot;&#39;from setuptools import setup; setup()&#39;&quot;&#39;&quot;&#39;);code = f.read().replace(&#39;&quot;&#39;&quot;&#39;\r\n&#39;&quot;&#39;&quot;&#39;, &#39;&quot;&#39;&quot;&#39;\n&#39;&quot;&#39;&quot;&#39;);f.close();exec(compile(code, __file__, &#39;&quot;&#39;&quot;&#39;exec&#39;&quot;&#39;&quot;&#39;))&#39; install --record &#39;C:\Users\Xinli\AppData\Local\Temp\pip-record-n_5whaut\install-record.txt&#39; --single-version-externally-managed --compile --install-headers &#39;C:\Users\Xinli\anaconda3\envs\ml22\Include\pandas&#39; Check the logs for full command output.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas_ml==0.6.1 in c:\users\xinli\appdata\roaming\python\python310\site-packages (0.6.1)
+Requirement already satisfied: enum34 in c:\users\xinli\appdata\roaming\python\python310\site-packages (from pandas_ml==0.6.1) (1.1.10)
+Requirement already satisfied: pandas&gt;=0.19.0 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas_ml==0.6.1) (1.4.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (2.8.2)
+Requirement already satisfied: numpy&gt;=1.21.0 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (1.22.3)
+Requirement already satisfied: pytz&gt;=2020.1 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (2022.1)
+Requirement already satisfied: six&gt;=1.5 in c:\users\xinli\anaconda3\envs\ml22\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas&gt;=0.19.0-&gt;pandas_ml==0.6.1) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^CCollecting matplotlib==3.1.0
+  Downloading matplotlib-3.1.0.tar.gz (37.2 MB)
 </pre></div>
 </div>
 </div>

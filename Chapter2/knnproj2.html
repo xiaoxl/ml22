@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Project 2: MNIST Handwritten recognition &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>2.3. k-NN Project 2: Dating Classification &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -51,10 +51,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.4. k-NN Project 3: MNIST Handwritten recognition" href="knnproj3.html" />
+    <link rel="prev" title="2.2. k-NN Project 1: Iris Classification" href="knnproj1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -109,7 +109,7 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter1/intro.html">
    1. Introduction
@@ -142,56 +142,45 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="intro.html">
    2. k-NN
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="knn.html">
-     2.1. k-Nearest Neighbors algorithm (k-NN)
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj1.html">
+     2.2. k-NN Project 1: Iris Classification
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     2.2. project
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Chapter3/intro.html">
-   3. Decision Tree
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/gini.html">
-     3.1. Gini impurity
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/code.html">
-     3.2. CART Algorithms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/dt.html">
-     3.3. Example: the Iris dataset
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/project.html">
-     3.4. project
+     2.5. project
     </a>
    </li>
   </ul>
@@ -358,8 +347,18 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-description">
-   Dataset description
+  <a class="reference internal nav-link" href="#background">
+   2.3.1. Background
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#look-at-data">
+   2.3.2. Look at Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-knn">
+   2.3.3. Applying kNN
   </a>
  </li>
 </ul>
@@ -371,7 +370,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Project 2: MNIST Handwritten recognition</h1>
+                <h1>k-NN Project 2: Dating Classification</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -382,8 +381,18 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-description">
-   Dataset description
+  <a class="reference internal nav-link" href="#background">
+   2.3.1. Background
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#look-at-data">
+   2.3.2. Look at Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-knn">
+   2.3.3. Applying kNN
   </a>
  </li>
 </ul>
@@ -396,235 +405,254 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="project-2-mnist-handwritten-recognition">
-<h1>Project 2: <code class="docutils literal notranslate"><span class="pre">MNIST</span></code> Handwritten recognition<a class="headerlink" href="#project-2-mnist-handwritten-recognition" title="Permalink to this headline">#</a></h1>
-<p>We would like to let the machine recognize handwritten digits. <code class="docutils literal notranslate"><span class="pre">MNIST</span></code> is a classical dataset that contains handwritten digits information. Now we apply kNN algrotithm to it.</p>
-<section id="dataset-description">
-<h2>Dataset description<a class="headerlink" href="#dataset-description" title="Permalink to this headline">#</a></h2>
-<p>Every dataset is stored as a <span class="math notranslate nohighlight">\(28\times28\)</span> picture. We will transform them into a <span class="math notranslate nohighlight">\(28\times28\)</span> matrix. Every entry represents a gray value of the corresponding pixel, whose value is from 0 to 255. The label of each matrix is the digit it represents.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="k-nn-project-2-dating-classification">
+<h1><span class="section-number">2.3. </span>k-NN Project 2: Dating Classification<a class="headerlink" href="#k-nn-project-2-dating-classification" title="Permalink to this headline">#</a></h1>
+<p>The data can be downloaded from <a class="reference external" href="https://www.manning.com/downloads/1108">here</a> (CH02/datingTestSet2.txt).</p>
+<section id="background">
+<h2><span class="section-number">2.3.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this headline">#</a></h2>
+<p>Helen dated several people and rated them using a three-point scale: 3 is best and 1 is worst. She also collected data from all her dates and recorded them in the file attached. These data contains 3 features:</p>
+<ul class="simple">
+<li><p>Number of frequent flyer miles earned per year</p></li>
+<li><p>Percentage of time spent playing video games</p></li>
+<li><p>Liters of ice cream consumed per week</p></li>
+</ul>
+<p>We would like to predict her ratings of new dates when we are given the three features.</p>
+<p>The data contains four columns, while the first column refers to <code class="docutils literal notranslate"><span class="pre">Mileage</span></code>, the second <code class="docutils literal notranslate"><span class="pre">Gamingtime</span></code>, the third <code class="docutils literal notranslate"><span class="pre">Icecream</span></code> and the fourth <code class="docutils literal notranslate"><span class="pre">Rating</span></code>.</p>
+</section>
+<section id="look-at-data">
+<h2><span class="section-number">2.3.2. </span>Look at Data<a class="headerlink" href="#look-at-data" title="Permalink to this headline">#</a></h2>
+<p>We first load the data and store it into a DataFrame.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="c1"># import keras</span>
-<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># import keras</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="n">neigh</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span>
-                             <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;brute&#39;</span><span class="p">)</span>
-<span class="n">x_train</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./assests/datasets/datingTestSet2.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(60000, 28, 28)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_norm</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">))</span>
-<span class="n">X_test_norm</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x210f1143640&gt;
-</pre></div>
-</div>
-<img alt="../_images/knnproj2_4_1.png" src="../_images/knnproj2_4_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">X_train_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x211e0acdd30&gt;
-</pre></div>
-</div>
-<img alt="../_images/knnproj2_6_1.png" src="../_images/knnproj2_6_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">neigh</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7, 2, 1, ..., 4, 5, 6], dtype=uint8)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r2</span><span class="o">-</span><span class="n">y_test</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, ..., 0, 0, 0], dtype=uint8)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r2</span><span class="o">-</span><span class="n">y_test</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x211e0b104f0&gt;]
-</pre></div>
-</div>
-<img alt="../_images/knnproj2_10_1.png" src="../_images/knnproj2_10_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">max</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7, 2, 1, ..., 4, 5, 6], dtype=uint8)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r2</span><span class="p">)):</span>
-    <span class="k">if</span> <span class="n">r2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-        <span class="n">rr</span> <span class="o">=</span> <span class="n">rr</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">pp</span> <span class="o">=</span> <span class="n">rr</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">assests.codes.knn</span> <span class="kn">import</span> <span class="n">classify_kNN</span><span class="p">,</span> <span class="n">dataSplit</span><span class="p">,</span> <span class="n">classify_kNN_test</span><span class="p">,</span> <span class="n">encodeNorm</span><span class="p">,</span> <span class="n">decodeNorm</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">classify_kNN_test</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">),</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_27968</span><span class="o">/</span><span class="mf">3949973622.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">assests.codes.knn</span> <span class="kn">import</span> <span class="n">classify_kNN</span><span class="p">,</span> <span class="n">dataSplit</span><span class="p">,</span> <span class="n">classify_kNN_test</span><span class="p">,</span> <span class="n">encodeNorm</span><span class="p">,</span> <span class="n">decodeNorm</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">classify_kNN_test</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">),</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">d:\Files\GoogleDrive\My writings\Onlinenotes\ML22\Chapter2\assests\codes\knn.py</span> in <span class="ni">classify_kNN_test</span><span class="nt">(inTest, outTest, X, y, k)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>     <span class="n">e</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">58</span>         <span class="n">res</span> <span class="o">=</span> <span class="n">classify_kNN</span><span class="p">(</span><span class="n">inTest</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">59</span>         <span class="k">if</span> <span class="n">res</span> <span class="o">!=</span> <span class="n">outTest</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-<span class="g g-Whitespace">     </span><span class="mi">60</span>             <span class="n">e</span> <span class="o">=</span> <span class="n">e</span> <span class="o">+</span> <span class="mi">1</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">d:\Files\GoogleDrive\My writings\Onlinenotes\ML22\Chapter2\assests\codes\knn.py</span> in <span class="ni">classify_kNN</span><span class="nt">(inX, X, y, k)</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span>     <span class="n">Xmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">inX</span><span class="p">]),</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span>     <span class="c1"># compute the distance between each row of X and Xmat</span>
-<span class="ne">---&gt; </span><span class="mi">40</span>     <span class="n">Dmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">Xmat</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span>     <span class="c1"># sort by distance</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span>     <span class="n">sortedlist</span> <span class="o">=</span> <span class="n">Dmat</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>40920</td>
+      <td>8.326976</td>
+      <td>0.953952</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14488</td>
+      <td>7.153469</td>
+      <td>1.673904</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>26052</td>
+      <td>1.441871</td>
+      <td>0.805124</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>75136</td>
+      <td>13.147394</td>
+      <td>0.428964</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>38344</td>
+      <td>1.669788</td>
+      <td>0.134296</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>To make it easier to read, we would like to change the name of the columns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Mileage&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Gamingtime&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Icecream&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Rating&#39;</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">KeyboardInterrupt</span>: 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mileage</th>
+      <th>Gamingtime</th>
+      <th>Icecream</th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>40920</td>
+      <td>8.326976</td>
+      <td>0.953952</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14488</td>
+      <td>7.153469</td>
+      <td>1.673904</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>26052</td>
+      <td>1.441871</td>
+      <td>0.805124</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>75136</td>
+      <td>13.147394</td>
+      <td>0.428964</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>38344</td>
+      <td>1.669788</td>
+      <td>0.134296</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We use <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.scatter</span></code> to look at the scattering plots. From the below plots, it seems that the second plot is the best to visualize the classification. In other words, before we apply tricks, my may guess that <code class="docutils literal notranslate"><span class="pre">Mileage</span></code> and <code class="docutils literal notranslate"><span class="pre">Gamingtime</span></code> are more important than <code class="docutils literal notranslate"><span class="pre">Icecream</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+<span class="n">scatter1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Mileage&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Icecream&#39;</span><span class="p">],</span> 
+                       <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">]))</span>
+<span class="n">scatter2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Mileage&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gamingtime&#39;</span><span class="p">],</span> 
+                       <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">]))</span>
+<span class="n">scatter3</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gamingtime&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Icecream&#39;</span><span class="p">],</span> 
+                       <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">]))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">scatter1</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">(),</span>
+           <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Rating&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/knnproj2_5_0.png" src="../_images/knnproj2_5_0.png" />
+</div>
+</div>
+</section>
+<section id="applying-knn">
+<h2><span class="section-number">2.3.3. </span>Applying kNN<a class="headerlink" href="#applying-knn" title="Permalink to this headline">#</a></h2>
+<p>Similar to the previous example, we will apply both methods for comparisons.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">assests.codes.knn</span> <span class="kn">import</span> <span class="n">encodeNorm</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Mileage&#39;</span><span class="p">,</span> <span class="s1">&#39;Gamingtime&#39;</span><span class="p">,</span> <span class="s1">&#39;Icecream&#39;</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">])</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">X_train_norm</span><span class="p">,</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_norm</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_t</span> <span class="o">=</span> <span class="n">classify_kNN</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using our codes.</span>
+<span class="kn">from</span> <span class="nn">assests.codes.knn</span> <span class="kn">import</span> <span class="n">classify_kNN</span>
+
+<span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">classify_kNN</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">X_test_norm</span><span class="p">])</span>
+
+<span class="n">cor</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_pred</span> <span class="k">if</span> <span class="n">data</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">MemoryError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="nn">d:\Files\GoogleDrive\My writings\Onlinenotes\ML\Chapter2\knnproj2.ipynb Cell 16&#39;</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="o">----&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/d%3A/Files/GoogleDrive/My%20writings/Onlinenotes/ML/Chapter2/knnproj2.ipynb#ch0000015?line=0&#39;</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">y_t</span> <span class="o">=</span> <span class="n">classify_kNN</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.98
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using sklearn.</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+                           <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;brute&#39;</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_sk</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
 
-<span class="nn">File d:\Files\GoogleDrive\My writings\Onlinenotes\ML\Chapter2\knn.py:38,</span> in <span class="ni">classify_kNN</span><span class="nt">(inX, X, y, k)</span>
-     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///d%3A/Files/GoogleDrive/My%20writings/Onlinenotes/ML/Chapter2/knn.py?line=35&#39;</span><span class="o">&gt;</span><span class="mi">36</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">def</span> <span class="nf">classify_kNN</span><span class="p">(</span><span class="n">inX</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///d%3A/Files/GoogleDrive/My%20writings/Onlinenotes/ML/Chapter2/knn.py?line=36&#39;</span><span class="o">&gt;</span><span class="mi">37</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="c1"># create a new 2-d numpy array by copying inX for each row.</span>
-<span class="o">---&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///d%3A/Files/GoogleDrive/My%20writings/Onlinenotes/ML/Chapter2/knn.py?line=37&#39;</span><span class="o">&gt;</span><span class="mi">38</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="n">Xmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">inX</span><span class="p">]),</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
-     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///d%3A/Files/GoogleDrive/My%20writings/Onlinenotes/ML/Chapter2/knn.py?line=38&#39;</span><span class="o">&gt;</span><span class="mi">39</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="c1"># compute the distance between each row of X and Xmat</span>
-     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///d%3A/Files/GoogleDrive/My%20writings/Onlinenotes/ML/Chapter2/knn.py?line=39&#39;</span><span class="o">&gt;</span><span class="mi">40</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="n">Dmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">Xmat</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="nn">File &lt;__array_function__ internals&gt;:5,</span> in <span class="ni">tile</span><span class="nt">(*args, **kwargs)</span>
-
-<span class="nn">File c:\Users\Xinli\anaconda3\lib\site-packages\numpy\lib\shape_base.py:1258,</span> in <span class="ni">tile</span><span class="nt">(A, reps)</span>
-   <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///c%3A/Users/Xinli/anaconda3/lib/site-packages/numpy/lib/shape_base.py?line=1255&#39;</span><span class="o">&gt;</span><span class="mi">1256</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="k">for</span> <span class="n">dim_in</span><span class="p">,</span> <span class="n">nrep</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">tup</span><span class="p">):</span>
-   <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///c%3A/Users/Xinli/anaconda3/lib/site-packages/numpy/lib/shape_base.py?line=1256&#39;</span><span class="o">&gt;</span><span class="mi">1257</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>         <span class="k">if</span> <span class="n">nrep</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-<span class="o">-&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///c%3A/Users/Xinli/anaconda3/lib/site-packages/numpy/lib/shape_base.py?line=1257&#39;</span><span class="o">&gt;</span><span class="mi">1258</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>             <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">nrep</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-   <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///c%3A/Users/Xinli/anaconda3/lib/site-packages/numpy/lib/shape_base.py?line=1258&#39;</span><span class="o">&gt;</span><span class="mi">1259</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>         <span class="n">n</span> <span class="o">//=</span> <span class="n">dim_in</span>
-   <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///c%3A/Users/Xinli/anaconda3/lib/site-packages/numpy/lib/shape_base.py?line=1259&#39;</span><span class="o">&gt;</span><span class="mi">1260</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">return</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape_out</span><span class="p">)</span>
-
-<span class="ne">MemoryError</span>: Unable to allocate 438. GiB for an array with shape (60000, 7840000) and data type uint8
+<span class="n">cor</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_pred_sk</span> <span class="k">if</span> <span class="n">data</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.98
 </pre></div>
 </div>
 </div>
@@ -659,6 +687,20 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="knnproj1.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">2.2. </span>k-NN Project 1: Iris Classification</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="knnproj3.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2.4. </span>k-NN Project 3: <code class="docutils literal notranslate"><span class="pre">MNIST</span></code> Handwritten recognition</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>

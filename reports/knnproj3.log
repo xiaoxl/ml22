@@ -1,4 +1,15 @@
 Traceback (most recent call last):
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 730, in _async_poll_for_reply
+    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\util.py", line 96, in ensure_async
+    result = await obj
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\jupyter_client\channels.py", line 230, in get_msg
+    raise Empty
+_queue.Empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
     executenb(
   File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 1204, in execute
@@ -11,31 +22,18 @@ Traceback (most recent call last):
     return future.result()
   File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 663, in async_execute
     await self.async_execute_cell(
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 965, in async_execute_cell
-    await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 862, in _check_raise_for_error
-    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
-nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
-------------------
-import tensorflow as tf
-# import keras
-(X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
-X_train = X_train.reshape((X_train.shape[0], X_train.shape[1]*X_train.shape[2]))
-X_test = X_test.reshape((X_test.shape[0], X_test.shape[1]*X_test.shape[2]))
-
-X_test = X_test[1000:1200, :]
-y_test = y_test[1000:1200]
-
-
-------------------
-
-[1;31m---------------------------------------[0m
-[1;31mModuleNotFoundError[0mTraceback (most recent call last)
-Input [1;32mIn [9][0m, in [0;36m<cell line: 1>[1;34m()[0m
-[1;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mtensorflow[39;00m [38;5;28;01mas[39;00m [38;5;21;01mtf[39;00m
-[0;32m      2[0m [38;5;66;03m# import keras[39;00m
-[0;32m      3[0m (X_train, y_train), (X_test, y_test) [38;5;241m=[39m tf[38;5;241m.[39mkeras[38;5;241m.[39mdatasets[38;5;241m.[39mmnist[38;5;241m.[39mload_data()
-
-[1;31mModuleNotFoundError[0m: No module named 'tensorflow'
-ModuleNotFoundError: No module named 'tensorflow'
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 949, in async_execute_cell
+    exec_reply = await self.task_poll_for_reply
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 754, in _async_poll_for_reply
+    await self._async_handle_timeout(timeout, cell)
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 801, in _async_handle_timeout
+    raise CellTimeoutError.error_from_timeout_and_cell(
+nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
+The message was: Cell execution timed out.
+Here is a preview of the cell contents:
+-------------------
+from sklearn.datasets import fetch_openml
+# Load data from https://www.openml.org/d/554
+X, y = fetch_openml("mnist_784", return_X_y=True)
+-------------------
 
