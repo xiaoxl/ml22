@@ -180,7 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     2.5. project
+     2.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -393,6 +393,17 @@ title="Print to PDF"
    2.3.3. Applying kNN
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choosing-k-value">
+   2.3.4. Choosing
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     k
+    </span>
+   </code>
+   Value
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -425,6 +436,17 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#applying-knn">
    2.3.3. Applying kNN
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choosing-k-value">
+   2.3.4. Choosing
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     k
+    </span>
+   </code>
+   Value
   </a>
  </li>
 </ul>
@@ -603,28 +625,23 @@ title="Print to PDF"
 </table>
 </div></div></div>
 </div>
-<p>We use <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.scatter</span></code> to look at the scattering plots. From the below plots, it seems that the second plot is the best to visualize the classification. In other words, before we apply tricks, my may guess that <code class="docutils literal notranslate"><span class="pre">Mileage</span></code> and <code class="docutils literal notranslate"><span class="pre">Gamingtime</span></code> are more important than <code class="docutils literal notranslate"><span class="pre">Icecream</span></code>.</p>
+<p>Since now we have more than 2 features, it is not suitable to directly draw scatter plots. We use <code class="docutils literal notranslate"><span class="pre">seaborn.pairplot</span></code> to look at the pairplot. From the below plots, before we apply any tricks, it seems that <code class="docutils literal notranslate"><span class="pre">Milegae</span></code> and <code class="docutils literal notranslate"><span class="pre">Gamingtime</span></code> are better than <code class="docutils literal notranslate"><span class="pre">Icecream</span></code> to classify the data points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
-<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
-<span class="n">scatter1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Mileage&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Icecream&#39;</span><span class="p">],</span> 
-                       <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">]))</span>
-<span class="n">scatter2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Mileage&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gamingtime&#39;</span><span class="p">],</span> 
-                       <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">]))</span>
-<span class="n">scatter3</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gamingtime&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Icecream&#39;</span><span class="p">],</span> 
-                       <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">]))</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">scatter1</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">(),</span>
-           <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Rating&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Rating&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/knnproj2_5_0.png" src="../_images/knnproj2_5_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22-39\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
+  warnings.warn(f&quot;A NumPy version &gt;={np_minversion} and &lt;{np_maxversion}&quot;
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x19758e75760&gt;
+</pre></div>
+</div>
+<img alt="../_images/knnproj2_5_2.png" src="../_images/knnproj2_5_2.png" />
 </div>
 </div>
 </section>
@@ -645,12 +662,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22-39\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
-  warnings.warn(f&quot;A NumPy version &gt;={np_minversion} and &lt;{np_maxversion}&quot;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -661,14 +672,13 @@ title="Print to PDF"
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">classify_kNN</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span>
                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">X_test_norm</span><span class="p">])</span>
 
-<span class="n">cor</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_pred</span> <span class="k">if</span> <span class="n">data</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+<span class="n">errorrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">errorrate</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.93
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06
 </pre></div>
 </div>
 </div>
@@ -683,16 +693,46 @@ title="Print to PDF"
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred_sk</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
 
-<span class="n">cor</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_pred_sk</span> <span class="k">if</span> <span class="n">data</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+<span class="n">errorrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred_sk</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">errorrate</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.93
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06
 </pre></div>
 </div>
+</div>
+</div>
+</section>
+<section id="choosing-k-value">
+<h2><span class="section-number">2.3.4. </span>Choosing <code class="docutils literal notranslate"><span class="pre">k</span></code> Value<a class="headerlink" href="#choosing-k-value" title="Permalink to this headline">#</a></h2>
+<p>Similar to the previous section, we can run tests on <code class="docutils literal notranslate"><span class="pre">k</span></code> value to choose one to be used in our model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">minK</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">maxK</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">errorrate</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">minK</span><span class="p">,</span> <span class="n">maxK</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">pred_i</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
+    <span class="n">errorrate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pred_i</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">minK</span><span class="p">,</span> <span class="n">maxK</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">errorrate</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Error Rate vs. K Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error Rate&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Error Rate&#39;)
+</pre></div>
+</div>
+<img alt="../_images/knnproj2_11_1.png" src="../_images/knnproj2_11_1.png" />
 </div>
 </div>
 </section>

@@ -182,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     2.5. project
+     2.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -405,6 +405,17 @@ title="Print to PDF"
    2.2.4. Visualize the Decision boundary
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choosing-a-k-value">
+   2.2.5. Choosing a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     k
+    </span>
+   </code>
+   value
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -447,6 +458,17 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#visualize-the-decision-boundary">
    2.2.4. Visualize the Decision boundary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choosing-a-k-value">
+   2.2.5. Choosing a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     k
+    </span>
+   </code>
+   value
   </a>
  </li>
 </ul>
@@ -554,17 +576,16 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>This <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> is the result we got for the test set. We may compare it with the real answer <code class="docutils literal notranslate"><span class="pre">y_test</span></code>, can calcuate our accuracy. Here we use list comprehension again to find all datapoints that are classified correctly. The accuracy of our model in this test is printed below.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> is the result we got for the test set. We may compare it with the real answer <code class="docutils literal notranslate"><span class="pre">y_test</span></code>, and calcuate the error rate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cor</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_pred</span> <span class="k">if</span> <span class="n">data</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">errorrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">errorrate</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2
 </pre></div>
 </div>
 </div>
@@ -582,14 +603,13 @@ title="Print to PDF"
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred_sk</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
 
-<span class="n">cor</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">-</span><span class="n">y_pred_sk</span> <span class="k">if</span> <span class="n">data</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+<span class="n">errorrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred_sk</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">errorrate</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8666666666666667
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2
 </pre></div>
 </div>
 </div>
@@ -625,6 +645,41 @@ title="Print to PDF"
 </div>
 </div>
 <p>Note that using this approach the features in the plot are normalized, since we perform the normalization process outside the classifier. Again this can be solve by rewrite our codes, which will be discussed when we have time.</p>
+</section>
+<section id="choosing-a-k-value">
+<h2><span class="section-number">2.2.5. </span>Choosing a <code class="docutils literal notranslate"><span class="pre">k</span></code> value<a class="headerlink" href="#choosing-a-k-value" title="Permalink to this headline">#</a></h2>
+<p>In the previous example we choose <code class="docutils literal notranslate"><span class="pre">k</span></code> to be <code class="docutils literal notranslate"><span class="pre">10</span></code> as an example. To choose a <code class="docutils literal notranslate"><span class="pre">k</span></code> value we usually run some test by trying different <code class="docutils literal notranslate"><span class="pre">k</span></code> and choose the one with the best result. In other case the best result means that smallest error rate. For simplicity we only use <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minK</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">maxK</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">errorrate</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">minK</span><span class="p">,</span> <span class="n">maxK</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">pred_i</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
+    <span class="n">errorrate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pred_i</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">minK</span><span class="p">,</span> <span class="n">maxK</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">errorrate</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Error Rate vs. K Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error Rate&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Error Rate&#39;)
+</pre></div>
+</div>
+<img alt="../_images/knnproj1_18_1.png" src="../_images/knnproj1_18_1.png" />
+</div>
+</div>
 </section>
 </section>
 
