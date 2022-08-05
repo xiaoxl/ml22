@@ -2,8 +2,16 @@
 These exercises are from {cite:p}`Klo2021`, {cite:p}`Ger2019` and {cite:p}`Har2012`. 
 
 ## Python Notebook
-### Hello world!
+
+```{exercise} Hello World!
+
 Please set up a Python Notebook environment and type `print('Hello World!')`.
+```
+
+```{exercise}
+
+Please set up a Python Notebook and start a new virtual environment and type `print('Hello World!')`.
+```
 
 <!-- 
 ## Python Notebook
@@ -13,15 +21,18 @@ Please set up a Python Notebook environment and type `print('Hello World!')`.
 
 ## Basic Python 
 
-### Hello world!
+```{exercise} Hello world!
+:label: ex1helloworld
+
 Please complete the following tasks.
 - Write a `for` loop to print values from 0 to 4.
 - Combine two lists `['apple', 'orange']` and `['banana']` using `+`.
 - Sort the list `['apple', 'orange', 'banana']` using `sorted()`.
+```
 
-
-````{admonition} Click to show answers.
+````{solution} ex1helloworld
 :class: dropdown
+
 ```{code-block} python
 for i in range(5):
     print(i)
@@ -34,8 +45,9 @@ sorted(['apple', 'orange', 'banana'])
 Please be careful about the last line. `sorted()` doesn't change the original list. It create a new list. There are some Python functions which change the inputed object in-place. Please read documents on all packages you use to get the desired results.
 ````
 
+```{exercise} Play with list, dict and pandas.
+:label: ex1list
 
-### Play with `list`, `dict` and `pandas`.
 Please complete the following tasks.
 - Create a new dictionary `people` with two keys `name` and `age`. The values are all empty list.
 - Add `Tony` to the `name` list in `people`. 
@@ -44,8 +56,8 @@ Please complete the following tasks.
 - Add number 10 to the `age` list in `people`.
 - Find all the keys of `people` and save them into a list `namelist`.
 - Convert the dictionary `people` to a Pandas DataFrame `df`.
-
-````{admonition} Click to show answers.
+```
+````{solution} ex1list
 :class: dropdown
 ```{code-block} python
 import pandas as pd
@@ -64,7 +76,9 @@ df = pd.DataFrame(people)
 
 
 
-### The dataset `iris`
+````{exercise} The dataset iris
+:label: ex1iris
+
 ```{code-block} python
 from sklearn.datasets import load_iris
 iris = load_iris()
@@ -74,8 +88,8 @@ Please explore this dataset.
 - What is the meaning of these features?
 - Please get the labels for `iris` and save it into `y` as an numpy array.
 - What is the meaning of labels?
-  
-````{admonition} Click to show answers.
+````  
+````{solution} ex1iris
 :class: dropdown
 We first find that `iris` is a dictionary. Then we can look at all the keys by `iris.keys()`. The interesting keys are `data`, `target`, `target_names` and `feature_names`. We can also read the description of the dataset by looking at `DESCR`. 
 ```{code-block} python
@@ -86,3 +100,19 @@ print(iris['target'])
 ```
 Since the data is already saved as numpy arrays, we don't need to do anything to change its type.
 ````
+
+````{exercise} Play with Pandas
+:label: ex1pandastitanic
+Please download the Titanic data file from {Download}`here<./assests/datasets/titanic.csv>`. Then follow the instructions to perform the required tasks.
+
+- Use `pandas.read_csv` to read the dataset and save it as a dataframe object `df`.
+- Change the values of the `Sex` column that `male` is `0` and `female` is `1`. 
+- Pick the columns `Pclass`, `Sex`, `Age`, `Siblings/Spouses Aboard`, `Parents/Children Aboard` and `Fare` and transform them into a 2-dimensional `numpy.ndarray`, and save it as `X`.
+- Pick the column `Survived` and transform it into a 1-dimensional `numpy.ndarray` and save it as `y`.
+````
+````{solution} ex1pandastitanic
+:class: dropdown
+
+Not yet done!
+````
+

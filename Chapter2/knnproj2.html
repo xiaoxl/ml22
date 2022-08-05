@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -54,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2.4. k-NN Project 3: MNIST Handwritten recognition" href="knnproj3.html" />
-    <link rel="prev" title="2.2. k-NN Project 1: Iris Classification" href="knnproj1.html" />
+    <link rel="prev" title="2.2. k-NN Project 1: iris Classification" href="knnproj1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -159,7 +160,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="knnproj1.html">
-     2.2. k-NN Project 1: Iris Classification
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -207,7 +214,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/dt.html">
-     3.3. Example: the Iris dataset
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
     </a>
    </li>
    <li class="toctree-l2">
@@ -461,7 +474,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="k-nn-project-2-dating-classification">
 <h1><span class="section-number">2.3. </span>k-NN Project 2: Dating Classification<a class="headerlink" href="#k-nn-project-2-dating-classification" title="Permalink to this headline">#</a></h1>
-<p>The data can be downloaded from <a class="reference external" href="https://www.manning.com/downloads/1108">here</a> (CH02/datingTestSet2.txt).</p>
+<p>The data can be downloaded from <a class="reference download internal" download="" href="../_downloads/5db36ac41db68edc7e6ec7eb55f6f7af/datingTestSet2.txt"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a>.</p>
 <section id="background">
 <h2><span class="section-number">2.3.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this headline">#</a></h2>
 <p>Helen dated several people and rated them using a three-point scale: 3 is best and 1 is worst. She also collected data from all her dates and recorded them in the file attached. These data contains 3 features:</p>
@@ -634,11 +647,11 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22-39\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
   warnings.warn(f&quot;A NumPy version &gt;={np_minversion} and &lt;{np_maxversion}&quot;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x19758e75760&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x1899f93d880&gt;
 </pre></div>
 </div>
 <img alt="../_images/knnproj2_5_2.png" src="../_images/knnproj2_5_2.png" />
@@ -678,7 +691,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02
 </pre></div>
 </div>
 </div>
@@ -699,7 +712,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02
 </pre></div>
 </div>
 </div>
@@ -769,7 +782,7 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">2.2. </span>k-NN Project 1: Iris Classification</p>
+            <p class="prev-next-title"><span class="section-number">2.2. </span>k-NN Project 1: <code class="docutils literal notranslate"><span class="pre">iris</span></code> Classification</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="knnproj3.html" title="next page">

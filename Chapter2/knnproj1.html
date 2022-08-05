@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>2.2. k-NN Project 1: Iris Classification &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>2.2. k-NN Project 1: iris Classification &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -161,7 +162,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.2. k-NN Project 1: Iris Classification
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
     </a>
    </li>
    <li class="toctree-l2">
@@ -209,7 +216,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/dt.html">
-     3.3. Example: the Iris dataset
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
     </a>
    </li>
    <li class="toctree-l2">
@@ -425,7 +438,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>k-NN Project 1: Iris Classification</h1>
+                <h1>k-NN Project 1: iris Classification</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -482,7 +495,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="k-nn-project-1-iris-classification">
-<h1><span class="section-number">2.2. </span>k-NN Project 1: Iris Classification<a class="headerlink" href="#k-nn-project-1-iris-classification" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">2.2. </span>k-NN Project 1: <code class="docutils literal notranslate"><span class="pre">iris</span></code> Classification<a class="headerlink" href="#k-nn-project-1-iris-classification" title="Permalink to this headline">#</a></h1>
 <p>This data is from <code class="docutils literal notranslate"><span class="pre">sklearn.datasets</span></code>. This dataset consists of 3 different types of irises’ petal / sepal length / width, stored in a <span class="math notranslate nohighlight">\(150\times4\)</span> <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>. We already explored the dataset briefly in the previous chapter. This time we will try to use the feature provided to predict the type of the irises. For the purpose of plotting, we will only use the first two features: <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">length</span></code> and <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">width</span></code>.</p>
 <section id="explore-the-dataset">
 <h2><span class="section-number">2.2.1. </span>Explore the dataset<a class="headerlink" href="#explore-the-dataset" title="Permalink to this headline">#</a></h2>
@@ -497,7 +510,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22-39\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
   warnings.warn(f&quot;A NumPy version &gt;={np_minversion} and &lt;{np_maxversion}&quot;
 </pre></div>
 </div>
@@ -585,7 +598,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.26666666666666666
 </pre></div>
 </div>
 </div>

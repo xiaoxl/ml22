@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>3.3. Example: the Iris dataset &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>3.3. Decision Tree Project 1: the iris dataset &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -159,7 +160,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter2/knnproj1.html">
-     2.2. k-NN Project 1: Iris Classification
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
     </a>
    </li>
    <li class="toctree-l2">
@@ -180,7 +187,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter2/project.html">
-     2.5. project
+     2.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -207,7 +214,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     3.3. Example: the Iris dataset
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
     </a>
    </li>
    <li class="toctree-l2">
@@ -368,7 +381,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Example: the Iris dataset</h1>
+                <h1>Decision Tree Project 1: the iris dataset</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -380,9 +393,10 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="example-the-iris-dataset">
-<h1><span class="section-number">3.3. </span>Example: the Iris dataset<a class="headerlink" href="#example-the-iris-dataset" title="Permalink to this headline">#</a></h1>
-<p>We are going to use the Decision Tree model to study the iris dataset. This</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="decision-tree-project-1-the-iris-dataset">
+<h1><span class="section-number">3.3. </span>Decision Tree Project 1: the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#decision-tree-project-1-the-iris-dataset" title="Permalink to this headline">#</a></h1>
+<p>We are going to use the Decision Tree model to study the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset. This dataset has already studied previously using k-NN. Again we will only use the first two features for visualization purpose.</p>
+<p>Since the dataset will be splitted, we will put <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> together as a single variable <code class="docutils literal notranslate"><span class="pre">S</span></code>. In this case when we split the dataset by selecting rows, the features and the labels are still paired correctly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
@@ -398,21 +412,58 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22-39\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
   warnings.warn(f&quot;A NumPy version &gt;={np_minversion} and &lt;{np_maxversion}&quot;
 </pre></div>
 </div>
 </div>
 </div>
+<p>Then we apply <code class="docutils literal notranslate"><span class="pre">split</span></code> to the dataset <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
-<span class="n">Gl</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">Gr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">Gl</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Gr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Gl</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Gr</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 1.9)
+0.0
+0.5
 </pre></div>
 </div>
 </div>
 </div>
+<p>The results shows that <code class="docutils literal notranslate"><span class="pre">S</span></code> is splitted into two subsets based on the <code class="docutils literal notranslate"><span class="pre">0</span></code>-th feature and the split value is <code class="docutils literal notranslate"><span class="pre">1.9</span></code>.</p>
+<p>The left subset is already pure since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0</span></code>. The right one is mixed since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>. Therefore we need to apply <code class="docutils literal notranslate"><span class="pre">split</span></code> again to the right subset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">Gr</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">Grl</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Grr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Grl</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Grr</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1.7)
+0.1680384087791495
+0.04253308128544431
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time the subset is splitted into two more subsets based on the <code class="docutils literal notranslate"><span class="pre">1</span></code>-st feature and the split value is <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
+<p>The total Gini impurity is minimized using this split.</p>
+<p>The decision we created so far can be described as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
