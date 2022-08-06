@@ -1,189 +1,175 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # k-NN project: Dating Classification
+# # k-NN Project 1: `iris` Classification
 # 
-# The data can be downloaded from [here](https://www.manning.com/downloads/1108) (CH02/datingTestSet2.txt).
+# This data is from `sklearn.datasets`. This dataset consists of 3 different types of irises' petal / sepal length / width, stored in a $150\times4$ `numpy.ndarray`. We already explored the dataset briefly in the previous chapter. This time we will try to use the feature provided to predict the type of the irises. For the purpose of plotting, we will only use the first two features: `sepal length` and `sepal width`.
 # 
+# ## Explore the dataset
+# We first load the dataset. 
 # 
-# ## Background
-# Helen dated several people and rated them using a three-point scale: 3 is best and 1 is worst. She also collected data from all her dates and recorded them in the file attached. These data contains 3 features:
-# 
-# - Number of frequent flyer miles earned per year
-# - Percentage of time spent playing video games
-# - Liters of ice cream consumed per week
-# 
-# We would like to predict her ratings of new dates when we are given the three features. 
-# 
-# The data contains four columns, while the first column refers to `Mileage`, the second `Gamingtime`, the third `Icecream` and the fourth `Rating`. 
-# 
-# ## Look at Data
-# 
-# We first load the data and store it into a DataFrame.
 
 # In[1]:
 
 
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
-df = pd.read_csv('./assests/datasets/datingTestSet2.txt', sep='\t', header=None)
-df.head()
+from sklearn import datasets
+iris = datasets.load_iris()
+X = iris.data[:, :2]
+y = iris.target
 
 
-# To make it easier to read, we would like to change the name of the columns.
+# Then we would like to split the dataset into trainning data and test data. Here we are going to use `sklearn.model_selection.train_test_split` function. Besides the dataset, we should also provide the propotion of the test set comparing to the whole dataset. We will choose `0.1` here, which means that the size of the test set is 0.1 times the size of the whole dataset. 
+# 
+# The split will be randomly. You may set the argument `random_state` to be a certain number to control the random process. If you set a `random_state`, the result of the random process will stay the same. This is for reproducible output across multiple function calls.
+# 
+# After we get the training set, we should also normalize it. All our normalization should be based on the training set. When we want to use our model on some new data points, we will use the same normalization parameters to normalize the data points in interests right before we apply the model. Here since we mainly care about the test set, we could normalize the test set at this stage.
 
 # In[2]:
 
 
-df = df.rename(columns={0: "Mileage", 1: "Gamingtime", 2: 'Icecream', 3: 'Rating'})
-df.head()
+from sklearn.model_selection import train_test_split
+from assests.codes.knn import encodeNorm
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
 
-
-# We use `matplotlib.pyplot.scatter` to look at the scattering plots. From the below plots, it seems that `Icecream`.
-
-# In[3]:
-
-
-fig = plt.figure(figsize=(10,10))
-ax1 = fig.add_subplot(311)
-ax2 = fig.add_subplot(312)
-ax3 = fig.add_subplot(313)
-scatter1 = ax1.scatter(df['Mileage'], df['Icecream'], 
-                     s=10*df['Rating'], c=np.array(df['Rating']))
-scatter2 = ax2.scatter(df['Mileage'], df['Gamingtime'], 
-                     s=10*df['Rating'], c=np.array(df['Rating']))
-scatter3 = ax3.scatter(df['Gamingtime'], df['Icecream'], 
-                     s=10*df['Rating'], c=np.array(df['Rating']))
-
-fig.legend(*scatter1.legend_elements(),
-           loc="right", title="Rating")
-plt.show()
-
-
-# ## Applying kNN
-
-# In[4]:
-
-
-from assests.codes.knn import classify_kNN, dataSplit, classify_kNN_test, encodeNorm, decodeNorm
-
-X = np.array(df[['Mileage', 'Gamingtime', 'Icecream']])
-y = np.array(df['Rating'])
-
-X_train, y_train, X_test, y_test = dataSplit(X, y, splitrate=0.9)
 X_train_norm, parameters = encodeNorm(X_train)
 X_test_norm, _ = encodeNorm(X_test, parameters=parameters)
 
 
+# Before we start to play with k-NN, let us look at the data first. Since we only choose two features, it is able to plot these data points on a 2D plane, with different colors representing different classes. 
+# 
+
+# In[3]:
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Plot the scatter plot.
+fig = plt.figure(figsize=(10,7))
+ax = fig.add_subplot(111)
+scatter = ax.scatter(X_train_norm[:, 0], X_train_norm[:, 1], c=y_train)
+
+# Generate legends.
+labels = ['setosa', 'versicolor', 'virginica']
+fig.legend(handles=scatter.legend_elements()[0], labels=labels,
+           loc="right", title="Labels")
+
+plt.show()
+
+
+# ## Apply our k-NN model
+# 
+# Now let us apply k-NN to this dataset. We first use our codes. Here I use `from assests.codes.knn` to import our functions since I put all our functions in `./assests/codes/knn.py`. Then the poential code is 
+# ```python
+# y_pred = classify_kNN(X_test, X_train, y_train, k=10)
+# ```
+# 
+# Note that the above code is actually wrong. The issue ist that our function `classify_kNN` can only classify one row of data. To classify many rows, we need to use a `for` loop. 
+# 
+
+# In[4]:
+
+
+from assests.codes.knn import classify_kNN
+
+n_neighbors = 10
+y_pred = list()
+for row in X_test_norm:
+    row_pred = classify_kNN(row, X_train_norm, y_train, k=n_neighbors)
+    y_pred.append(row_pred)
+y_pred = np.array(y_pred)
+
+
+# We could use list comprehension to simply the above codes. 
 
 # In[5]:
 
 
-errorrate = list()
-for i in range(1,20):
-    errorrate.append(classify_kNN_test(X_test_norm, y_test, X_train_norm, y_train, k=i))
-best = np.array(errorrate).argsort()[0]
-print(best)
-print(errorrate[best])
+from assests.codes.knn import classify_kNN
 
+n_neighbors = 10
+y_pred = np.array([classify_kNN(row, X_train_norm, y_train, k=n_neighbors)
+                   for row in X_test_norm])
+
+
+# This `y_pred` is the result we got for the test set. We may compare it with the real answer `y_test`, and calcuate the error rate.
 
 # In[6]:
 
 
-from sklearn.neighbors import KNeighborsClassifier
-neigh = KNeighborsClassifier(n_neighbors=10, weights='distance')
-neigh.fit(X_train_norm, y_train)
-r2 = neigh.predict(X_test_norm)
+errorrate = np.mean(y_pred != y_test)
+print(errorrate)
 
+
+# ## Apply k-NN model from `sklearn`
+# 
+# Now we would like to use `sklearn` to reproduce this result. Since our data is prepared, what we need to do is directly call the functions.
 
 # In[7]:
 
 
-r = np.array([classify_kNN(inX, X_train_norm, y_train, k=10) for inX in X_test_norm])
+from sklearn.neighbors import KNeighborsClassifier
+n_neighbors = 10
+clf = KNeighborsClassifier(n_neighbors, weights="uniform", metric="euclidean",
+                           algorithm='brute')
+clf.fit(X_train_norm, y_train)
+y_pred_sk = clf.predict(X_test_norm)
 
+errorrate = np.mean(y_pred_sk != y_test)
+print(errorrate)
+
+
+# ## Visualize the Decision boundary
+# Using the classifier we get above, we are able to classify every points on the plane. This enables us to draw the following plot, which is called the Decision boundary. It helps us to visualize the relations between features and the classes.
+# 
+# We use `DecisionBoundaryDisplay` from `sklearn.inspection` to plot the decision boundary. The function requires us to have a fitted classifier. We may use the classifier `clf` we got above. Note that this classifier should have some build-in structures that our `classify_kNN` function doesn't have. We may rewrite our codes to make it work, but this goes out of the scope of this section. This is supposed to be Python programming exercise. We will talk about it in the future if we have enough time.
+# 
+# We first plot the dicision boundary using `DecisionBoundaryDisplay.from_estimator`. Then we plot the points from `X_test_norm`. From the plot it is very clear which points are misclassified.
 
 # In[8]:
 
 
-r-r2
+from sklearn.inspection import DecisionBoundaryDisplay
 
+disp = DecisionBoundaryDisplay.from_estimator(
+            clf, 
+            X_train_norm,
+            response_method="predict",
+            plot_method="pcolormesh",
+            xlabel=iris.feature_names[0],
+            ylabel=iris.feature_names[1],
+            alpha=0.5
+    )
+disp.ax_.scatter(X_test_norm[:, 0], X_test_norm[:, 1], c=y_test, edgecolor="k")
+disp.figure_.set_size_inches((10,7))
+_, _ = disp.ax_.set_xlim(0, 1)
+_, _ = disp.ax_.set_ylim(0, 1)
+
+
+# Note that using this approach the features in the plot are normalized, since we perform the normalization process outside the classifier. Again this can be solve by rewrite our codes, which will be discussed when we have time.
+# 
+# ## Choosing a `k` value
+# In the previous example we choose `k` to be `10` as an example. To choose a `k` value we usually run some test by trying different `k` and choose the one with the best result. In other case the best result means that smallest error rate. For simplicity we only use `sklearn`.
 
 # In[9]:
 
 
-d = df.to_numpy()
+minK = 1
+maxK = 80
+errorrate = list()
+for i in range(minK, maxK+1):
+    clf = KNeighborsClassifier(n_neighbors=i)
+    clf.fit(X_train_norm, y_train)
+    pred_i = clf.predict(X_test_norm)
+    errorrate.append(np.mean(pred_i != y_test))
 
 
 # In[10]:
 
 
-d
-
-
-# In[11]:
-
-
-d.shape
-
-
-# In[12]:
-
-
-from sklearn.datasets import load_iris
-import numpy as np
-
-
-# In[13]:
-
-
-from sklearn.tree import DecisionTreeClassifier
-
-
-# In[14]:
-
-
-X = d[:, :3]
-y = d[:,-1]
-
-
-# In[15]:
-
-
-treeclf = DecisionTreeClassifier(max_depth=3)
-treeclf.fit(X, y)
-
-
-# In[16]:
-
-
-treeclf
-
-
-# In[17]:
-
-
-print(treeclf)
-
-
-# In[18]:
-
-
-from sklearn import tree
-plt.figure(figsize=(20,20))
-tree.plot_tree(treeclf, filled=True)
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
+import matplotlib.pyplot as plt
+plt.plot(range(minK, maxK+1), errorrate)
+plt.title('Error Rate vs. K Value')
+plt.xlabel('K')
+plt.ylabel('Error Rate')
 

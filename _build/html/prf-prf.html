@@ -20,12 +20,13 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -37,7 +38,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -136,12 +137,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Chapter1/pynotebook.html">
-     1.3. Python Notebook quick guide
+     1.3. Python quick guide
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Chapter1/project.html">
-     1.4. project
+     1.4. Exercises
     </a>
    </li>
   </ul>
@@ -158,12 +159,39 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="Chapter2/knn.html">
-     2.1. k-Nearest Neighbors algorithm (k-NN)
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Chapter2/knnproj1.html">
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Chapter2/knnproj2.html">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Chapter2/knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Chapter2/project.html">
-     2.2. project
+     2.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -190,7 +218,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Chapter3/dt.html">
-     3.3. Example: the Iris dataset
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
     </a>
    </li>
    <li class="toctree-l2">
@@ -295,17 +329,10 @@ title="Fullscreen mode"
    <a href="#cap-algorithm-0"><strong>algorithm-0</strong></a> | 
    <a href="#cap-algorithm-1"><strong>algorithm-1</strong></a> | 
    <a href="#cap-algorithm-3"><strong>algorithm-3</strong></a> | 
-   <a href="#cap-algorithm-6"><strong>algorithm-6</strong></a> | 
-   <a href="#cap-algorithm-7"><strong>algorithm-7</strong></a> | 
    <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
-   <a href="#cap-definition-2"><strong>definition-2</strong></a> | 
    <a href="#cap-example-0"><strong>example-0</strong></a> | 
    <a href="#cap-example-1"><strong>example-1</strong></a> | 
-   <a href="#cap-example-2"><strong>example-2</strong></a> | 
-   <a href="#cap-example-3"><strong>example-3</strong></a> | 
-   <a href="#cap-example-4"><strong>example-4</strong></a> | 
-   <a href="#cap-example-5"><strong>example-5</strong></a> | 
-   <a href="#cap-remark-1"><strong>remark-1</strong></a>
+   <a href="#cap-example-2"><strong>example-2</strong></a>
    </div>
 
    <table class="indextable modindextable">
@@ -334,36 +361,12 @@ title="Fullscreen mode"
        <a href="Chapter3/gini.html#algorithm-3"><code class="xref">algorithm-3</code></a> <em>(Chapter3/gini)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-6"><td></td><td>
-       <strong>algorithm-6</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Chapter3/info.html#algorithm-6"><code class="xref">algorithm-6</code></a> <em>(Chapter3/info)</em></td><td>
-       <em>algorithm</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-7"><td></td><td>
-       <strong>algorithm-7</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Chapter3/info.html#algorithm-7"><code class="xref">algorithm-7</code></a> <em>(Chapter3/info)</em></td><td>
-       <em>algorithm</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-0"><td></td><td>
        <strong>definition-0</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
        <a href="Chapter3/gini.html#definition-0"><code class="xref">definition-0</code></a> <em>(Chapter3/gini)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-2"><td></td><td>
-       <strong>definition-2</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Chapter3/info.html#definition-2"><code class="xref">definition-2</code></a> <em>(Chapter3/info)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-example-0"><td></td><td>
@@ -389,38 +392,6 @@ title="Fullscreen mode"
        <td>
        <a href="Chapter3/gini.html#example-2"><code class="xref">example-2</code></a> <em>(Chapter3/gini)</em></td><td>
        <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-3"><td></td><td>
-       <strong>example-3</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Chapter3/info.html#example-3"><code class="xref">example-3</code></a> <em>(Chapter3/info)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-4"><td></td><td>
-       <strong>example-4</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Chapter3/info.html#example-4"><code class="xref">example-4</code></a> <em>(Chapter3/info)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-5"><td></td><td>
-       <strong>example-5</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Chapter3/info.html#example-5"><code class="xref">example-5</code></a> <em>(Chapter3/info)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-remark-1"><td></td><td>
-       <strong>remark-1</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Chapter3/info.html#remark-1"><code class="xref">remark-1</code></a> <em>(Chapter3/info)</em></td><td>
-       <em>remark</em></td></tr>
    </table>
 
 

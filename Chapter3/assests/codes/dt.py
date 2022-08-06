@@ -39,3 +39,13 @@ def split(G):
                'pair': pair,
                'sets': G}
     return res
+
+
+def countlabels(S):
+    uniqueLabelList = set([s[-1] for s in S])
+    labelCount = dict()
+    for label in uniqueLabelList:
+        labelCount[label] = 0
+    for row in S:
+        labelCount[row[-1]] += 1
+    return labelCount

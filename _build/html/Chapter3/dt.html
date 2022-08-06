@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>3.3. Example: the Iris dataset &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>3.3. Decision Tree Project 1: the iris dataset &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -21,12 +21,13 @@
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -38,7 +39,7 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -132,12 +133,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter1/pynotebook.html">
-     1.3. Python Notebook quick guide
+     1.3. Python quick guide
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter1/project.html">
-     1.4. project
+     1.4. Exercises
     </a>
    </li>
   </ul>
@@ -154,12 +155,39 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter2/knn.html">
-     2.1. k-Nearest Neighbors algorithm (k-NN)
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj1.html">
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj2.html">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter2/project.html">
-     2.2. project
+     2.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -186,7 +214,13 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     3.3. Example: the Iris dataset
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
     </a>
    </li>
    <li class="toctree-l2">
@@ -347,7 +381,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Example: the Iris dataset</h1>
+                <h1>Decision Tree Project 1: the iris dataset</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -359,372 +393,96 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="example-the-iris-dataset">
-<h1><span class="section-number">3.3. </span>Example: the Iris dataset<a class="headerlink" href="#example-the-iris-dataset" title="Permalink to this headline">#</a></h1>
-<p>We are going to use the Decision Tree model to study the iris dataset. This</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="decision-tree-project-1-the-iris-dataset">
+<h1><span class="section-number">3.3. </span>Decision Tree Project 1: the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#decision-tree-project-1-the-iris-dataset" title="Permalink to this headline">#</a></h1>
+<p>We are going to use the Decision Tree model to study the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset. This dataset has already studied previously using k-NN. Again we will only use the first two features for visualization purpose.</p>
+<p>Since the dataset will be splitted, we will put <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> together as a single variable <code class="docutils literal notranslate"><span class="pre">S</span></code>. In this case when we split the dataset by selecting rows, the features and the labels are still paired correctly.</p>
+<p>We also print the labels and the feature names for our convenience.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">assests.codes.dt</span> <span class="kn">import</span> <span class="n">gini</span><span class="p">,</span> <span class="n">split</span>
+<span class="kn">from</span> <span class="nn">assests.codes.dt</span> <span class="kn">import</span> <span class="n">gini</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">countlabels</span>
 
 <span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
-<span class="n">Gl</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">Gr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Gl</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">Gr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">Gr</span><span class="p">)</span>
-<span class="n">r1</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">Gl</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [0],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [1],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;setosa&#39; &#39;versicolor&#39; &#39;virginica&#39;]
+[&#39;sepal length (cm)&#39;, &#39;sepal width (cm)&#39;, &#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;]
 </pre></div>
 </div>
 </div>
 </div>
+<p>Then we apply <code class="docutils literal notranslate"><span class="pre">split</span></code> to the dataset <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">Gl</span><span class="p">,</span> <span class="n">Gr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The left subset</span><span class="se">\&#39;</span><span class="s1">s Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Gl</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d:}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Gl</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The right subset</span><span class="se">\&#39;</span><span class="s1">s Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Gr</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Gr</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.4, 0.2],
-       [1.4, 0.2],
-       [1.3, 0.2],
-       [1.5, 0.2],
-       [1.4, 0.2],
-       [1.7, 0.4],
-       [1.4, 0.3],
-       [1.5, 0.2],
-       [1.4, 0.2],
-       [1.5, 0.1],
-       [1.5, 0.2],
-       [1.6, 0.2],
-       [1.4, 0.1],
-       [1.1, 0.1],
-       [1.2, 0.2],
-       [1.5, 0.4],
-       [1.3, 0.4],
-       [1.4, 0.3],
-       [1.7, 0.3],
-       [1.5, 0.3],
-       [1.7, 0.2],
-       [1.5, 0.4],
-       [1. , 0.2],
-       [1.7, 0.5],
-       [1.9, 0.2],
-       [1.6, 0.2],
-       [1.6, 0.4],
-       [1.5, 0.2],
-       [1.4, 0.2],
-       [1.6, 0.2],
-       [1.6, 0.2],
-       [1.5, 0.4],
-       [1.5, 0.1],
-       [1.4, 0.2],
-       [1.5, 0.2],
-       [1.2, 0.2],
-       [1.3, 0.2],
-       [1.4, 0.1],
-       [1.3, 0.2],
-       [1.5, 0.2],
-       [1.3, 0.3],
-       [1.3, 0.3],
-       [1.3, 0.2],
-       [1.6, 0.6],
-       [1.9, 0.4],
-       [1.4, 0.3],
-       [1.6, 0.2],
-       [1.4, 0.2],
-       [1.5, 0.2],
-       [1.4, 0.2],
-       [4.7, 1.4],
-       [4.5, 1.5],
-       [4.9, 1.5],
-       [4. , 1.3],
-       [4.6, 1.5],
-       [4.5, 1.3],
-       [4.7, 1.6],
-       [3.3, 1. ],
-       [4.6, 1.3],
-       [3.9, 1.4],
-       [3.5, 1. ],
-       [4.2, 1.5],
-       [4. , 1. ],
-       [4.7, 1.4],
-       [3.6, 1.3],
-       [4.4, 1.4],
-       [4.5, 1.5],
-       [4.1, 1. ],
-       [4.5, 1.5],
-       [3.9, 1.1],
-       [4.8, 1.8],
-       [4. , 1.3],
-       [4.9, 1.5],
-       [4.7, 1.2],
-       [4.3, 1.3],
-       [4.4, 1.4],
-       [4.8, 1.4],
-       [5. , 1.7],
-       [4.5, 1.5],
-       [3.5, 1. ],
-       [3.8, 1.1],
-       [3.7, 1. ],
-       [3.9, 1.2],
-       [5.1, 1.6],
-       [4.5, 1.5],
-       [4.5, 1.6],
-       [4.7, 1.5],
-       [4.4, 1.3],
-       [4.1, 1.3],
-       [4. , 1.3],
-       [4.4, 1.2],
-       [4.6, 1.4],
-       [4. , 1.2],
-       [3.3, 1. ],
-       [4.2, 1.3],
-       [4.2, 1.2],
-       [4.2, 1.3],
-       [4.3, 1.3],
-       [3. , 1.1],
-       [4.1, 1.3],
-       [6. , 2.5],
-       [5.1, 1.9],
-       [5.9, 2.1],
-       [5.6, 1.8],
-       [5.8, 2.2],
-       [6.6, 2.1],
-       [4.5, 1.7],
-       [6.3, 1.8],
-       [5.8, 1.8],
-       [6.1, 2.5],
-       [5.1, 2. ],
-       [5.3, 1.9],
-       [5.5, 2.1],
-       [5. , 2. ],
-       [5.1, 2.4],
-       [5.3, 2.3],
-       [5.5, 1.8],
-       [6.7, 2.2],
-       [6.9, 2.3],
-       [5. , 1.5],
-       [5.7, 2.3],
-       [4.9, 2. ],
-       [6.7, 2. ],
-       [4.9, 1.8],
-       [5.7, 2.1],
-       [6. , 1.8],
-       [4.8, 1.8],
-       [4.9, 1.8],
-       [5.6, 2.1],
-       [5.8, 1.6],
-       [6.1, 1.9],
-       [6.4, 2. ],
-       [5.6, 2.2],
-       [5.1, 1.5],
-       [5.6, 1.4],
-       [6.1, 2.3],
-       [5.6, 2.4],
-       [5.5, 1.8],
-       [4.8, 1.8],
-       [5.4, 2.1],
-       [5.6, 2.4],
-       [5.1, 2.3],
-       [5.1, 1.9],
-       [5.9, 2.3],
-       [5.7, 2.5],
-       [5.2, 2.3],
-       [5. , 1.9],
-       [5.2, 2. ],
-       [5.4, 2.3],
-       [5.1, 1.8]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 1.9)
+The left subset&#39;s Gini impurity is 0.00,  and its label counts is {0.0: 50}
+The right subset&#39;s Gini impurity is 0.50,  and its label counts is {1.0: 50, 2.0: 50}
 </pre></div>
 </div>
 </div>
 </div>
+<p>The results shows that <code class="docutils literal notranslate"><span class="pre">S</span></code> is splitted into two subsets based on the <code class="docutils literal notranslate"><span class="pre">0</span></code>-th feature and the split value is <code class="docutils literal notranslate"><span class="pre">1.9</span></code>.</p>
+<p>The left subset is already pure since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0</span></code>. All elements in the left subset is label <code class="docutils literal notranslate"><span class="pre">0</span></code> (which is <code class="docutils literal notranslate"><span class="pre">setosa</span></code>). The right one is mixed since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>. Therefore we need to apply <code class="docutils literal notranslate"><span class="pre">split</span></code> again to the right subset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">Gr</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">Grl</span><span class="p">,</span> <span class="n">Grr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The left subset</span><span class="se">\&#39;</span><span class="s1">s Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Grl</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d:}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Grl</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The right subset</span><span class="se">\&#39;</span><span class="s1">s Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Grr</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Grr</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1.7)
+The left subset&#39;s Gini impurity is 0.17,  and its label counts is {1.0: 49, 2.0: 5}
+The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 2.0: 45}
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time the subset is splitted into two more subsets based on the <code class="docutils literal notranslate"><span class="pre">1</span></code>-st feature and the split value is <code class="docutils literal notranslate"><span class="pre">1.7</span></code>. The total Gini impurity is minimized using this split.</p>
+<p>The decision we created so far can be described as follows:</p>
+<ol class="simple">
+<li><p>Check the first feature <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">length</span> <span class="pre">(cm)</span></code> to see whether it is smaller or equal to <code class="docutils literal notranslate"><span class="pre">1.9</span></code>.</p>
+<ol class="simple">
+<li><p>If it is, classify it as lable <code class="docutils literal notranslate"><span class="pre">0</span></code> which is <code class="docutils literal notranslate"><span class="pre">setosa</span></code>.</p></li>
+<li><p>If not, continue to the next stage.</p></li>
+</ol>
+</li>
+<li><p>Check the second feature <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">width</span> <span class="pre">(cm)</span></code> to see whether it is smaller or equal to <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
+<ol class="simple">
+<li><p>If it is, classify it as label <code class="docutils literal notranslate"><span class="pre">1</span></code> which is <code class="docutils literal notranslate"><span class="pre">versicolor</span></code>.</p></li>
+<li><p>If not, classify it as label <code class="docutils literal notranslate"><span class="pre">2</span></code> which is <code class="docutils literal notranslate"><span class="pre">virginica</span></code>.</p></li>
+</ol>
+</li>
+</ol>
 </section>
 
     <script type="text/x-thebe-config">

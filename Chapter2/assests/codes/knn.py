@@ -14,7 +14,7 @@ def encodeNorm(X, parameters=None):
     if parameters is None:
         minVals = np.min(X, axis=0)
         maxVals = np.max(X, axis=0)
-        ranges = maxVals - minVals
+        ranges = np.maximum(maxVals - minVals, np.ones(minVals.size))
         parameters = {'ranges': ranges, 'minVals': minVals}
     else:
         minVals = parameters['minVals']
@@ -61,15 +61,40 @@ def classify_kNN_test(inTest, outTest, X, y, k):
     return e/n
 
 
-def dataSplit(X, y, splitrate=.7):
-    N = len(X)
-    n = int(np.floor(N*splitrate))
-    index = list(range(N))
-    np.random.shuffle(index)
-    inTrain = index[:n]
-    inTest = index[n:]
-    X_train = X[inTrain]
-    y_train = y[inTrain]
-    X_test = X[inTest]
-    y_test = y[inTest]
-    return (X_train, y_train, X_test, y_test)
+# def dataSplit(X, y, splitrate=.7):
+#     N = len(X)
+#     n = int(np.floor(N*splitrate))
+#     index = list(range(N))
+#     np.random.shuffle(index)
+#     inTrain = index[:n]
+#     inTest = index[n:]
+#     X_train = X[inTrain]
+#     y_train = y[inTrain]
+#     X_test = X[inTest]
+#     y_test = y[inTest]
+#     return (X_train, y_train, X_test, y_test)
+
+
+
+# # %%
+# import time
+
+# def createDataSet():
+#     group = np.array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
+#     labels = ['A','A','B','B']
+#     return group, labels
+
+# # %%
+# inX = np.array([1, 0.9])
+# g, l = createDataSet()
+# N = 10000
+# t0 = time.time()
+# for i in range(N):
+#     classify_kNN(inX, g, l, 1)
+# print(time.time() - t0)
+
+# t0 = time.time()
+# for i in range(N):
+#     classify_kNN0(inX, g, l, 1)
+# print(time.time() - t0)
+# # %%

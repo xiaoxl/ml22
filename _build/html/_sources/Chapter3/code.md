@@ -19,7 +19,7 @@ It is not hard to see that the more pure the two subsets are the lower the cost 
         1. Split the dataset $S$ into two subsets, one with $k\leq t$ and one with $k>t$.
         2. Compute the cost function $J(k,t)$. 
         3. Compare it with the current smallest cost. If this split has smaller cost, replace the current smallest cost and pair with $(k, t)$.
-2. Return the smallest pair $(k,t_k)$.
+2. Return the pair $(k,t_k)$ that has the smallest cost function.
 ```
 
 We then use this split algorithm recursively to get the decision tree.
@@ -67,4 +67,17 @@ def split(G):
                'pair': pair,
                'sets': G}
     return res
+```
+
+For the purpose of counting labels, we also write a code to do so.
+
+```{code-block} python
+def countlabels(S):
+    uniqueLabelList = set([s[-1] for s in S])
+    labelCount = dict()
+    for label in uniqueLabelList:
+        labelCount[label] = 0
+    for row in S:
+        labelCount[row[-1]] += 1
+    return labelCount
 ```

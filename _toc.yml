@@ -18,13 +18,13 @@ chapters:
     title: k-NN
     sections:
       - file: Chapter2/knn.md
-      # - file: Chapter2/knnproj1.ipynb
-      # - file: Chapter2/knnproj2.ipynb
+      - file: Chapter2/knnproj1.ipynb
+      - file: Chapter2/knnproj2.ipynb
+      - file: Chapter2/knnproj3.ipynb
       - file: Chapter2/project.md
   - file: Chapter3/intro.md
     title: Decision Tree
     sections:
-      # - file: Chapter3/info.md
       - file: Chapter3/gini.md
       - file: Chapter3/code.md
       - file: Chapter3/dt.ipynb

@@ -21,12 +21,13 @@
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -38,7 +39,7 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -109,8 +110,8 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Chapter3/intro.html">
-   1. Decision Tree
+  <a class="reference internal" href="../Chapter1/intro.html">
+   1. Introduction
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -119,23 +120,110 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/info.html">
-     1.2. A little bit Infomation Theory
+    <a class="reference internal" href="../Chapter1/what.html">
+     1.1. What is Machine Learning?
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/data.html">
+     1.2. Basic setting for Machine learning problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/pynotebook.html">
+     1.3. Python quick guide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/project.html">
+     1.4. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter2/intro.html">
+   2. k-NN
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knn.html">
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj1.html">
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj2.html">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/project.html">
+     2.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter3/intro.html">
+   3. Decision Tree
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/gini.html">
-     1.3. Gini impurity
+     3.1. Gini impurity
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/code.html">
-     1.4. Algorithms
+     3.2. CART Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/dt.html">
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/project.html">
-     1.5. project
+     3.4. project
     </a>
    </li>
   </ul>

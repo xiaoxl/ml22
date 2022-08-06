@@ -1,122 +1,122 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Project 2: `MNIST` Handwritten recognition
+# # k-NN Project 2: Dating Classification
 # 
-# We would like to let the machine recognize handwritten digits. `MNIST` is a classical dataset that contains handwritten digits information. Now we apply kNN algrotithm to it.
-# 
-# ## Dataset description
-# Every dataset is stored as a $28\times28$ picture. We will transform them into a $28\times28$ matrix. Every entry represents a gray value of the corresponding pixel, whose value is from 0 to 255. The label of each matrix is the digit it represents.
+# The data can be downloaded from {Download}`here<./assests/datasets/datingTestSet2.txt>`.
 # 
 # 
+# ## Background
+# Helen dated several people and rated them using a three-point scale: 3 is best and 1 is worst. She also collected data from all her dates and recorded them in the file attached. These data contains 3 features:
+# 
+# - Number of frequent flyer miles earned per year
+# - Percentage of time spent playing video games
+# - Liters of ice cream consumed per week
+# 
+# We would like to predict her ratings of new dates when we are given the three features. 
+# 
+# The data contains four columns, while the first column refers to `Mileage`, the second `Gamingtime`, the third `Icecream` and the fourth `Rating`. 
+# 
+# ## Look at Data
+# 
+# We first load the data and store it into a DataFrame.
 
 # In[1]:
 
 
-import tensorflow as tf
-# import keras
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('./assests/datasets/datingTestSet2.txt', sep='\t', header=None)
+df.head()
 
 
-# In[9]:
+# To make it easier to read, we would like to change the name of the columns.
+
+# In[2]:
 
 
-from sklearn.neighbors import KNeighborsClassifier
-neigh = KNeighborsClassifier(n_neighbors=10, weights='distance',
-                             metric='euclidean', algorithm='brute')
-x_train.shape
+df = df.rename(columns={0: "Mileage", 1: "Gamingtime", 2: 'Icecream', 3: 'Rating'})
+df.head()
 
+
+# Since now we have more than 2 features, it is not suitable to directly draw scatter plots. We use `seaborn.pairplot` to look at the pairplot. From the below plots, before we apply any tricks, it seems that `Milegae` and `Gamingtime` are better than `Icecream` to classify the data points. 
+
+# In[3]:
+
+
+import seaborn as sns
+sns.pairplot(data=df, hue='Rating')
+
+
+# ## Applying kNN
+# 
+# Similar to the previous example, we will apply both methods for comparisons. 
 
 # In[4]:
 
 
-X_train_norm = tf.reshape(x_train, (x_train.shape[0], 28*28))
-X_test_norm = tf.reshape(x_test, (x_test.shape[0], 28*28))
+from sklearn.model_selection import train_test_split
+from assests.codes.knn import encodeNorm
+X = np.array(df[['Mileage', 'Gamingtime', 'Icecream']])
+y = np.array(df['Rating'])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+
+X_train_norm, parameters = encodeNorm(X_train)
+X_test_norm, _ = encodeNorm(X_test, parameters=parameters)
 
 
 # In[5]:
 
 
-import matplotlib.pyplot as plt
-plt.imshow(x_train[0])
+# Using our codes.
+from assests.codes.knn import classify_kNN
+
+n_neighbors = 10
+y_pred = np.array([classify_kNN(row, X_train_norm, y_train, k=n_neighbors)
+                   for row in X_test_norm])
+
+errorrate = np.mean(y_pred != y_test)
+print(errorrate)
 
 
 # In[6]:
 
 
-a = X_train_norm[0]
-b = tf.reshape(a, (28, 28))
+# Using sklearn.
+from sklearn.neighbors import KNeighborsClassifier
+n_neighbors = 10
+clf = KNeighborsClassifier(n_neighbors, weights="uniform", metric="euclidean",
+                           algorithm='brute')
+clf.fit(X_train_norm, y_train)
+y_pred_sk = clf.predict(X_test_norm)
+
+errorrate = np.mean(y_pred_sk != y_test)
+print(errorrate)
 
 
-# In[36]:
+# ## Choosing `k` Value
+# Similar to the previous section, we can run tests on `k` value to choose one to be used in our model.
+# 
+
+# In[7]:
 
 
-plt.imshow(b)
+import matplotlib.pyplot as plt
 
+minK = 1
+maxK = 80
+errorrate = list()
+for i in range(minK, maxK+1):
+    clf = KNeighborsClassifier(n_neighbors=i)
+    clf.fit(X_train_norm, y_train)
+    pred_i = clf.predict(X_test_norm)
+    errorrate.append(np.mean(pred_i != y_test))
 
-# In[10]:
-
-
-neigh.fit(X_train_norm, y_train)
-r2 = neigh.predict(X_test_norm)
-
-
-# In[8]:
-
-
-r2
-
-
-# In[39]:
-
-
-r2-y_test
-
-
-# In[40]:
-
-
-plt.plot(r2-y_test)
-
-
-# In[43]:
-
-
-max(r2)
-
-
-# In[ ]:
-
-
-y_test
-
-
-# In[ ]:
-
-
-rr = 0
-for i in range(len(r2)):
-    if r2[i] == y_test[i]:
-        rr = rr + 1
-pp = rr/len(r2)
-
-
-# In[11]:
-
-
-from knn import classify_kNN, dataSplit, classify_kNN_test, encodeNorm, decodeNorm
-import numpy as np
-classify_kNN_test(np.array(X_test_norm), y_test, np.array(X_train_norm), y_train, k=10)
-
-
-# In[12]:
-
-
-y_t = classify_kNN(X_test_norm, X_train_norm, y_test, k=10)
-
-
-# In[ ]:
-
-
-
+plt.plot(range(minK, maxK+1), errorrate)
+plt.title('Error Rate vs. K Value')
+plt.xlabel('K')
+plt.ylabel('Error Rate')
 

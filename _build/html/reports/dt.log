@@ -7,7 +7,7 @@ Traceback (most recent call last):
     return just_run(coro(*args, **kwargs))
   File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\util.py", line 62, in just_run
     return loop.run_until_complete(coro)
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\asyncio\base_events.py", line 646, in run_until_complete
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\asyncio\base_events.py", line 647, in run_until_complete
     return future.result()
   File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 663, in async_execute
     await self.async_execute_cell(
@@ -17,15 +17,25 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-Grl = r2['sets'][0]
-Grr = r2['sets'][1]
-Grl = 
+from graphviz import Digraph
+dot = Digraph()
+# Add nodes 1 and 2
+dot.node('1')
+dot.node('2')
+
+# Add edge between 1 and 2
+dot.edges(['12'])
+# Visualize the graph
+dot
 ------------------
 
-[1;36m  Input [1;32mIn [5][1;36m[0m
-[1;33m    Grl =[0m
-[1;37m          ^[0m
-[1;31mSyntaxError[0m[1;31m:[0m invalid syntax
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Input [1;32mIn [4][0m, in [0;36m<cell line: 1>[1;34m()[0m
+[1;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01mgraphviz[39;00m [38;5;28;01mimport[39;00m Digraph
+[0;32m      2[0m dot [38;5;241m=[39m Digraph()
+[0;32m      3[0m [38;5;66;03m# Add nodes 1 and 2[39;00m
 
-SyntaxError: invalid syntax (3030989893.py, line 3)
+[1;31mModuleNotFoundError[0m: No module named 'graphviz'
+ModuleNotFoundError: No module named 'graphviz'
 
