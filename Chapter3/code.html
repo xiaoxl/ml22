@@ -478,6 +478,17 @@ J(k, t_k)=\frac{m_l}mGini(S_l)+\frac{m_r}{m}Gini(S_r).
     <span class="k">return</span> <span class="n">res</span>
 </pre></div>
 </div>
+<p>For the purpose of counting labels, we also write a code to do so.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">countlabels</span><span class="p">(</span><span class="n">S</span><span class="p">):</span>
+    <span class="n">uniqueLabelList</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">])</span>
+    <span class="n">labelCount</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">uniqueLabelList</span><span class="p">:</span>
+        <span class="n">labelCount</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+        <span class="n">labelCount</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">labelCount</span>
+</pre></div>
+</div>
 </section>
 </section>
 

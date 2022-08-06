@@ -397,17 +397,27 @@ title="Print to PDF"
 <h1><span class="section-number">3.3. </span>Decision Tree Project 1: the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#decision-tree-project-1-the-iris-dataset" title="Permalink to this headline">#</a></h1>
 <p>We are going to use the Decision Tree model to study the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset. This dataset has already studied previously using k-NN. Again we will only use the first two features for visualization purpose.</p>
 <p>Since the dataset will be splitted, we will put <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> together as a single variable <code class="docutils literal notranslate"><span class="pre">S</span></code>. In this case when we split the dataset by selecting rows, the features and the labels are still paired correctly.</p>
+<p>We also print the labels and the feature names for our convenience.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">assests.codes.dt</span> <span class="kn">import</span> <span class="n">gini</span><span class="p">,</span> <span class="n">split</span>
+<span class="kn">from</span> <span class="nn">assests.codes.dt</span> <span class="kn">import</span> <span class="n">gini</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">countlabels</span>
 
 <span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;setosa&#39; &#39;versicolor&#39; &#39;virginica&#39;]
+[&#39;sepal length (cm)&#39;, &#39;sepal width (cm)&#39;, &#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;]
 </pre></div>
 </div>
 </div>
@@ -419,65 +429,83 @@ title="Print to PDF"
 <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">Gl</span><span class="p">,</span> <span class="n">Gr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">]</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Gl</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Gr</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The left subset</span><span class="se">\&#39;</span><span class="s1"> Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Gl</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d:}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Gl</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The right subset</span><span class="se">\&#39;</span><span class="s1"> Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Gr</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Gr</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 1.9)
-0.0
-0.5
+The left subset&#39; Gini impurity is 0.00,  and its label counts is {0.0: 50}
+The right subset&#39; Gini impurity is 0.50,  and its label counts is {1.0: 50, 2.0: 50}
 </pre></div>
 </div>
 </div>
 </div>
 <p>The results shows that <code class="docutils literal notranslate"><span class="pre">S</span></code> is splitted into two subsets based on the <code class="docutils literal notranslate"><span class="pre">0</span></code>-th feature and the split value is <code class="docutils literal notranslate"><span class="pre">1.9</span></code>.</p>
-<p>The left subset is already pure since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0</span></code>. The right one is mixed since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>. Therefore we need to apply <code class="docutils literal notranslate"><span class="pre">split</span></code> again to the right subset.</p>
+<p>The left subset is already pure since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0</span></code>. All elements in the left subset is label <code class="docutils literal notranslate"><span class="pre">0</span></code> (which is <code class="docutils literal notranslate"><span class="pre">setosa</span></code>). The right one is mixed since its Gini impurity is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>. Therefore we need to apply <code class="docutils literal notranslate"><span class="pre">split</span></code> again to the right subset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">Gr</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;split&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">Grl</span><span class="p">,</span> <span class="n">Grr</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;sets&#39;</span><span class="p">]</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;pair&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Grl</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">gini</span><span class="p">(</span><span class="n">Grr</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The left subset</span><span class="se">\&#39;</span><span class="s1"> Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Grl</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d:}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Grl</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The right subset</span><span class="se">\&#39;</span><span class="s1"> Gini impurity is </span><span class="si">{g:.2f}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">gini</span><span class="p">(</span><span class="n">Grr</span><span class="p">)),</span>
+          <span class="s1">&#39; and its label counts is </span><span class="si">{d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">countlabels</span><span class="p">(</span><span class="n">Grr</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1.7)
-0.1680384087791495
-0.04253308128544431
+The left subset&#39; Gini impurity is 0.17,  and its label counts is {1.0: 49, 2.0: 5}
+The right subset&#39; Gini impurity is 0.04,  and its label counts is {1.0: 1, 2.0: 45}
 </pre></div>
 </div>
 </div>
 </div>
-<p>This time the subset is splitted into two more subsets based on the <code class="docutils literal notranslate"><span class="pre">1</span></code>-st feature and the split value is <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
-<p>The total Gini impurity is minimized using this split.</p>
+<p>This time the subset is splitted into two more subsets based on the <code class="docutils literal notranslate"><span class="pre">1</span></code>-st feature and the split value is <code class="docutils literal notranslate"><span class="pre">1.7</span></code>. The total Gini impurity is minimized using this split.</p>
 <p>The decision we created so far can be described as follows:</p>
-<div class="exercise admonition" id="Chapter3/dt-exercise-0">
-
-<p class="admonition-title"><span class="caption-number">Exercise 3.1 </span></p>
-<section id="exercise-content">
-<p>dhahsd</p>
-</section>
-</div>
+<ol class="simple">
+<li><p>Check the first feature <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">length</span> <span class="pre">(cm)</span></code> to see whether it is smaller or equal to <code class="docutils literal notranslate"><span class="pre">1.9</span></code>.</p>
+<ol class="simple">
+<li><p>If it is, classify it as lable <code class="docutils literal notranslate"><span class="pre">0</span></code> which is <code class="docutils literal notranslate"><span class="pre">setosa</span></code>.</p></li>
+<li><p>If not, continue to the next stage.</p></li>
+</ol>
+</li>
+<li><p>Check the second feature <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">width</span> <span class="pre">(cm)</span></code> to see whether it is smaller or equal to <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
+<ol class="simple">
+<li><p>If it is, classify it as label <code class="docutils literal notranslate"><span class="pre">1</span></code> which is <code class="docutils literal notranslate"><span class="pre">versicolor</span></code>.</p></li>
+<li><p>If not, classify it as label <code class="docutils literal notranslate"><span class="pre">2</span></code> which is <code class="docutils literal notranslate"><span class="pre">virginica</span></code>.</p></li>
+</ol>
+</li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1.8.1&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;sepal length (cm)&#39;,
+ &#39;sepal width (cm)&#39;,
+ &#39;petal length (cm)&#39;,
+ &#39;petal width (cm)&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;], dtype=&#39;&lt;U10&#39;)
 </pre></div>
 </div>
 </div>

@@ -68,3 +68,16 @@ def split(G):
                'sets': G}
     return res
 ```
+
+For the purpose of counting labels, we also write a code to do so.
+
+```{code-block} python
+def countlabels(S):
+    uniqueLabelList = set([s[-1] for s in S])
+    labelCount = dict()
+    for label in uniqueLabelList:
+        labelCount[label] = 0
+    for row in S:
+        labelCount[row[-1]] += 1
+    return labelCount
+```
