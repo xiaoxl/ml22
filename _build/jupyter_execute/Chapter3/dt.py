@@ -157,7 +157,7 @@ print(df1sorted.equals(df2sorted))
 # So these two sets are really the same. The reason this happens can be seen from the following two graphs.
 # 
 
-# ![](assests/img/20220809120531.png) ![](assests/img/20220809122501.png)  
+# ![](assests/img/20220809120531.png) ![](assests/img/20220809122643.png)  
 
 # 
 # So you can see that either way can give us the same classification. This means that given one dataset the construction of the decision tree might be random at some points.
