@@ -638,8 +638,8 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 </div>
 <p>So these two sets are really the same. The reason this happens can be seen from the following two graphs.</p>
-<p><img alt="" src="../_images/20220809120531.png" /> <img alt="" src="../_images/20220809120550.png" /><br />
-So you can see that either way can give us the same classification. This means that given one dataset the construction of the decision tree might be random at some points.</p>
+<p><img alt="" src="../_images/20220809120531.png" /> <img alt="" src="../_images/20220809120550.png" /></p>
+<p>So you can see that either way can give us the same classification. This means that given one dataset the construction of the decision tree might be random at some points.</p>
 <p>Another difference is the split value of the second branch. In our case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code> and in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> case it is <code class="docutils literal notranslate"><span class="pre">1.75</span></code>. So after we get the right subset from the first split (which is called <code class="docutils literal notranslate"><span class="pre">dfr</span></code>), we would split it into two sets based on whether the second feature is above or below <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
