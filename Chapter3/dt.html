@@ -505,7 +505,7 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.4, 0.8333333333333334, &#39;X[1] &lt;= 0.8\ngini = 0.667\nsamples = 150\nvalue = [50, 50, 50]&#39;),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.4, 0.8333333333333334, &#39;X[0] &lt;= 2.45\ngini = 0.667\nsamples = 150\nvalue = [50, 50, 50]&#39;),
  Text(0.2, 0.5, &#39;gini = 0.0\nsamples = 50\nvalue = [50, 0, 0]&#39;),
  Text(0.6, 0.5, &#39;X[1] &lt;= 1.75\ngini = 0.5\nsamples = 100\nvalue = [0, 50, 50]&#39;),
  Text(0.4, 0.16666666666666666, &#39;gini = 0.168\nsamples = 54\nvalue = [0, 49, 5]&#39;),
@@ -611,11 +611,11 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </table>
 </div></div></div>
 </div>
-<p>Now based on our tree, we would like to get all data points that the first feature (which is marked as <code class="docutils literal notranslate"><span class="pre">0</span></code>) is smaller or equal to <code class="docutils literal notranslate"><span class="pre">1.9</span></code>. We save it as <code class="docutils literal notranslate"><span class="pre">df1</span></code>. Similarly based on the tree gotten from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, we would like to get all data points taht the first feature is smaller or equal to <code class="docutils literal notranslate"><span class="pre">2.45</span></code> and save it to <code class="docutils literal notranslate"><span class="pre">df2</span></code>.</p>
+<p>Now based on our tree, we would like to get all data points that the first feature (which is marked as <code class="docutils literal notranslate"><span class="pre">0</span></code>) is smaller or equal to <code class="docutils literal notranslate"><span class="pre">1.9</span></code>. We save it as <code class="docutils literal notranslate"><span class="pre">df1</span></code>. Similarly based on the tree gotten from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, we would like to get all data points taht the second feature (which is marked as <code class="docutils literal notranslate"><span class="pre">1</span></code>) is smaller or equal to <code class="docutils literal notranslate"><span class="pre">0.8</span></code> and save it to <code class="docutils literal notranslate"><span class="pre">df2</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">1.9</span><span class="p">]</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">2.45</span><span class="p">]</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">0.8</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -637,25 +637,30 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 </div>
 </div>
-<p>So why will there be such a difference? Let us explore a little more into it. Let us look at the two sets: the one with the first feature <code class="docutils literal notranslate"><span class="pre">&lt;=1.9</span></code> and the one with the first feature <code class="docutils literal notranslate"><span class="pre">&gt;1.9</span></code>. The former set is <code class="docutils literal notranslate"><span class="pre">df1</span></code>. Let us name the latter one <code class="docutils literal notranslate"><span class="pre">df1b</span></code>.</p>
-<p>Then we would like to see the biggest value of the first feature from <code class="docutils literal notranslate"><span class="pre">df1</span></code> and the smallest value of the first feature from <code class="docutils literal notranslate"><span class="pre">df1b</span></code>.</p>
+<p>So these two sets are really the same. The reason this happens can be seen from the following two graphs.
+<img alt="" src="../_images/20220809120531.png" /><br />
+<img alt="" src="../_images/20220809120550.png" /><br />
+So you can see that either way can give us the same classification. This means that given one dataset the construction of the decision tree might be random at some points.</p>
+<p>Another difference is the split value of the second branch. In our case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code> and in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> case it is <code class="docutils literal notranslate"><span class="pre">1.75</span></code>. So after we get the right subset from the first split (which is called <code class="docutils literal notranslate"><span class="pre">dfr</span></code>), we would split it into two sets based on whether the second feature is above or below <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1b</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">1.9</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df1b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">1.9</span><span class="p">]</span>
+<span class="n">df2a</span> <span class="o">=</span> <span class="n">dfr</span><span class="p">[</span><span class="n">dfr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">1.7</span><span class="p">]</span>
+<span class="n">df2b</span> <span class="o">=</span> <span class="n">dfr</span><span class="p">[</span><span class="n">dfr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">1.7</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df2b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df2a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.9
-3.0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.7
+1.8
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now you can see where the split number comes from. In our code, when we found a split, we will directly use that number as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">1.9</span></code>.</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, when it finds a split, the algorithm will go for the middle of the gap as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">(1.9+3.0)/2=2.45</span></code>. The same happens later when finding the second split.</p>
+<p>Now you can see where the split number comes from. In our code, when we found a split, we will directly use that number as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, when it finds a split, the algorithm will go for the middle of the gap as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">(1.7+1.8)/2=1.75</span></code>.</p>
 </section>
 
     <script type="text/x-thebe-config">
