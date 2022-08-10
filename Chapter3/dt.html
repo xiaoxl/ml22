@@ -369,12 +369,56 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-setup">
+   3.3.1. Initial setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply-cart-manually">
+   3.3.2. Apply CART manually
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-package-sklearn">
+   3.3.3. Use package
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     sklearn
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analyze-the-differences-between-the-two-methods">
+   3.3.4. Analyze the differences between the two methods
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -386,6 +430,39 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-setup">
+   3.3.1. Initial setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply-cart-manually">
+   3.3.2. Apply CART manually
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-package-sklearn">
+   3.3.3. Use package
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     sklearn
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analyze-the-differences-between-the-two-methods">
+   3.3.4. Analyze the differences between the two methods
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -396,6 +473,8 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="decision-tree-project-1-the-iris-dataset">
 <h1><span class="section-number">3.3. </span>Decision Tree Project 1: the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#decision-tree-project-1-the-iris-dataset" title="Permalink to this headline">#</a></h1>
 <p>We are going to use the Decision Tree model to study the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset. This dataset has already studied previously using k-NN. Again we will only use the first two features for visualization purpose.</p>
+<section id="initial-setup">
+<h2><span class="section-number">3.3.1. </span>Initial setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline">#</a></h2>
 <p>Since the dataset will be splitted, we will put <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> together as a single variable <code class="docutils literal notranslate"><span class="pre">S</span></code>. In this case when we split the dataset by selecting rows, the features and the labels are still paired correctly.</p>
 <p>We also print the labels and the feature names for our convenience.</p>
 <div class="cell docutils container">
@@ -422,7 +501,10 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>Then we apply <code class="docutils literal notranslate"><span class="pre">split</span></code> to the dataset <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
+</section>
+<section id="apply-cart-manually">
+<h2><span class="section-number">3.3.2. </span>Apply CART manually<a class="headerlink" href="#apply-cart-manually" title="Permalink to this headline">#</a></h2>
+<p>We apply <code class="docutils literal notranslate"><span class="pre">split</span></code> to the dataset <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
@@ -483,7 +565,10 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </ol>
 </li>
 </ol>
-<p>Now we would like to use the decision tree package provided by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>. The process is straightforward.</p>
+</section>
+<section id="use-package-sklearn">
+<h2><span class="section-number">3.3.3. </span>Use package <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#use-package-sklearn" title="Permalink to this headline">#</a></h2>
+<p>Now we would like to use the decision tree package provided by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>. The process is straightforward. The parameter <code class="docutils literal notranslate"><span class="pre">random_state=40</span></code> will be discussed later, and it is not necessary in most cases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
@@ -547,7 +632,10 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 <img alt="../_images/dt_11_0.png" src="../_images/dt_11_0.png" />
 </div>
 </div>
-<p>Note that the tree generated by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and the tree we got from our code is a little bit different. Let us explore the differences here.</p>
+</section>
+<section id="analyze-the-differences-between-the-two-methods">
+<h2><span class="section-number">3.3.4. </span>Analyze the differences between the two methods<a class="headerlink" href="#analyze-the-differences-between-the-two-methods" title="Permalink to this headline">#</a></h2>
+<p>The tree generated by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and the tree we got manually is a little bit different. Let us explore the differences here.</p>
 <p>To make it easier to split the set, we could convert the <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> to <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -638,11 +726,31 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 </div>
 <p>So these two sets are really the same. The reason this happens can be seen from the following two graphs.</p>
-<p><img alt="" src="../_images/20220809120531.png" /> <img alt="" src="../_images/20220809122643.png" /></p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row docutils">
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="id1">
+<img alt="../_images/20220809120531.png" src="../_images/20220809120531.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">From our code</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="id2">
+<img alt="../_images/20220809122643.png" src="../_images/20220809122643.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">From <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>So you can see that either way can give us the same classification. This means that given one dataset the construction of the decision tree might be random at some points.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Since the split is random, when using <code class="docutils literal notranslate"><span class="pre">sklearn.DecisionTreeClassifier</span></code> to construct decision trees, sometimes we might get the same tree as what we get from our naive codes.</p>
+<p>To illustrate this phenomenaon I need to set the random state in case it will generate the same tree as ours when I need it to generate a different tree. To set the random state, we just</p>
 </div>
 <p>Another difference is the split value of the second branch. In our case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code> and in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> case it is <code class="docutils literal notranslate"><span class="pre">1.75</span></code>. So after we get the right subset from the first split (which is called <code class="docutils literal notranslate"><span class="pre">dfr</span></code>), we would split it into two sets based on whether the second feature is above or below <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
 <div class="cell docutils container">
@@ -664,6 +772,7 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 <p>Now you can see where the split number comes from. In our code, when we found a split, we will directly use that number as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, when it finds a split, the algorithm will go for the middle of the gap as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">(1.7+1.8)/2=1.75</span></code>.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
