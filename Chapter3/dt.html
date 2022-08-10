@@ -579,7 +579,7 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </section>
 <section id="use-package-sklearn">
 <h2><span class="section-number">3.3.3. </span>Use package <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#use-package-sklearn" title="Permalink to this headline">#</a></h2>
-<p>Now we would like to use the decision tree package provided by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>. The process is straightforward. The parameter <code class="docutils literal notranslate"><span class="pre">random_state=40</span></code> will be discussed later, and it is not necessary in most cases.</p>
+<p>Now we would like to use the decision tree package provided by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>. The process is straightforward. The parameter <code class="docutils literal notranslate"><span class="pre">random_state=40</span></code> will be discussed <a class="reference internal" href="#note-random-state"><span class="std std-ref">later</span></a>, and it is not necessary in most cases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
@@ -758,7 +758,7 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 </div>
 <p>So you can see that either way can give us the same classification. This means that given one dataset the construction of the decision tree might be random at some points.</p>
-<div class="admonition note">
+<div class="admonition note" id="note-random-state">
 <p class="admonition-title">Note</p>
 <p>Since the split is random, when using <code class="docutils literal notranslate"><span class="pre">sklearn.DecisionTreeClassifier</span></code> to construct decision trees, sometimes we might get the same tree as what we get from our naive codes.</p>
 <p>To illustrate this phenomenaon I need to set the random state in case it will generate the same tree as ours when I need it to generate a different tree. The parameter <code class="docutils literal notranslate"><span class="pre">random_state=40</span></code> mentioned before is for this purpose.</p>
