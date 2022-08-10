@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3.4. project" href="project.html" />
+    <link rel="next" title="3.4. Decision Tree Project 2: make_moons dataset" href="dt2.html" />
     <link rel="prev" title="3.2. CART Algorithms" href="code.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -224,8 +224,19 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="dt2.html">
+     3.4. Decision Tree Project 2:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       make_moons
+      </span>
+     </code>
+     dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     3.4. project
+     3.5. project
     </a>
    </li>
   </ul>
@@ -750,7 +761,7 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Since the split is random, when using <code class="docutils literal notranslate"><span class="pre">sklearn.DecisionTreeClassifier</span></code> to construct decision trees, sometimes we might get the same tree as what we get from our naive codes.</p>
-<p>To illustrate this phenomenaon I need to set the random state in case it will generate the same tree as ours when I need it to generate a different tree. To set the random state, we just</p>
+<p>To illustrate this phenomenaon I need to set the random state in case it will generate the same tree as ours when I need it to generate a different tree. The parameter <code class="docutils literal notranslate"><span class="pre">random_state=40</span></code> mentioned before is for this purpose.</p>
 </div>
 <p>Another difference is the split value of the second branch. In our case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code> and in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> case it is <code class="docutils literal notranslate"><span class="pre">1.75</span></code>. So after we get the right subset from the first split (which is called <code class="docutils literal notranslate"><span class="pre">dfr</span></code>), we would split it into two sets based on whether the second feature is above or below <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
 <div class="cell docutils container">
@@ -809,10 +820,10 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
             <p class="prev-next-title"><span class="section-number">3.2. </span>CART Algorithms</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="project.html" title="next page">
+    <a class='right-next' id="next-link" href="dt2.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3.4. </span>project</p>
+        <p class="prev-next-title"><span class="section-number">3.4. </span>Decision Tree Project 2: <code class="docutils literal notranslate"><span class="pre">make_moons</span></code> dataset</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
