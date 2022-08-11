@@ -709,7 +709,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>After we fit the data, the <code class="docutils literal notranslate"><span class="pre">best_estimator_.get_params()</span></code> can be printed. It tells us that it is best to use <code class="docutils literal notranslate"><span class="pre">31</span></code> neibhours for our model. We can directly use it by calling <code class="docutils literal notranslate"><span class="pre">clf.best_estimator_</span></code>.</p>
+<p>After we fit the data, the <code class="docutils literal notranslate"><span class="pre">best_estimator_.get_params()</span></code> can be printed. It tells us that it is best to use <code class="docutils literal notranslate"><span class="pre">31</span></code> neibhours for our model. We can directly use the best estimator by calling <code class="docutils literal notranslate"><span class="pre">clf.best_estimator_</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cv_scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
