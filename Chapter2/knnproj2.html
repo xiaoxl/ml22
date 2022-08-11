@@ -192,44 +192,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Chapter3/intro.html">
-   3. Decision Tree
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/gini.html">
-     3.1. Gini impurity
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/code.html">
-     3.2. CART Algorithms
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/dt.html">
-     3.3. Decision Tree Project 1: the
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       iris
-      </span>
-     </code>
-     dataset
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/project.html">
-     3.4. project
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 
     </div>
@@ -647,14 +609,10 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\scipy\__init__.py:146: UserWarning: A NumPy version &gt;=1.16.5 and &lt;1.23.0 is required for this version of SciPy (detected version 1.23.1
-  warnings.warn(f&quot;A NumPy version &gt;={np_minversion} and &lt;{np_maxversion}&quot;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x16c514c6d30&gt;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x29b01723e50&gt;
-</pre></div>
-</div>
-<img alt="../_images/knnproj2_5_2.png" src="../_images/knnproj2_5_2.png" />
+<img alt="../_images/knnproj2_5_1.png" src="../_images/knnproj2_5_1.png" />
 </div>
 </div>
 </section>
@@ -668,7 +626,7 @@ title="Print to PDF"
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Mileage&#39;</span><span class="p">,</span> <span class="s1">&#39;Gamingtime&#39;</span><span class="p">,</span> <span class="s1">&#39;Icecream&#39;</span><span class="p">]])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rating&#39;</span><span class="p">])</span>
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 
 <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">X_test_norm</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">encodeNorm</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
@@ -685,13 +643,13 @@ title="Print to PDF"
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">classify_kNN</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">)</span>
                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">X_test_norm</span><span class="p">])</span>
 
-<span class="n">errorrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">errorrate</span><span class="p">)</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.05
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.93
 </pre></div>
 </div>
 </div>
@@ -699,20 +657,23 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using sklearn.</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
-                           <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;brute&#39;</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred_sk</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 
-<span class="n">errorrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred_sk</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">errorrate</span><span class="p">)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
+                                      <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;brute&#39;</span><span class="p">))]</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pipe</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pipe</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.93
 </pre></div>
 </div>
 </div>
@@ -720,32 +681,41 @@ title="Print to PDF"
 </section>
 <section id="choosing-k-value">
 <h2><span class="section-number">2.3.4. </span>Choosing <code class="docutils literal notranslate"><span class="pre">k</span></code> Value<a class="headerlink" href="#choosing-k-value" title="Permalink to this headline">#</a></h2>
-<p>Similar to the previous section, we can run tests on <code class="docutils literal notranslate"><span class="pre">k</span></code> value to choose one to be used in our model.</p>
+<p>Similar to the previous section, we can run tests on <code class="docutils literal notranslate"><span class="pre">k</span></code> value to choose one to be used in our model using <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">minK</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">maxK</span> <span class="o">=</span> <span class="mi">80</span>
-<span class="n">errorrate</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">minK</span><span class="p">,</span> <span class="n">maxK</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_norm</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">pred_i</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_norm</span><span class="p">)</span>
-    <span class="n">errorrate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pred_i</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">))</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">minK</span><span class="p">,</span> <span class="n">maxK</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">errorrate</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Error Rate vs. K Value&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error Rate&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="n">n_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">))</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">knn__n_neighbors</span><span class="o">=</span><span class="n">n_list</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;knn__n_neighbors&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Error Rate&#39;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
 </pre></div>
 </div>
-<img alt="../_images/knnproj2_11_1.png" src="../_images/knnproj2_11_1.png" />
+</div>
+</div>
+<p>From this result, in this case the best <code class="docutils literal notranslate"><span class="pre">k</span></code> is <code class="docutils literal notranslate"><span class="pre">4</span></code>. The corresponding cross-validation score is computed below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
+                                      <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;brute&#39;</span><span class="p">))]</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="n">cv_scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cv_scores</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.952
+</pre></div>
+</div>
 </div>
 </div>
 </section>
