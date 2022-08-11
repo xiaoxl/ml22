@@ -22,13 +22,14 @@ chapters:
       - file: Chapter2/knnproj2.ipynb
       - file: Chapter2/knnproj3.ipynb
       - file: Chapter2/project.md
-  - file: Chapter3/intro.md
-    title: Decision Tree
-    sections:
-      - file: Chapter3/gini.md
-      - file: Chapter3/code.md
-      - file: Chapter3/dt.ipynb
-      - file: Chapter3/project.md
+  # - file: Chapter3/intro.md
+  #   title: Decision Tree
+  #   sections:
+  #     - file: Chapter3/gini.md
+  #     - file: Chapter3/code.md
+  #     - file: Chapter3/dt.ipynb
+  #     - file: Chapter3/dt2.ipynb
+  #     - file: Chapter3/project.md
   # - file: Chapter4/intro.md
   #   title: Support Vector machine
   #   sections:

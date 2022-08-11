@@ -88,21 +88,25 @@ y_test_sample = y_test[0:N_sample]
 y_pred = np.array([classify_kNN(row, X_train_norm, y_train, k=n_neighbors)
                    for row in tqdm(X_test_sample)])
 
-errorrate = np.mean(y_pred != y_test_sample)
-print(errorrate)
+acc = np.mean(y_pred == y_test_sample)
+print(acc)
 
 
-# Now let us try to apply `sklearn` package. Note that we could run the code over the whole test set (which contains 10000 digits) and the speed is much faster comparing to our codes. 
+# Now let us try to apply `sklearn` package. Note that we could run the code over the whole test set (which contains 10000 digits) and the speed is much faster comparing to our codes. To save time we won't grid search `k` here. The code is the same anyway.
 
 # In[7]:
 
 
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import KNeighborsClassifier
-clf = KNeighborsClassifier(n_neighbors=10, weights='uniform',
-                           metric='euclidean', algorithm='brute')
-clf.fit(X_train_norm, y_train)
-y_pred_sk = clf.predict(X_test_norm)
+from sklearn.metrics import accuracy_score
 
-errorrate = np.mean(y_pred_sk != y_test)
-print(errorrate)
+steps = [('scaler', MinMaxScaler()),
+         ('knn', KNeighborsClassifier(n_neighbors, weights="uniform",
+                                      metric="euclidean", algorithm='brute'))]
+pipe = Pipeline(steps=steps)
+pipe.fit(X_train, y_train)
+y_pipe = pipe.predict(X_test)
+print(accuracy_score(y_pipe, y_test))
 

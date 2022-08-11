@@ -62,7 +62,7 @@ from assests.codes.knn import encodeNorm
 X = np.array(df[['Mileage', 'Gamingtime', 'Icecream']])
 y = np.array(df['Rating'])
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=40, stratify=y)
 
 X_train_norm, parameters = encodeNorm(X_train)
 X_test_norm, _ = encodeNorm(X_test, parameters=parameters)
@@ -78,45 +78,52 @@ n_neighbors = 10
 y_pred = np.array([classify_kNN(row, X_train_norm, y_train, k=n_neighbors)
                    for row in X_test_norm])
 
-errorrate = np.mean(y_pred != y_test)
-print(errorrate)
+acc = np.mean(y_pred == y_test)
+print(acc)
 
 
 # In[6]:
 
 
 # Using sklearn.
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import KNeighborsClassifier
-n_neighbors = 10
-clf = KNeighborsClassifier(n_neighbors, weights="uniform", metric="euclidean",
-                           algorithm='brute')
-clf.fit(X_train_norm, y_train)
-y_pred_sk = clf.predict(X_test_norm)
+from sklearn.metrics import accuracy_score
 
-errorrate = np.mean(y_pred_sk != y_test)
-print(errorrate)
+steps = [('scaler', MinMaxScaler()),
+         ('knn', KNeighborsClassifier(n_neighbors, weights="uniform",
+                                      metric="euclidean", algorithm='brute'))]
+pipe = Pipeline(steps=steps)
+pipe.fit(X_train, y_train)
+y_pipe = pipe.predict(X_test)
+print(accuracy_score(y_pipe, y_test))
 
 
 # ## Choosing `k` Value
-# Similar to the previous section, we can run tests on `k` value to choose one to be used in our model.
-# 
+# Similar to the previous section, we can run tests on `k` value to choose one to be used in our model using `GridSearchCV`.
 
 # In[7]:
 
 
-import matplotlib.pyplot as plt
+from sklearn.model_selection import GridSearchCV, cross_val_score
+n_list = list(range(1, 101))
+parameters = dict(knn__n_neighbors=n_list)
+clf = GridSearchCV(pipe, parameters)
+clf.fit(X, y)
+print(clf.best_estimator_.get_params()["knn__n_neighbors"])
 
-minK = 1
-maxK = 80
-errorrate = list()
-for i in range(minK, maxK+1):
-    clf = KNeighborsClassifier(n_neighbors=i)
-    clf.fit(X_train_norm, y_train)
-    pred_i = clf.predict(X_test_norm)
-    errorrate.append(np.mean(pred_i != y_test))
 
-plt.plot(range(minK, maxK+1), errorrate)
-plt.title('Error Rate vs. K Value')
-plt.xlabel('K')
-plt.ylabel('Error Rate')
+# From this result, in this case the best `k` is `4`. The corresponding cross-validation score is computed below.
+
+# In[8]:
+
+
+n_neighbors = 4
+steps = [('scaler', MinMaxScaler()),
+         ('knn', KNeighborsClassifier(n_neighbors, weights="uniform",
+                                      metric="euclidean", algorithm='brute'))]
+pipe = Pipeline(steps=steps)
+cv_scores = cross_val_score(pipe, X, y, cv=5)
+print(np.mean(cv_scores))
 

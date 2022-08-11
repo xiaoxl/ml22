@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3.4. project" href="project.html" />
+    <link rel="next" title="3.4. Decision Tree Project 2: make_moons dataset" href="dt2.html" />
     <link rel="prev" title="3.2. CART Algorithms" href="code.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -224,8 +224,19 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="dt2.html">
+     3.4. Decision Tree Project 2:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       make_moons
+      </span>
+     </code>
+     dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     3.4. project
+     3.5. project
     </a>
    </li>
   </ul>
@@ -369,12 +380,56 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-setup">
+   3.3.1. Initial setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply-cart-manually">
+   3.3.2. Apply CART manually
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-package-sklearn">
+   3.3.3. Use package
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     sklearn
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analyze-the-differences-between-the-two-methods">
+   3.3.4. Analyze the differences between the two methods
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -386,6 +441,39 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-setup">
+   3.3.1. Initial setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply-cart-manually">
+   3.3.2. Apply CART manually
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#use-package-sklearn">
+   3.3.3. Use package
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     sklearn
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analyze-the-differences-between-the-two-methods">
+   3.3.4. Analyze the differences between the two methods
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -396,6 +484,8 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="decision-tree-project-1-the-iris-dataset">
 <h1><span class="section-number">3.3. </span>Decision Tree Project 1: the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#decision-tree-project-1-the-iris-dataset" title="Permalink to this headline">#</a></h1>
 <p>We are going to use the Decision Tree model to study the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset. This dataset has already studied previously using k-NN. Again we will only use the first two features for visualization purpose.</p>
+<section id="initial-setup">
+<h2><span class="section-number">3.3.1. </span>Initial setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline">#</a></h2>
 <p>Since the dataset will be splitted, we will put <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> together as a single variable <code class="docutils literal notranslate"><span class="pre">S</span></code>. In this case when we split the dataset by selecting rows, the features and the labels are still paired correctly.</p>
 <p>We also print the labels and the feature names for our convenience.</p>
 <div class="cell docutils container">
@@ -422,7 +512,10 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>Then we apply <code class="docutils literal notranslate"><span class="pre">split</span></code> to the dataset <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
+</section>
+<section id="apply-cart-manually">
+<h2><span class="section-number">3.3.2. </span>Apply CART manually<a class="headerlink" href="#apply-cart-manually" title="Permalink to this headline">#</a></h2>
+<p>We apply <code class="docutils literal notranslate"><span class="pre">split</span></code> to the dataset <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
@@ -483,17 +576,20 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </ol>
 </li>
 </ol>
-<p>Now we would like to use the decision tree package provided by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>. The process is straightforward.</p>
+</section>
+<section id="use-package-sklearn">
+<h2><span class="section-number">3.3.3. </span>Use package <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#use-package-sklearn" title="Permalink to this headline">#</a></h2>
+<p>Now we would like to use the decision tree package provided by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>. The process is straightforward. The parameter <code class="docutils literal notranslate"><span class="pre">random_state=40</span></code> will be discussed <a class="reference internal" href="#note-random-state"><span class="std std-ref">later</span></a>, and it is not necessary in most cases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(max_depth=2)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">DecisionTreeClassifier</label><div class="sk-toggleable__content"><pre>DecisionTreeClassifier(max_depth=2)</pre></div></div></div></div></div></div></div>
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(max_depth=2, random_state=40)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">DecisionTreeClassifier</label><div class="sk-toggleable__content"><pre>DecisionTreeClassifier(max_depth=2, random_state=40)</pre></div></div></div></div></div></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provide a way to automatically generate the tree view of the decision tree. The code is as follows.</p>
 <div class="cell docutils container">
@@ -505,7 +601,7 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.4, 0.8333333333333334, &#39;X[0] &lt;= 2.45\ngini = 0.667\nsamples = 150\nvalue = [50, 50, 50]&#39;),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.4, 0.8333333333333334, &#39;X[1] &lt;= 0.8\ngini = 0.667\nsamples = 150\nvalue = [50, 50, 50]&#39;),
  Text(0.2, 0.5, &#39;gini = 0.0\nsamples = 50\nvalue = [50, 0, 0]&#39;),
  Text(0.6, 0.5, &#39;X[1] &lt;= 1.75\ngini = 0.5\nsamples = 100\nvalue = [0, 50, 50]&#39;),
  Text(0.4, 0.16666666666666666, &#39;gini = 0.168\nsamples = 54\nvalue = [0, 49, 5]&#39;),
@@ -547,7 +643,10 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 <img alt="../_images/dt_11_0.png" src="../_images/dt_11_0.png" />
 </div>
 </div>
-<p>Note that the tree generated by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and the tree we got from our code is a little bit different. Let us explore the differences here.</p>
+</section>
+<section id="analyze-the-differences-between-the-two-methods">
+<h2><span class="section-number">3.3.4. </span>Analyze the differences between the two methods<a class="headerlink" href="#analyze-the-differences-between-the-two-methods" title="Permalink to this headline">#</a></h2>
+<p>The tree generated by <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and the tree we got manually is a little bit different. Let us explore the differences here.</p>
 <p>To make it easier to split the set, we could convert the <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> to <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -638,11 +737,31 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 </div>
 <p>So these two sets are really the same. The reason this happens can be seen from the following two graphs.</p>
-<p><img alt="" src="../_images/20220809120531.png" /> <img alt="" src="../_images/20220809122643.png" /></p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row docutils">
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="id1">
+<img alt="../_images/20220809120531.png" src="../_images/20220809120531.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">From our code</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="id2">
+<img alt="../_images/20220809122643.png" src="../_images/20220809122643.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">From <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>So you can see that either way can give us the same classification. This means that given one dataset the construction of the decision tree might be random at some points.</p>
-<div class="admonition note">
+<div class="admonition note" id="note-random-state">
 <p class="admonition-title">Note</p>
 <p>Since the split is random, when using <code class="docutils literal notranslate"><span class="pre">sklearn.DecisionTreeClassifier</span></code> to construct decision trees, sometimes we might get the same tree as what we get from our naive codes.</p>
+<p>To illustrate this phenomenaon I need to set the random state in case it will generate the same tree as ours when I need it to generate a different tree. The parameter <code class="docutils literal notranslate"><span class="pre">random_state=40</span></code> mentioned before is for this purpose.</p>
 </div>
 <p>Another difference is the split value of the second branch. In our case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code> and in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> case it is <code class="docutils literal notranslate"><span class="pre">1.75</span></code>. So after we get the right subset from the first split (which is called <code class="docutils literal notranslate"><span class="pre">dfr</span></code>), we would split it into two sets based on whether the second feature is above or below <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
 <div class="cell docutils container">
@@ -664,6 +783,7 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
 </div>
 <p>Now you can see where the split number comes from. In our code, when we found a split, we will directly use that number as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">1.7</span></code>.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, when it finds a split, the algorithm will go for the middle of the gap as the cut. In this case it is <code class="docutils literal notranslate"><span class="pre">(1.7+1.8)/2=1.75</span></code>.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -700,10 +820,10 @@ The right subset&#39;s Gini impurity is 0.04,  and its label counts is {1.0: 1, 
             <p class="prev-next-title"><span class="section-number">3.2. </span>CART Algorithms</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="project.html" title="next page">
+    <a class='right-next' id="next-link" href="dt2.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3.4. </span>project</p>
+        <p class="prev-next-title"><span class="section-number">3.4. </span>Decision Tree Project 2: <code class="docutils literal notranslate"><span class="pre">make_moons</span></code> dataset</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
