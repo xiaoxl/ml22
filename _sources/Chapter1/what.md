@@ -50,3 +50,6 @@ There are a lot of other tasks that are not directly covered by these two, but t
 ```{note}
 In this course we will mainly focus on **Supervised Classification problems**.
 ```
+
+### Classification based on complexity
+Along with the popularity boost of deep neural network, there comes another classificaiton: shallow learning vs. deep learning. Basically all but deep neural network belongs to shallow learning. Although deep learning can do a lot of fancy stuffs, shallow learning is still very good in many cases. When the performance of a shallow learning model is good enough comparing to that of a deep learning model, people tend to use the shallow learning since it is usually faster, easier to understand and easier to modify.
