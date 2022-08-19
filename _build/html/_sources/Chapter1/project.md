@@ -21,7 +21,7 @@ Please set up a Python Notebook and start a new virtual environment and type `pr
 
 ## Basic Python 
 
-```{exercise} Hello world!
+```{exercise} Play with lists
 :label: ex1helloworld
 
 Please complete the following tasks.

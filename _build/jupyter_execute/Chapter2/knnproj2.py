@@ -119,11 +119,6 @@ print(clf.best_estimator_.get_params()["knn__n_neighbors"])
 # In[8]:
 
 
-n_neighbors = 4
-steps = [('scaler', MinMaxScaler()),
-         ('knn', KNeighborsClassifier(n_neighbors, weights="uniform",
-                                      metric="euclidean", algorithm='brute'))]
-pipe = Pipeline(steps=steps)
-cv_scores = cross_val_score(pipe, X, y, cv=5)
+cv_scores = cross_val_score(clf.best_estimator_, X, y, cv=5)
 print(np.mean(cv_scores))
 

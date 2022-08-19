@@ -103,3 +103,54 @@ for item in alist:
     print(item)
 ```
 
+
+### Reading files
+There are a lot of functions that can read files. The basic one is to read any files as a big string. After we get the string, we may parse it based on the structure of the data.
+
+The above process sounds complicated. That's why we have so many different functions reading files. Usually they focus on a certain types of files (e.g. spreadsheets, images, etc..), parse the data into a particular data structure for us to use later.
+
+I will mention a few examples.
+
+- `csv` files and `excel` files
+Both of them are spreadsheets format. Usually we use [`pandas.read_csv`](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) and [`pandas.read_excel`](https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html) both of which are from the package `pandas` to read these two types of files. 
+
+- images
+    Images can be treated as matrices, that each entry represents one pixel. If the image is black/white, it is represented by one matrix where each entry represents the gray value. If the image is colored, it is represented by three matrices where each entry represents one color. To use which three colors depends on the color map. `rgb` is a popular choice. 
+
+    In this course when we need to read images, we usually use [`matplotlib.pyplot.imread`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imread.html) from the package `matplotlib` or [`cv.imread`](https://docs.opencv.org/4.x/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56) from the package `opencv`.
+
+- `.json` files
+`.json` is a file format to store dictionary type of data. To read a `json` file and parse it as a dictionary, we need [`json.load`](https://docs.python.org/3/library/json.html#json.load) from the package `json`. 
+
+### Writing files
+
+- [`pandas.DataFrame.to_csv`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html)
+- [`pandas.DataFrame.to_excel`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html)
+- [`matplotlib.pyplot.imsave`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imsave.html)
+- [`cv.imwrite`](https://docs.opencv.org/3.4/d4/da8/group__imgcodecs.html#gabbc7ef1aa2edfaa87772f1202d67e0ce)
+- [`json.dump`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imsave.html)
+
+### Relative paths
+In this course, when reading and writing files, please keep all the files using relative paths. That is, only write the path starting from the working directory. 
+
+````{prf:example} 
+
+Consider the following tasks:
+
+1. Your working directory is `C:/Users/Xinli/projects/`.
+2. Want to read a file `D:/Files/example.csv`.
+3. Want to generate a file whose name is `result.csv` and put it in a subfoler named `foldername`.
+
+To do the tasks, don't directly run the code `pd.read_csv('D:/Files/example.csv')`. Instead you should first copy the file to your working directory `C:/Users/Xinli/projects/`, and then run the following code. 
+
+```{code-block} python
+import pandas as pd
+
+df = pd.read_csv('example.csv')
+df.to_csv('foldername/result.csv')
+```
+Please pay attention to how the paths are written.
+
+````
+
+

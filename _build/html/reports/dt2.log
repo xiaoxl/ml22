@@ -17,22 +17,14 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from sklearn.model_selection import GridSearchCV
-
-params = {'max_leaf_nodes': list(range(2, 100)), 'min_samples_split': [2, 3, 4]}
-grid_search_cv = GridSearchCV(DecisionTreeClassifier(random_state=42), params, verbose=1, cv=3)
-
-grid_search_cv.fit(X_train, y_train)
+y_p
 ------------------
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mNameError[0m                                 Traceback (most recent call last)
-Input [1;32mIn [3][0m, in [0;36m<cell line: 4>[1;34m()[0m
-[0;32m      1[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmodel_selection[39;00m [38;5;28;01mimport[39;00m GridSearchCV
-[0;32m      3[0m params [38;5;241m=[39m {[38;5;124m'[39m[38;5;124mmax_leaf_nodes[39m[38;5;124m'[39m: [38;5;28mlist[39m([38;5;28mrange[39m([38;5;241m2[39m, [38;5;241m100[39m)), [38;5;124m'[39m[38;5;124mmin_samples_split[39m[38;5;124m'[39m: [[38;5;241m2[39m, [38;5;241m3[39m, [38;5;241m4[39m]}
-[1;32m----> 4[0m grid_search_cv [38;5;241m=[39m GridSearchCV([43mDecisionTreeClassifier[49m(random_state[38;5;241m=[39m[38;5;241m42[39m), params, verbose[38;5;241m=[39m[38;5;241m1[39m, cv[38;5;241m=[39m[38;5;241m3[39m)
-[0;32m      6[0m grid_search_cv[38;5;241m.[39mfit(X_train, y_train)
+Input [1;32mIn [6][0m, in [0;36m<cell line: 1>[1;34m()[0m
+[1;32m----> 1[0m [43my_p[49m
 
-[1;31mNameError[0m: name 'DecisionTreeClassifier' is not defined
-NameError: name 'DecisionTreeClassifier' is not defined
+[1;31mNameError[0m: name 'y_p' is not defined
+NameError: name 'y_p' is not defined
 

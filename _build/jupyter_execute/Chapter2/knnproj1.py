@@ -208,18 +208,13 @@ clf.fit(X, y)
 print(clf.best_estimator_.get_params()["knn__n_neighbors"])
 
 
-# After we fit the data, the `best_estimator_.get_params()` can be printed. It tells us that it is best to use `31` neibhours for our model.
+# After we fit the data, the `best_estimator_.get_params()` can be printed. It tells us that it is best to use `31` neibhours for our model. We can directly use the best estimator by calling `clf.best_estimator_`.
 
 # In[12]:
 
 
-n_neighbors = 31
-steps = [('scaler', MinMaxScaler()),
-         ('knn', KNeighborsClassifier(n_neighbors, weights="uniform",
-                                      metric="euclidean", algorithm='brute'))]
-pipe = Pipeline(steps=steps)
-cv_scores = cross_val_score(pipe, X, y, cv=5)
+cv_scores = cross_val_score(clf.best_estimator_, X, y, cv=5)
 print(np.mean(cv_scores))
 
 
-# We may also find the cross-validation score using `k=31`. This serves as a benchmark score and we may come back to dataset using other methods and compare the scores.
+# The cross-validation score using `k=31` is calculated. This serves as a benchmark score and we may come back to dataset using other methods and compare the scores.
