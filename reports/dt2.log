@@ -17,22 +17,106 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from sklearn.model_selection import GridSearchCV
-
-params = {'max_leaf_nodes': list(range(2, 100)), 'min_samples_split': [2, 3, 4]}
-grid_search_cv = GridSearchCV(DecisionTreeClassifier(random_state=42), params, verbose=1, cv=3)
-
-grid_search_cv.fit(X_train, y_train)
+graph.render("iris") 
 ------------------
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mNameError[0m                                 Traceback (most recent call last)
-Input [1;32mIn [3][0m, in [0;36m<cell line: 4>[1;34m()[0m
-[0;32m      1[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmodel_selection[39;00m [38;5;28;01mimport[39;00m GridSearchCV
-[0;32m      3[0m params [38;5;241m=[39m {[38;5;124m'[39m[38;5;124mmax_leaf_nodes[39m[38;5;124m'[39m: [38;5;28mlist[39m([38;5;28mrange[39m([38;5;241m2[39m, [38;5;241m100[39m)), [38;5;124m'[39m[38;5;124mmin_samples_split[39m[38;5;124m'[39m: [[38;5;241m2[39m, [38;5;241m3[39m, [38;5;241m4[39m]}
-[1;32m----> 4[0m grid_search_cv [38;5;241m=[39m GridSearchCV([43mDecisionTreeClassifier[49m(random_state[38;5;241m=[39m[38;5;241m42[39m), params, verbose[38;5;241m=[39m[38;5;241m1[39m, cv[38;5;241m=[39m[38;5;241m3[39m)
-[0;32m      6[0m grid_search_cv[38;5;241m.[39mfit(X_train, y_train)
+[1;31mFileNotFoundError[0m                         Traceback (most recent call last)
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\graphviz\backend\execute.py:81[0m, in [0;36mrun_check[1;34m(cmd, input_lines, encoding, quiet, **kwargs)[0m
+[0;32m     80[0m     [38;5;28;01melse[39;00m:
+[1;32m---> 81[0m         proc [38;5;241m=[39m subprocess[38;5;241m.[39mrun(cmd, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m     82[0m [38;5;28;01mexcept[39;00m [38;5;167;01mOSError[39;00m [38;5;28;01mas[39;00m e:
 
-[1;31mNameError[0m: name 'DecisionTreeClassifier' is not defined
-NameError: name 'DecisionTreeClassifier' is not defined
+File [1;32m~\anaconda3\envs\ml22\lib\subprocess.py:505[0m, in [0;36mrun[1;34m(input, capture_output, timeout, check, *popenargs, **kwargs)[0m
+[0;32m    503[0m     kwargs[[38;5;124m'[39m[38;5;124mstderr[39m[38;5;124m'[39m] [38;5;241m=[39m PIPE
+[1;32m--> 505[0m [38;5;28;01mwith[39;00m Popen([38;5;241m*[39mpopenargs, [38;5;241m*[39m[38;5;241m*[39mkwargs) [38;5;28;01mas[39;00m process:
+[0;32m    506[0m     [38;5;28;01mtry[39;00m:
+
+File [1;32m~\anaconda3\envs\ml22\lib\subprocess.py:951[0m, in [0;36mPopen.__init__[1;34m(self, args, bufsize, executable, stdin, stdout, stderr, preexec_fn, close_fds, shell, cwd, env, universal_newlines, startupinfo, creationflags, restore_signals, start_new_session, pass_fds, user, group, extra_groups, encoding, errors, text, umask)[0m
+[0;32m    948[0m             [38;5;28mself[39m[38;5;241m.[39mstderr [38;5;241m=[39m io[38;5;241m.[39mTextIOWrapper([38;5;28mself[39m[38;5;241m.[39mstderr,
+[0;32m    949[0m                     encoding[38;5;241m=[39mencoding, errors[38;5;241m=[39merrors)
+[1;32m--> 951[0m     [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_execute_child[49m[43m([49m[43margs[49m[43m,[49m[43m [49m[43mexecutable[49m[43m,[49m[43m [49m[43mpreexec_fn[49m[43m,[49m[43m [49m[43mclose_fds[49m[43m,[49m
+[0;32m    952[0m [43m                        [49m[43mpass_fds[49m[43m,[49m[43m [49m[43mcwd[49m[43m,[49m[43m [49m[43menv[49m[43m,[49m
+[0;32m    953[0m [43m                        [49m[43mstartupinfo[49m[43m,[49m[43m [49m[43mcreationflags[49m[43m,[49m[43m [49m[43mshell[49m[43m,[49m
+[0;32m    954[0m [43m                        [49m[43mp2cread[49m[43m,[49m[43m [49m[43mp2cwrite[49m[43m,[49m
+[0;32m    955[0m [43m                        [49m[43mc2pread[49m[43m,[49m[43m [49m[43mc2pwrite[49m[43m,[49m
+[0;32m    956[0m [43m                        [49m[43merrread[49m[43m,[49m[43m [49m[43merrwrite[49m[43m,[49m
+[0;32m    957[0m [43m                        [49m[43mrestore_signals[49m[43m,[49m
+[0;32m    958[0m [43m                        [49m[43mgid[49m[43m,[49m[43m [49m[43mgids[49m[43m,[49m[43m [49m[43muid[49m[43m,[49m[43m [49m[43mumask[49m[43m,[49m
+[0;32m    959[0m [43m                        [49m[43mstart_new_session[49m[43m)[49m
+[0;32m    960[0m [38;5;28;01mexcept[39;00m:
+[0;32m    961[0m     [38;5;66;03m# Cleanup if the child failed starting.[39;00m
+
+File [1;32m~\anaconda3\envs\ml22\lib\subprocess.py:1420[0m, in [0;36mPopen._execute_child[1;34m(self, args, executable, preexec_fn, close_fds, pass_fds, cwd, env, startupinfo, creationflags, shell, p2cread, p2cwrite, c2pread, c2pwrite, errread, errwrite, unused_restore_signals, unused_gid, unused_gids, unused_uid, unused_umask, unused_start_new_session)[0m
+[0;32m   1419[0m [38;5;28;01mtry[39;00m:
+[1;32m-> 1420[0m     hp, ht, pid, tid [38;5;241m=[39m [43m_winapi[49m[38;5;241;43m.[39;49m[43mCreateProcess[49m[43m([49m[43mexecutable[49m[43m,[49m[43m [49m[43margs[49m[43m,[49m
+[0;32m   1421[0m [43m                             [49m[38;5;66;43;03m# no special security[39;49;00m
+[0;32m   1422[0m [43m                             [49m[38;5;28;43;01mNone[39;49;00m[43m,[49m[43m [49m[38;5;28;43;01mNone[39;49;00m[43m,[49m
+[0;32m   1423[0m [43m                             [49m[38;5;28;43mint[39;49m[43m([49m[38;5;129;43;01mnot[39;49;00m[43m [49m[43mclose_fds[49m[43m)[49m[43m,[49m
+[0;32m   1424[0m [43m                             [49m[43mcreationflags[49m[43m,[49m
+[0;32m   1425[0m [43m                             [49m[43menv[49m[43m,[49m
+[0;32m   1426[0m [43m                             [49m[43mcwd[49m[43m,[49m
+[0;32m   1427[0m [43m                             [49m[43mstartupinfo[49m[43m)[49m
+[0;32m   1428[0m [38;5;28;01mfinally[39;00m:
+[0;32m   1429[0m     [38;5;66;03m# Child is launched. Close the parent's copy of those pipe[39;00m
+[0;32m   1430[0m     [38;5;66;03m# handles that only the child should have open.  You need[39;00m
+[1;32m   (...)[0m
+[0;32m   1433[0m     [38;5;66;03m# pipe will not close when the child process exits and the[39;00m
+[0;32m   1434[0m     [38;5;66;03m# ReadFile will hang.[39;00m
+
+[1;31mFileNotFoundError[0m: [WinError 2] The system cannot find the file specified
+
+The above exception was the direct cause of the following exception:
+
+[1;31mExecutableNotFound[0m                        Traceback (most recent call last)
+Input [1;32mIn [13][0m, in [0;36m<cell line: 1>[1;34m()[0m
+[1;32m----> 1[0m [43mgraph[49m[38;5;241;43m.[39;49m[43mrender[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43miris[39;49m[38;5;124;43m"[39;49m[43m)[49m
+
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\graphviz\_tools.py:171[0m, in [0;36mdeprecate_positional_args.<locals>.decorator.<locals>.wrapper[1;34m(*args, **kwargs)[0m
+[0;32m    162[0m     wanted [38;5;241m=[39m [38;5;124m'[39m[38;5;124m, [39m[38;5;124m'[39m[38;5;241m.[39mjoin([38;5;124mf[39m[38;5;124m'[39m[38;5;132;01m{[39;00mname[38;5;132;01m}[39;00m[38;5;124m=[39m[38;5;132;01m{[39;00mvalue[38;5;132;01m!r}[39;00m[38;5;124m'[39m
+[0;32m    163[0m                        [38;5;28;01mfor[39;00m name, value [38;5;129;01min[39;00m deprecated[38;5;241m.[39mitems())
+[0;32m    164[0m     warnings[38;5;241m.[39mwarn([38;5;124mf[39m[38;5;124m'[39m[38;5;124mThe signature of [39m[38;5;132;01m{[39;00mfunc[38;5;241m.[39m[38;5;18m__name__[39m[38;5;132;01m}[39;00m[38;5;124m will be reduced[39m[38;5;124m'[39m
+[0;32m    165[0m                   [38;5;124mf[39m[38;5;124m'[39m[38;5;124m to [39m[38;5;132;01m{[39;00msupported_number[38;5;132;01m}[39;00m[38;5;124m positional args[39m[38;5;124m'[39m
+[0;32m    166[0m                   [38;5;124mf[39m[38;5;124m'[39m[38;5;124m [39m[38;5;132;01m{[39;00m[38;5;28mlist[39m(supported)[38;5;132;01m}[39;00m[38;5;124m: pass [39m[38;5;132;01m{[39;00mwanted[38;5;132;01m}[39;00m[38;5;124m'[39m
+[0;32m    167[0m                   [38;5;124m'[39m[38;5;124m as keyword arg(s)[39m[38;5;124m'[39m,
+[0;32m    168[0m                   stacklevel[38;5;241m=[39mstacklevel,
+[0;32m    169[0m                   category[38;5;241m=[39mcategory)
+[1;32m--> 171[0m [38;5;28;01mreturn[39;00m func([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\graphviz\rendering.py:122[0m, in [0;36mRender.render[1;34m(self, filename, directory, view, cleanup, format, renderer, formatter, neato_no_op, quiet, quiet_view, outfile, engine, raise_if_result_exists, overwrite_source)[0m
+[0;32m    118[0m filepath [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39msave(filename, directory[38;5;241m=[39mdirectory, skip_existing[38;5;241m=[39m[38;5;28;01mNone[39;00m)
+[0;32m    120[0m args[38;5;241m.[39mappend(filepath)
+[1;32m--> 122[0m rendered [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_render([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m    124[0m [38;5;28;01mif[39;00m cleanup:
+[0;32m    125[0m     log[38;5;241m.[39mdebug([38;5;124m'[39m[38;5;124mdelete [39m[38;5;132;01m%r[39;00m[38;5;124m'[39m, filepath)
+
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\graphviz\_tools.py:171[0m, in [0;36mdeprecate_positional_args.<locals>.decorator.<locals>.wrapper[1;34m(*args, **kwargs)[0m
+[0;32m    162[0m     wanted [38;5;241m=[39m [38;5;124m'[39m[38;5;124m, [39m[38;5;124m'[39m[38;5;241m.[39mjoin([38;5;124mf[39m[38;5;124m'[39m[38;5;132;01m{[39;00mname[38;5;132;01m}[39;00m[38;5;124m=[39m[38;5;132;01m{[39;00mvalue[38;5;132;01m!r}[39;00m[38;5;124m'[39m
+[0;32m    163[0m                        [38;5;28;01mfor[39;00m name, value [38;5;129;01min[39;00m deprecated[38;5;241m.[39mitems())
+[0;32m    164[0m     warnings[38;5;241m.[39mwarn([38;5;124mf[39m[38;5;124m'[39m[38;5;124mThe signature of [39m[38;5;132;01m{[39;00mfunc[38;5;241m.[39m[38;5;18m__name__[39m[38;5;132;01m}[39;00m[38;5;124m will be reduced[39m[38;5;124m'[39m
+[0;32m    165[0m                   [38;5;124mf[39m[38;5;124m'[39m[38;5;124m to [39m[38;5;132;01m{[39;00msupported_number[38;5;132;01m}[39;00m[38;5;124m positional args[39m[38;5;124m'[39m
+[0;32m    166[0m                   [38;5;124mf[39m[38;5;124m'[39m[38;5;124m [39m[38;5;132;01m{[39;00m[38;5;28mlist[39m(supported)[38;5;132;01m}[39;00m[38;5;124m: pass [39m[38;5;132;01m{[39;00mwanted[38;5;132;01m}[39;00m[38;5;124m'[39m
+[0;32m    167[0m                   [38;5;124m'[39m[38;5;124m as keyword arg(s)[39m[38;5;124m'[39m,
+[0;32m    168[0m                   stacklevel[38;5;241m=[39mstacklevel,
+[0;32m    169[0m                   category[38;5;241m=[39mcategory)
+[1;32m--> 171[0m [38;5;28;01mreturn[39;00m func([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\graphviz\backend\rendering.py:324[0m, in [0;36mrender[1;34m(engine, format, filepath, renderer, formatter, neato_no_op, quiet, outfile, raise_if_result_exists, overwrite_filepath)[0m
+[0;32m    320[0m     [38;5;28;01mraise[39;00m exceptions[38;5;241m.[39mFileExistsError([38;5;124mf[39m[38;5;124m'[39m[38;5;124moutput file exists: [39m[38;5;132;01m{[39;00mos[38;5;241m.[39mfspath(outfile)[38;5;132;01m!r}[39;00m[38;5;124m'[39m)
+[0;32m    322[0m cmd [38;5;241m+[39m[38;5;241m=[39m args
+[1;32m--> 324[0m [43mexecute[49m[38;5;241;43m.[39;49m[43mrun_check[49m[43m([49m[43mcmd[49m[43m,[49m
+[0;32m    325[0m [43m                  [49m[43mcwd[49m[38;5;241;43m=[39;49m[43mfilepath[49m[38;5;241;43m.[39;49m[43mparent[49m[43m [49m[38;5;28;43;01mif[39;49;00m[43m [49m[43mfilepath[49m[38;5;241;43m.[39;49m[43mparent[49m[38;5;241;43m.[39;49m[43mparts[49m[43m [49m[38;5;28;43;01melse[39;49;00m[43m [49m[38;5;28;43;01mNone[39;49;00m[43m,[49m
+[0;32m    326[0m [43m                  [49m[43mquiet[49m[38;5;241;43m=[39;49m[43mquiet[49m[43m,[49m
+[0;32m    327[0m [43m                  [49m[43mcapture_output[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[0;32m    329[0m [38;5;28;01mreturn[39;00m os[38;5;241m.[39mfspath(outfile)
+
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\graphviz\backend\execute.py:84[0m, in [0;36mrun_check[1;34m(cmd, input_lines, encoding, quiet, **kwargs)[0m
+[0;32m     82[0m [38;5;28;01mexcept[39;00m [38;5;167;01mOSError[39;00m [38;5;28;01mas[39;00m e:
+[0;32m     83[0m     [38;5;28;01mif[39;00m e[38;5;241m.[39merrno [38;5;241m==[39m errno[38;5;241m.[39mENOENT:
+[1;32m---> 84[0m         [38;5;28;01mraise[39;00m ExecutableNotFound(cmd) [38;5;28;01mfrom[39;00m [38;5;21;01me[39;00m
+[0;32m     85[0m     [38;5;28;01mraise[39;00m
+[0;32m     87[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m quiet [38;5;129;01mand[39;00m proc[38;5;241m.[39mstderr:
+
+[1;31mExecutableNotFound[0m: failed to execute WindowsPath('dot'), make sure the Graphviz executables are on your systems' PATH
+ExecutableNotFound: failed to execute WindowsPath('dot'), make sure the Graphviz executables are on your systems' PATH
 
