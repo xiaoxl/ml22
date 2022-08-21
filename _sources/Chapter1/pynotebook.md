@@ -162,7 +162,7 @@ Please pay attention to how the paths are written.
 
 ## Some additional topics
 
-### Virtual environment
+### Package management and Virtual environment
 
 - [`conda`](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
   - `conda create`
