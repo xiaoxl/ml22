@@ -160,6 +160,7 @@ Please pay attention to how the paths are written.
 - Get access to attributes and methods
 - Chaining dots.
 
+## Some additional topics
 
 ### Virtual environment
 
