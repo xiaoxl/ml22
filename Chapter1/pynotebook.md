@@ -154,3 +154,40 @@ Please pay attention to how the paths are written.
 ````
 
 
+### `.`
+
+- class and packages.
+- Get access to attributes and methods
+- Chaining dots.
+
+
+### Virtual environment
+
+- [`conda`](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+  - `conda create`
+    - `conda create --name myenv` 
+    - `conda create --name myenv python=3.9` 
+    - `conda create --name myenv --file spec-file.txt`
+  - `conda install`
+    - `conda install -c conda-forge numpy`
+  - `conda activate myenv`
+  - `conda list`
+    - `conda list numpy`
+    - `conda list --explicit > spec-file.txt`
+  - `conda env list`
+- `pip` / [`venv`](https://docs.python.org/3/library/venv.html)
+  - `python -m venv newenv`
+  - `newenv\Scripts\activate`
+  - `pip install`
+  - `pip freeze > requirements.txt`
+  - `pip install -r /path/to/requirements.txt`
+  - `deactivate`
+
+### Version Control
+
+- `Git`
+  - [Install](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+  - `git config --list`
+  - `git config --global user.name "My Name"`
+  - `git config --global user.email "myemail@example.com"`
+- `GitHub`
