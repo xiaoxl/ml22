@@ -87,8 +87,6 @@ y_pred_mode = y_pred_mode.reshape(y_pred_mode.size)
 accuracy_score(y_pred_mode, y_test)
 
 
-# 
-# 
 # ## Using `sklearn`
 # 
 # `sklearn` provides `BaggingClassifier` to directly perform bagging or pasting. The code is as follows.
@@ -118,11 +116,28 @@ y_pred_bag = bag_clf.predict(X_test)
 accuracy_score(y_pred_bag, y_test)
 
 
+# ## OOB score
+# When we use `bagging`, it is possible that some of the training data are not used. In this case, we could record which data are not used, and just use them as the test set, instead of providing extra data for test. The data that are not used is called *out-of-bag* instances, or *oob* for short. The accuracy over the oob data is called the oob score.
+# 
+# We could set `oob_score=True` to enable the function when creating a `BaggingClassifier`, and use `.oob_score_` to get the oob score after training. 
+
+# In[8]:
+
+
+bag_clf_oob = BaggingClassifier(DecisionTreeClassifier(),
+                                n_estimators=1000,
+                                max_samples=100,
+                                bootstrap=True,
+                                oob_score=True)
+bag_clf_oob.fit(X_train, y_train)
+bag_clf_oob.oob_score_
+
+
 # ## Random Forests
 # When the classifiers used in a bagging classifier are all Decision Trees, the bagging classifier is called a `random forest`. `sklearn` provide `RandomForestClassifier` class. It is almost the same as `BaggingClassifier` + `DecisionTreeClassifer`.
 # 
 
-# In[8]:
+# In[9]:
 
 
 from sklearn.ensemble import RandomForestClassifier
