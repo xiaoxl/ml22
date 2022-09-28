@@ -1,14 +1,11 @@
 import numpy as np
-
+import pandas as pd
 
 def gini(S):
-    n = len(S)
-    uniqueLabelList = set([s[-1] for s in S])
-    g = 1
-    for label in uniqueLabelList:
-        nl = len([s for s in S if s[-1] == label])
-        g = g - (nl/n)**2
-    return g
+    N = len(S)
+    y = S[:, -1].reshape(N)
+    gini = 1 - ((pd.Series(y).value_counts()/N)**2).sum()
+    return gini
 
 
 def split(G):
@@ -18,9 +15,9 @@ def split(G):
     if gini(G) != 0:
         numOffeatures = G.shape[1] - 1
         for k in range(numOffeatures):
-            for t in G[:, k]:
-                Gl = np.array([x for x in G if x[k] <= t])
-                Gr = np.array([x for x in G if x[k] > t])
+            for t in range(m):
+                Gl = G[G[:, k] <= G[t, k]]
+                Gr = G[G[:, k] > G[t, k]]
                 gl = gini(Gl)
                 gr = gini(Gr)
                 ml = Gl.shape[0]
@@ -28,7 +25,7 @@ def split(G):
                 g = gl*ml/m + gr*mr/m
                 if g < gmini:
                     gmini = g
-                    pair = (k, t)
+                    pair = (k, G[t, k])
                     Glm = Gl
                     Grm = Gr
         res = {'split': True,
@@ -42,10 +39,6 @@ def split(G):
 
 
 def countlabels(S):
-    uniqueLabelList = set([s[-1] for s in S])
-    labelCount = dict()
-    for label in uniqueLabelList:
-        labelCount[label] = 0
-    for row in S:
-        labelCount[row[-1]] += 1
+    y = S[:, -1].reshape(S.shape[0])
+    labelCount = dict(pd.Series(y).value_counts())
     return labelCount
