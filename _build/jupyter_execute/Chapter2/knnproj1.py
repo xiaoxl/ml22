@@ -24,6 +24,8 @@ y = iris.target
 # 
 # 
 # After we get the training set, we should also normalize it. All our normalization should be based on the training set. When we want to use our model on some new data points, we will use the same normalization parameters to normalize the data points in interests right before we apply the model. Here since we mainly care about the test set, we could normalize the test set at this stage.
+# 
+# Note that in the following code, I import functions `encodeNorm` from `assests.codes.knn`. You need to modify this part based on your file structure. See [here](section:applyourknn) for more details.
 
 # In[2]:
 
@@ -58,7 +60,8 @@ fig.legend(handles=scatter.legend_elements()[0], labels=labels,
 plt.show()
 
 
-# ## Apply our k-NN model
+# (section:applyourknn)=
+# ## Apply our k-NN model 
 # 
 # Now let us apply k-NN to this dataset. We first use our codes. Here I use `from assests.codes.knn` to import our functions since I put all our functions in `./assests/codes/knn.py`. Then the poential code is 
 # ```python

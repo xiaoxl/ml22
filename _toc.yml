@@ -29,19 +29,14 @@ chapters:
       - file: Chapter3/code.md
       - file: Chapter3/dt.ipynb
       - file: Chapter3/dt2.ipynb
-      - file: Chapter3/project.md
-  # - file: Chapter4/intro.md
-  #   title: Support Vector machine
-  #   sections:
-  #     - file: Chapter4/svm.md
-  #     - file: Chapter4/project.md
-  # - file: Chapter5/intro.md
-  #   title: Ensemble method 
-  #   sections:
-  #     - file: Chapter5/randomforest.md
-  #     - file: Chapter5/adaboost.md
-  #     - file: Chapter5/XGBoost.md
-  #     - file: Chapter5/project.md
+      - file: Chapter3/projects.ipynb
+  - file: Chapter4/intro.md
+    title: Ensemble methods
+    sections:
+      - file: Chapter4/randomforest.ipynb
+      - file: Chapter4/adaboost.md
+      - file: Chapter4/XGBoost.md
+      - file: Chapter4/project.md
   # - file: Chapter6/intro.md
   #   title: Regression
   #   sections:

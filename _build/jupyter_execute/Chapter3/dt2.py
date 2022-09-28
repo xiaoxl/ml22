@@ -108,9 +108,3 @@ DecisionBoundaryDisplay.from_estimator(
     response_method="predict"
 )
 
-
-# In[ ]:
-
-
-
-
