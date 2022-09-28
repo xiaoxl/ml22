@@ -460,8 +460,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#oob-score">
+   4.1.4. OOB score
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-forests">
-   4.1.4. Random Forests
+   4.1.5. Random Forests
   </a>
  </li>
 </ul>
@@ -504,8 +509,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#oob-score">
+   4.1.4. OOB score
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-forests">
-   4.1.4. Random Forests
+   4.1.5. Random Forests
   </a>
  </li>
 </ul>
@@ -584,7 +594,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7993666666666667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8073520000000001
 </pre></div>
 </div>
 </div>
@@ -608,7 +618,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.866
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8746666666666667
 </pre></div>
 </div>
 </div>
@@ -623,7 +633,7 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 
 <span class="n">bag_clf</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span>
-                            <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                            <span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
                             <span class="n">max_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                             <span class="n">bootstrap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -631,20 +641,66 @@ title="Print to PDF"
 </div>
 </div>
 <p>In the above code, <code class="docutils literal notranslate"><span class="pre">bag_clf</span></code> is a bagging classifier, made of 500 <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifer</span></code>s, and is trained over subsets of size <code class="docutils literal notranslate"><span class="pre">100</span></code>. The option <code class="docutils literal notranslate"><span class="pre">bootstrap=True</span></code> means that it is bagging. If you would like to use pasting, the option is <code class="docutils literal notranslate"><span class="pre">bootstrap=False</span></code>.</p>
-<p>This <code class="docutils literal notranslate"><span class="pre">bag_clf</span></code> also has <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> and <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> methods. It is used the same as our previous classifiers.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">bag_clf</span></code> also has <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> and <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> methods. It is used the same as our previous classifiers. Let us try the <code class="docutils literal notranslate"><span class="pre">make_moon</span></code> dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_bag</span> <span class="o">=</span> <span class="n">bag_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_bag</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.876
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="oob-score">
+<h2><span class="section-number">4.1.4. </span>OOB score<a class="headerlink" href="#oob-score" title="Permalink to this headline">#</a></h2>
+<p>When we use <code class="docutils literal notranslate"><span class="pre">bagging</span></code>, it is possible that some of the training data are not used. In this case, we could record which data are not used, and just use them as the test set, instead of providing extra data for test. The data that are not used is called <em>out-of-bag</em> instances, or <em>oob</em> for short. The accuracy over the oob data is called the oob score.</p>
+<p>We could set <code class="docutils literal notranslate"><span class="pre">oob_score=True</span></code> to enable the function when creating a <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code>, and use <code class="docutils literal notranslate"><span class="pre">.oob_score_</span></code> to get the oob score after training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag_clf_oob</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span>
+                                <span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                                <span class="n">max_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                <span class="n">bootstrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">bag_clf_oob</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">bag_clf_oob</span><span class="o">.</span><span class="n">oob_score_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8628235294117647
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="random-forests">
-<h2><span class="section-number">4.1.4. </span>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.1.5. </span>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h2>
 <p>When the classifiers used in a bagging classifier are all Decision Trees, the bagging classifier is called a <code class="docutils literal notranslate"><span class="pre">random</span> <span class="pre">forest</span></code>. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provide <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> class. It is almost the same as <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> + <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifer</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 
-<span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">rnd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_rnd</span> <span class="o">=</span> <span class="n">rnd_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_rnd</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8733333333333333
 </pre></div>
 </div>
 </div>
 </div>
+<p>When we use the Decision Tree as our base estimators, the class <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> provides more control over growing the random forest, with a certain optimizations. If you would like to use other estimators, then <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> should be used.</p>
 </section>
 </section>
 

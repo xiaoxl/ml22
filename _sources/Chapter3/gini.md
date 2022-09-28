@@ -83,13 +83,11 @@ To compute the Gini impurity, we
 The sample codes are listed below:
 
 ```{code-block} python
+import pandas as pd
 def gini(S):
-    n = len(S)
-    uniqueLabelList = set([s[-1] for s in S])
-    g = 1
-    for label in uniqueLabelList:
-        nl = len([s for s in S if s[-1] == label])
-        g = g - (nl/n)**2
-    return g
+    N = len(S)
+    y = S[:, -1].reshape(N)
+    gini = 1 - ((pd.Series(y).value_counts()/N)**2).sum()
+    return gini
 ```
 

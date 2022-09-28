@@ -39,24 +39,23 @@ Here are the sample codes.
 
 ```{code-block} python
 def split(G):
-    m = len(G)
+    m = G.shape[0]
     gmini = gini(G)
     pair = None
     if gini(G) != 0:
-        numOffeatures = len(G[0]) - 1
+        numOffeatures = G.shape[1] - 1
         for k in range(numOffeatures):
-            for j in range(m):
-                t = G[j][k]
-                Gl = [x for x in G if x[k]<=t]
-                Gr = [x for x in G if x[k]>t]
+            for t in range(m):
+                Gl = G[G[:, k] <= G[t, k]]
+                Gr = G[G[:, k] > G[t, k]]
                 gl = gini(Gl)
                 gr = gini(Gr)
-                ml = len(Gl)
-                mr = len(Gr)
+                ml = Gl.shape[0]
+                mr = Gr.shape[0]
                 g = gl*ml/m + gr*mr/m
                 if g < gmini:
                     gmini = g
-                    pair = (k, t)
+                    pair = (k, G[t, k])
                     Glm = Gl
                     Grm = Gr
         res = {'split': True,
@@ -73,11 +72,7 @@ For the purpose of counting labels, we also write a code to do so.
 
 ```{code-block} python
 def countlabels(S):
-    uniqueLabelList = set([s[-1] for s in S])
-    labelCount = dict()
-    for label in uniqueLabelList:
-        labelCount[label] = 0
-    for row in S:
-        labelCount[row[-1]] += 1
+    y = S[:, -1].reshape(S.shape[0])
+    labelCount = dict(pd.Series(y).value_counts())
     return labelCount
 ```
