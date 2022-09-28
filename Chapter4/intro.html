@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>introduction &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>4. Ensemble method &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,6 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.1. Random Forest" href="randomforest.html" />
+    <link rel="prev" title="3.5. Exercises and Projects" href="../Chapter3/projects.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -108,7 +110,7 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter1/intro.html">
    1. Introduction
@@ -233,8 +235,45 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/project.html">
-     3.5. project
+    <a class="reference internal" href="../Chapter3/projects.html">
+     3.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   4. Ensemble methods
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="randomforest.html">
+     4.1. Random Forest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="adaboost.html">
+     4.2.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       adaboost
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="XGBoost.html">
+     4.3. XGBoost
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="project.html">
+     4.4. project
     </a>
    </li>
   </ul>
@@ -361,7 +400,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>introduction</h1>
+                <h1>Ensemble method</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -373,8 +412,22 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ensemble-method">
+<h1><span class="section-number">4. </span>Ensemble method<a class="headerlink" href="#ensemble-method" title="Permalink to this headline">#</a></h1>
+<p>After we get some relatively simple classifiers, we might put them together to form a more complicated classifier. This type of method is called an ensemble method.</p>
+<p>There are mainly two ways to ensemble classifiers.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bagging</span></code>: This is also called <em>bootstrap aggregating</em>. The idea is</p>
+<ul>
+<li><p>First we randomly pick samples from the original dataset to form a bunch of new trainning datasets;</p></li>
+<li><p>Then we apply the same learning methods to those trainning datasets to get a bunch of classifiers;</p></li>
+<li><p>Finally apply all these classifiers to the data we are interested in and use the most frequent class as the result.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">boosting</span></code>: There are a bunch of classifiers. We assign weights to each of the classifiers and change the weights adaptively according to the results of the current combination.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -404,6 +457,20 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../Chapter3/projects.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">3.5. </span>Exercises and Projects</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="randomforest.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.1. </span>Random Forest</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
