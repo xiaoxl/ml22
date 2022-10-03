@@ -273,7 +273,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     4.4. project
+     4.4. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -468,6 +468,18 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#random-forests">
    4.1.5. Random Forests
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extra-trees">
+     4.1.5.1. Extra-trees
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gini-importance">
+     4.1.5.2. Gini importance
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -517,6 +529,18 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#random-forests">
    4.1.5. Random Forests
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extra-trees">
+     4.1.5.1. Extra-trees
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gini-importance">
+     4.1.5.2. Gini importance
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -594,7 +618,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7969913333333333
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.791466
 </pre></div>
 </div>
 </div>
@@ -618,7 +642,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.868
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8573333333333333
 </pre></div>
 </div>
 </div>
@@ -651,7 +675,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8686666666666667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8573333333333333
 </pre></div>
 </div>
 </div>
@@ -674,7 +698,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8642352941176471
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8667058823529412
 </pre></div>
 </div>
 </div>
@@ -695,12 +719,82 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8666666666666667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8526666666666667
 </pre></div>
 </div>
 </div>
 </div>
 <p>When we use the Decision Tree as our base estimators, the class <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> provides more control over growing the random forest, with a certain optimizations. If you would like to use other estimators, then <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> should be used.</p>
+<section id="extra-trees">
+<h3><span class="section-number">4.1.5.1. </span>Extra-trees<a class="headerlink" href="#extra-trees" title="Permalink to this headline">#</a></h3>
+<p>When growing a Decision Tree, our method is to search through all possible ways to find the best split point that get the lowest Gini impurity. Anohter method is to use a random split. Of course a random tree performs much worse, but if we use it to form a random forest, the voting system can help to increase the accuracy. On the other hand, random split is much faster than a regular Decision Tree.</p>
+<p>This type of forest is called <em>Extremely Randomized Trees</em>, or <em>Extra-Trees</em> for short. In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> there is an <code class="docutils literal notranslate"><span class="pre">ExtraTreesClassifier</span></code> to create such a classifier. It is hard to say which random forest is better beforehand. What we can do is to test and calculate the cross-validation scores (with grid search for hyperparameters tuning).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
+
+<span class="n">ext_clf</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">ext_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_rnd</span> <span class="o">=</span> <span class="n">ext_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_rnd</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.844
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the above example, <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> and <code class="docutils literal notranslate"><span class="pre">ExtraTreesClassifier</span></code> get similar accuracy. However from the code below, you will see that in this example <code class="docutils literal notranslate"><span class="pre">ExtraTreesClassifier</span></code> is much faster than <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">rnd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Random Frorest: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">ext_clf</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">ext_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Extremely Randomized Trees: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Frorest: 3.6363024711608887
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extremely Randomized Trees: 1.3532209396362305
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gini-importance">
+<h3><span class="section-number">4.1.5.2. </span>Gini importance<a class="headerlink" href="#gini-importance" title="Permalink to this headline">#</a></h3>
+<p>After training a Decision Tree, we could look at each node. Each split is against a feature, which decrease the Gini impurity the most. In other words, we could say that the feature is the most important during the split.</p>
+<p>Using the average Gini impurity decreased as a metric, we could measure the importance of each feature. This is called <em>Gini importance</em>. If the feature is useful, it tends to split mixed labeled nodes into pure single class nodes.</p>
+<p>In the case of random forest, since there are many trees, we might compute the weighted average of the Gini importance across all trees. The weight depends on how many times the feature is used in a specific node.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code>, we can directly get access to the Gini importance of each feature by <code class="docutils literal notranslate"><span class="pre">.feature_importance_</span></code>. Please see the following example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rnd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">rnd_clf</span><span class="o">.</span><span class="n">feature_importances_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43280032, 0.56719968])
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, you may see that the two features are relavely equally important, where the second feature is slightly more important since on average it decrease the Gini impurity a little bit more.</p>
+</section>
 </section>
 </section>
 
