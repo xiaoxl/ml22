@@ -1,1 +1,3 @@
-# Appendix
+.. appendix
+# Appendix :numbering-format:
+

@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.2. adaboost" href="adaboost.html" />
+    <link rel="next" title="4.2. AdaBoost" href="adaboost.html" />
     <link rel="prev" title="4. Ensemble method" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -235,7 +235,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/projects.html">
+    <a class="reference internal" href="../Chapter3/project.html">
      3.5. Exercises and Projects
     </a>
    </li>
@@ -261,7 +261,7 @@ const thebe_selector_output = ".output, .cell_output"
      4.2.
      <code class="docutils literal notranslate">
       <span class="pre">
-       adaboost
+       AdaBoost
       </span>
      </code>
     </a>
@@ -274,6 +274,23 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
      4.4. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   5. Appendix
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ChapterApp/datasets.html">
+     5.1. Datasets
     </a>
    </li>
   </ul>
@@ -618,7 +635,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.791466
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8033199999999999
 </pre></div>
 </div>
 </div>
@@ -642,7 +659,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8573333333333333
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8706666666666667
 </pre></div>
 </div>
 </div>
@@ -675,7 +692,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8573333333333333
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8706666666666667
 </pre></div>
 </div>
 </div>
@@ -698,7 +715,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8667058823529412
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8636470588235294
 </pre></div>
 </div>
 </div>
@@ -719,7 +736,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8526666666666667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8706666666666667
 </pre></div>
 </div>
 </div>
@@ -741,7 +758,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.844
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.864
 </pre></div>
 </div>
 </div>
@@ -765,10 +782,10 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Frorest: 3.6363024711608887
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Frorest: 10.134837627410889
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extremely Randomized Trees: 1.3532209396362305
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extremely Randomized Trees: 3.6392595767974854
 </pre></div>
 </div>
 </div>
@@ -788,7 +805,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43280032, 0.56719968])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43160866, 0.56839134])
 </pre></div>
 </div>
 </div>
@@ -835,7 +852,7 @@ title="Print to PDF"
     <a class='right-next' id="next-link" href="adaboost.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.2. </span><code class="docutils literal notranslate"><span class="pre">adaboost</span></code></p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code></p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
