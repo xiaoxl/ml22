@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4.4. project &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>4.4. Exercises and Projects &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,7 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="4.3. XGBoost" href="XGBoost.html" />
+    <link rel="next" title="5. Appendix :numbering-format:" href="../ChapterApp/intro.html" />
+    <link rel="prev" title="4.3. AdaBoost" href="adaboost.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -234,7 +235,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter3/projects.html">
+    <a class="reference internal" href="../Chapter3/project.html">
      3.5. Exercises and Projects
     </a>
    </li>
@@ -251,28 +252,45 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul class="current">
    <li class="toctree-l2">
+    <a class="reference internal" href="morevoting.html">
+     4.1. Voting machine
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="randomforest.html">
-     4.1. Random Forest
+     4.2. Bootstrap aggregating
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="adaboost.html">
-     4.2.
+     4.3.
      <code class="docutils literal notranslate">
       <span class="pre">
-       adaboost
+       AdaBoost
       </span>
      </code>
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="XGBoost.html">
-     4.3. XGBoost
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.4. project
+     4.4. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   5. Appendix
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ChapterApp/datasets.html">
+     5.1. Datasets
     </a>
    </li>
   </ul>
@@ -399,7 +417,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>project</h1>
+                <h1>Exercises and Projects</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -411,8 +429,51 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="project">
-<h1><span class="section-number">4.4. </span>project<a class="headerlink" href="#project" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercises-and-projects">
+<h1><span class="section-number">4.4. </span>Exercises and Projects<a class="headerlink" href="#exercises-and-projects" title="Permalink to this headline">#</a></h1>
+<div class="exercise admonition" id="Chapter4/project-exercise-0">
+
+<p class="admonition-title"><span class="caption-number">Exercise 4.1 </span></p>
+<section id="exercise-content">
+<p>CHOOSE ONE: Please apply the random forest to one of the following datasets.</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset.</p></li>
+<li><p>the dating dataset.</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">titanic</span></code> dataset.</p></li>
+</ul>
+<p>Please answer the following questions.</p>
+<ol class="simple">
+<li><p>Please use grid search to find the good <code class="docutils literal notranslate"><span class="pre">max_leaf_nodes</span></code> and <code class="docutils literal notranslate"><span class="pre">max_depth</span></code>.</p></li>
+<li><p>Please record the cross-validation score and the OOB score of your model and compare it with the models you learned before (kNN, Decision Trees).</p></li>
+<li><p>Please find some typical features (using the Gini importance) and draw the Decision Boundary against the features you choose.</p></li>
+</ol>
+</section>
+</div>
+<div class="exercise admonition" id="Chapter4/project-exercise-1">
+
+<p class="admonition-title"><span class="caption-number">Exercise 4.2 </span></p>
+<section id="exercise-content">
+<p>Please use the following code to get the <code class="docutils literal notranslate"><span class="pre">mgq</span></code> dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_gaussian_quantiles</span>
+
+<span class="n">X1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">make_gaussian_quantiles</span><span class="p">(</span><span class="n">cov</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                 <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">make_gaussian_quantiles</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">cov</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                                 <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">y1</span><span class="p">,</span> <span class="o">-</span><span class="n">y2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Please build an <code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code> model.</p>
+</section>
+</div>
+<div class="exercise admonition" id="Chapter4/project-exercise-2">
+
+<p class="admonition-title"><span class="caption-number">Exercise 4.3 </span></p>
+<section id="exercise-content">
+<p>Please use <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code>, <code class="docutils literal notranslate"><span class="pre">ExtraTreesClassifier</span></code> and <code class="docutils literal notranslate"><span class="pre">KNeighbourClassifier</span></code> to form a voting classifier, and apply to the <code class="docutils literal notranslate"><span class="pre">MNIST</span></code> dataset.</p>
+</section>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -442,12 +503,19 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="XGBoost.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="adaboost.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4.3. </span>XGBoost</p>
+            <p class="prev-next-title"><span class="section-number">4.3. </span><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code></p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="../ChapterApp/intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Appendix :numbering-format:</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

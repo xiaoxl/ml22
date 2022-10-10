@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Random Forest
-# 
-# ## Voting classifier
-# 
-# Assume that we have several trained classifiers. The easiest way to make a better classifer out of what we already have is to build a voting system. That is, each classifier give its own prediction, and it will be considered as a vote, and finally the highest vote will be the prediction of the system. 
-# 
+# # Bootstrap aggregating
 # 
 # ## Basic bagging
 # One approach to get many estimators is to use the same training algorithm for every predictor and train them on different random subsets of the training set. When sampling is performed with replacement, this method is called *bagging* (short for *bootstrap aggregating*). When sampling is performed without replacement, it is called *pasting*.
@@ -149,3 +144,59 @@ accuracy_score(y_pred_rnd, y_test)
 
 
 # When we use the Decision Tree as our base estimators, the class `RandomForestClassifier` provides more control over growing the random forest, with a certain optimizations. If you would like to use other estimators, then `BaggingClassifier` should be used.
+# 
+# 
+# 
+# ### Extra-trees
+# When growing a Decision Tree, our method is to search through all possible ways to find the best split point that get the lowest Gini impurity. Anohter method is to use a random split. Of course a random tree performs much worse, but if we use it to form a random forest, the voting system can help to increase the accuracy. On the other hand, random split is much faster than a regular Decision Tree.
+# 
+# This type of forest is called *Extremely Randomized Trees*, or *Extra-Trees* for short. In `sklearn` there is an `ExtraTreesClassifier` to create such a classifier. It is hard to say which random forest is better beforehand. What we can do is to test and calculate the cross-validation scores (with grid search for hyperparameters tuning).
+
+# In[10]:
+
+
+from sklearn.ensemble import ExtraTreesClassifier
+
+ext_clf = ExtraTreesClassifier(n_estimators=1000, max_leaf_nodes=17)
+ext_clf.fit(X_train, y_train)
+y_pred_rnd = ext_clf.predict(X_test)
+accuracy_score(y_pred_rnd, y_test)
+
+
+# In the above example, `RandomForestClassifier` and `ExtraTreesClassifier` get similar accuracy. However from the code below, you will see that in this example `ExtraTreesClassifier` is much faster than `RandomForestClassifier`.
+
+# In[11]:
+
+
+from time import time
+t0 = time()
+rnd_clf = RandomForestClassifier(n_estimators=1000, max_leaf_nodes=17)
+rnd_clf.fit(X_train, y_train)
+t1 = time()
+print('Random Frorest: {}'.format(t1 - t0))
+
+t0 = time()
+ext_clf = ExtraTreesClassifier(n_estimators=1000, max_leaf_nodes=17)
+ext_clf.fit(X_train, y_train)
+t1 = time()
+print('Extremely Randomized Trees: {}'.format(t1 - t0))
+
+
+# 
+# ### Gini importance
+# After training a Decision Tree, we could look at each node. Each split is against a feature, which decrease the Gini impurity the most. In other words, we could say that the feature is the most important during the split.
+# 
+# Using the average Gini impurity decreased as a metric, we could measure the importance of each feature. This is called *Gini importance*. If the feature is useful, it tends to split mixed labeled nodes into pure single class nodes. 
+# 
+# In the case of random forest, since there are many trees, we might compute the weighted average of the Gini importance across all trees. The weight depends on how many times the feature is used in a specific node.
+# 
+# Using `RandomForestClassifier`, we can directly get access to the Gini importance of each feature by `.feature_importance_`. Please see the following example.
+
+# In[12]:
+
+
+rnd_clf.fit(X_train, y_train)
+rnd_clf.feature_importances_
+
+
+# In this example, you may see that the two features are relavely equally important, where the second feature is slightly more important since on average it decrease the Gini impurity a little bit more.

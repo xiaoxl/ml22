@@ -1,8 +1,8 @@
-# Ensemble method
+# Ensemble methods
 
-After we get some relatively simple classifiers, we might put them together to form a more complicated classifier. This type of method is called an ensemble method. 
+After we get some relatively simple classifiers (sometimes also called *weak classifiers*), we might put them together to form a more complicated classifier. This type of methods is called an *ensemble method*. The basic way to ``ensemble'' classifiers together to through the voting machine.
 
-There are mainly two ways to ensemble classifiers.
+There are mainly two ways to generate many classifiers.
 
 - `bagging`: This is also called *bootstrap aggregating*. The idea is 
   - First we randomly pick samples from the original dataset to form a bunch of new trainning datasets;

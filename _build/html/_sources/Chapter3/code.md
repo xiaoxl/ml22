@@ -71,6 +71,7 @@ def split(G):
 For the purpose of counting labels, we also write a code to do so.
 
 ```{code-block} python
+import pandas as pd
 def countlabels(S):
     y = S[:, -1].reshape(S.shape[0])
     labelCount = dict(pd.Series(y).value_counts())

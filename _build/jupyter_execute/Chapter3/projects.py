@@ -34,8 +34,18 @@ _ = plt.xlim(0, 1)
 _ = plt.ylim(0, 1)
 
 
-# In[ ]:
-
-
-
-
+# ```{exercise}
+# Please apply the Decision Tree to the dating dataset (in Chpater 2). Please answer the following questions.
+# 1. Please use grid search to find the good `max_leaf_nodes` and `max_depth`.
+# 2. Please record the accuracy (or cross-validation score) of your model and compare it with the models you learned before (kNN). 
+# 3. Please find some typical features and draw the Decision Boundary against the features you choose.
+# ```
+# 
+# 
+# ```{exercise}
+# Please apply the Decision Tree to the `titanic` dataset. Please answer the following questions.
+# 1. Please use grid search to find the good `max_leaf_nodes` and `max_depth`.
+# 2. Please record the accuracy (or cross-validation score) of your model and compare it with the models you learned before (kNN). 
+# 3. Please find some typical features and draw the Decision Boundary against the features you choose.
+# ```
+# 

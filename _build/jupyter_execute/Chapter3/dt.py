@@ -111,17 +111,7 @@ DecisionBoundaryDisplay.from_estimator(
 )
 
 # Plot the training points
-for i, color in zip(range(3), 'ryb'):
-    idx = np.where(y == i)
-    plt.scatter(
-        X[idx, 0],
-        X[idx, 1],
-        c=color,
-        label=iris.target_names[i],
-        cmap='ryb',
-        edgecolor="black",
-        s=15,
-        )
+plt.scatter(X[:, 0], X[:, 1], c=y, s=15)
 
 
 # ## Analyze the differences between the two methods
