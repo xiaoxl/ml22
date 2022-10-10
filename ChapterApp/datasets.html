@@ -828,28 +828,6 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>Then we would like to transform the data. Here are the rules.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Endophyte</span></code>: <code class="docutils literal notranslate"><span class="pre">I+</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">I-</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">-1</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Treatment</span></code>: <code class="docutils literal notranslate"><span class="pre">Salt</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">Fresh</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Tree_Replicate</span></code>: <code class="docutils literal notranslate"><span class="pre">T1</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">T2</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">T3</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">3</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Outcome_after</span> <span class="pre">12</span> <span class="pre">months</span></code>: <code class="docutils literal notranslate"><span class="pre">survived</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">dead</span></code>-&gt;0</p></li>
-</ul>
-<p>Column <code class="docutils literal notranslate"><span class="pre">SN</span></code> will be dropped.</p>
-<p>Finally we put these together to get the features <code class="docutils literal notranslate"><span class="pre">X</span></code> and the label <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Endophyte &#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Endophyte &#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;I+&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;I-&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Treatment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Treatment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;Fresh&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Salt&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tree_Replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tree_Replicate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Outcome_after 12 months&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Outcome_after 12 months&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;survived&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;dead&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Outcome_after 12 months&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 
