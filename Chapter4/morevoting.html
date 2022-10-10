@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4.4. Gradient Boost &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>4.1. Voting machine &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,8 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.5. Exercises and Projects" href="project.html" />
-    <link rel="prev" title="4.3. AdaBoost" href="adaboost.html" />
+    <link rel="next" title="4.2. Bootstrap aggregating" href="randomforest.html" />
+    <link rel="prev" title="4. Ensemble methods" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -251,8 +251,8 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="morevoting.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      4.1. Voting machine
     </a>
    </li>
@@ -271,8 +271,8 @@ const thebe_selector_output = ".output, .cell_output"
      </code>
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="XGBoost.html">
      4.4. Gradient Boost
     </a>
    </li>
@@ -359,7 +359,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/xiaoxl/ml22/master?urlpath=tree/docs/Chapter4/XGBoost.ipynb"
+        <a href="https://mybinder.org/v2/gh/xiaoxl/ml22/master?urlpath=tree/docs/Chapter4/morevoting.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -402,7 +402,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/Chapter4/XGBoost.ipynb"
+        <a href="../_sources/Chapter4/morevoting.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -462,18 +462,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#basic-gradient-boosting">
-   4.4.1. Basic Gradient Boosting
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#desciption-of-the-algorithm">
-   4.4.2. Desciption of the algorithm
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#xgboost">
-   4.4.3. XGBoost
+  <a class="reference internal nav-link" href="#voting-classifier">
+   4.1.1. Voting classifier
   </a>
  </li>
 </ul>
@@ -485,7 +475,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Gradient Boost</h1>
+                <h1>Voting machine</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -496,18 +486,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#basic-gradient-boosting">
-   4.4.1. Basic Gradient Boosting
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#desciption-of-the-algorithm">
-   4.4.2. Desciption of the algorithm
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#xgboost">
-   4.4.3. XGBoost
+  <a class="reference internal nav-link" href="#voting-classifier">
+   4.1.1. Voting classifier
   </a>
  </li>
 </ul>
@@ -520,29 +500,120 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="gradient-boost">
-<h1><span class="section-number">4.4. </span>Gradient Boost<a class="headerlink" href="#gradient-boost" title="Permalink to this headline">#</a></h1>
-<section id="basic-gradient-boosting">
-<h2><span class="section-number">4.4.1. </span>Basic Gradient Boosting<a class="headerlink" href="#basic-gradient-boosting" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code> as an algorithm to emphasize on the wrong answers by increasing the weights of wrong answers. Gradient Boost is to directly train the model over the differnce between the predicted answers and the labels. When the base classifier is a Decision Tree, the resulted model is called <em>Gradient Boosted Decision Trees</em>, or <code class="docutils literal notranslate"><span class="pre">GBDT</span></code> for short.</p>
-<p>The basic idea of <code class="docutils literal notranslate"><span class="pre">GBDT</span></code> is to do regression, that the expected outcomes are continuous numbers. However when you set the class names to be numbers, and intrept the outcome of the model as the probability to be belong to the class, <code class="docutils literal notranslate"><span class="pre">GBDT</span></code> can also be used in classification problems.</p>
-</section>
-<section id="desciption-of-the-algorithm">
-<h2><span class="section-number">4.4.2. </span>Desciption of the algorithm<a class="headerlink" href="#desciption-of-the-algorithm" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="xgboost">
-<h2><span class="section-number">4.4.3. </span>XGBoost<a class="headerlink" href="#xgboost" title="Permalink to this headline">#</a></h2>
-<p><a class="reference external" href="https://machinelearningmastery.com/gentle-introduction-xgboost-applied-machine-learning/">https://machinelearningmastery.com/gentle-introduction-xgboost-applied-machine-learning/</a></p>
-<p>XGBoost is an algorithm that has recently been dominating applied machine learning and Kaggle competitions for structured or tabular data.</p>
-<p>XGBoost is an implementation of gradient boosted decision trees designed for speed and performance.</p>
-<p>In this post you will discover XGBoost and get a gentle introduction to what is, where it came from and how you can learn more.</p>
-<p>After reading this post you will know:</p>
-<ul class="simple">
-<li><p>What XGBoost is and the goals of the project.</p></li>
-<li><p>Why XGBoost must be a part of your machine learning toolkit.</p></li>
-<li><p>Where you can learn more to start using XGBoost on your next machine learning project.</p></li>
-</ul>
-<p>Let’s start by briefly reviewing ensemble learning. Like the name suggests, ensemble learning involves building a strong model by using a collection (or “ensemble”) of “weaker” models.  Gradient boosting falls under the category of boosting methods, which iteratively learn from each of the weak learners to build a strong model. It can optimize:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="voting-machine">
+<h1><span class="section-number">4.1. </span>Voting machine<a class="headerlink" href="#voting-machine" title="Permalink to this headline">#</a></h1>
+<section id="voting-classifier">
+<h2><span class="section-number">4.1.1. </span>Voting classifier<a class="headerlink" href="#voting-classifier" title="Permalink to this headline">#</a></h2>
+<p>Assume that we have several trained classifiers. The easiest way to make a better classifer out of what we already have is to build a voting system. That is, each classifier give its own prediction, and it will be considered as a vote, and finally the highest vote will be the prediction of the system.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>, you may use <code class="docutils literal notranslate"><span class="pre">VotingClassifier</span></code>. It works as follows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">VotingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="n">clfs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">voting_clf</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="o">=</span><span class="n">clfs</span><span class="p">,</span> <span class="n">voting</span><span class="o">=</span><span class="s1">&#39;hard&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>All classifiers are stored in the list <code class="docutils literal notranslate"><span class="pre">clfs</span></code>, whose elements are tuples. The syntax is very similar to <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>. What the classifier does is to train all listed classifiers and use the majority vote to predict the class of given test data.
+If each classifier has one vote, the voting method is <code class="docutils literal notranslate"><span class="pre">hard</span></code>. There is also a <code class="docutils literal notranslate"><span class="pre">soft</span></code> voting method. In this case, every classifiers not only can predict the classes of the given data, but also estimiate the probability of the given data that belongs to certain classes. On coding level, each classifier should have the <code class="docutils literal notranslate"><span class="pre">predict_proba()</span></code> method. In this case, the weight of each vote is determined by the probability computed. In our course we mainly use <code class="docutils literal notranslate"><span class="pre">hard</span></code> voting.</p>
+<p>Let us use <code class="docutils literal notranslate"><span class="pre">make_moon</span></code> as an example. We first load the dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We would like to apply kNN model. As before, we build a data pipeline <code class="docutils literal notranslate"><span class="pre">pipe</span></code> to first apply <code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code> and then <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;scalar&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+                       <span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;knn__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">51</span><span class="p">))}</span>
+<span class="n">gs_knn</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span> 
+<span class="n">gs_knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf_knn</span> <span class="o">=</span> <span class="n">gs_knn</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="n">clf_knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8626666666666667
+</pre></div>
+</div>
+</div>
+</div>
+<p>The resulted accuracy is shown above.</p>
+<p>We then try it with the Decision Tree.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="n">gs_dt</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span> <span class="s1">&#39;max_leaf_nodes&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">))})</span>
+<span class="n">gs_dt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf_dt</span> <span class="o">=</span> <span class="n">gs_dt</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="n">clf_dt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.86
+</pre></div>
+</div>
+</div>
+</div>
+<p>We would also want to try Logistic regression method. This will be covered in the next Chapter. At current stage we just use the default setting without changing any hyperparameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="n">clf_lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">clf_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf_lr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.842
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we use a voting classifier to combine the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">VotingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="n">clfs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">()),</span>
+        <span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">DecisionTreeClassifier</span><span class="p">()),</span>
+        <span class="p">(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())]</span>
+<span class="n">voting_clf</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="o">=</span><span class="n">clfs</span><span class="p">,</span> <span class="n">voting</span><span class="o">=</span><span class="s1">&#39;hard&#39;</span><span class="p">)</span>
+<span class="n">voting_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">voting_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.846
+</pre></div>
+</div>
+</div>
+</div>
+<p>You may compare the results of all these four classifiers. The voting classifier is not guaranteed to be better. It is just a way to form a model.</p>
 </section>
 </section>
 
@@ -573,17 +644,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="adaboost.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4.3. </span><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code></p>
+            <p class="prev-next-title"><span class="section-number">4. </span>Ensemble methods</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="project.html" title="next page">
+    <a class='right-next' id="next-link" href="randomforest.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.5. </span>Exercises and Projects</p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span>Bootstrap aggregating</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

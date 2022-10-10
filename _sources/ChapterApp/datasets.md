@@ -4,10 +4,29 @@
 
 ```{code-block} python
 from sklearn import datasets
+from sklearn.model_selection import train_test_split
+
 iris = datasets.load_iris()
 X = iris.data
 y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 ```
+
+
+
+## The `breast_cancer` dataset
+
+
+```{code-block} python
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+
+cancer = load_breast_cancer()
+X = cancer.data
+y = cancer.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
+```
+
 
 
 ## the Dating dataset
@@ -16,10 +35,12 @@ The data file can be downloaded from {Download}`here<./assests/datasets/datingTe
 ```{code-block} python
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 df = pd.read_csv('datingTestSet2.txt', sep='\t', header=None)
 X = np.array(df[[0, 1, 2]])
 y = np.array(df[3])
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 ```
 
 
@@ -29,10 +50,11 @@ y = np.array(df[3])
 - `make_moon` dataset
 ```{code-block} python
 from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+
 X, y = make_moons(n_samples=10000, noise=0.4, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 ```
-
-
 
 ## `MNIST` dataset
 

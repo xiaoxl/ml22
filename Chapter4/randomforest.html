@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4.1. Random Forest &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>4.2. Bootstrap aggregating &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,8 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.2. AdaBoost" href="adaboost.html" />
-    <link rel="prev" title="4. Ensemble method" href="intro.html" />
+    <link rel="next" title="4.3. AdaBoost" href="adaboost.html" />
+    <link rel="prev" title="4.1. Voting machine" href="morevoting.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -251,14 +251,19 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="morevoting.html">
+     4.1. Voting machine
+    </a>
+   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.1. Random Forest
+     4.2. Bootstrap aggregating
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="adaboost.html">
-     4.2.
+     4.3.
      <code class="docutils literal notranslate">
       <span class="pre">
        AdaBoost
@@ -268,12 +273,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="XGBoost.html">
-     4.3. XGBoost
+     4.4. Gradient Boost
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     4.4. Exercises and Projects
+     4.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -457,18 +462,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#voting-classifier">
-   4.1.1. Voting classifier
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#basic-bagging">
-   4.1.2. Basic bagging
+   4.2.1. Basic bagging
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-sklearn">
-   4.1.3. Using
+   4.2.2. Using
    <code class="docutils literal notranslate">
     <span class="pre">
      sklearn
@@ -478,22 +478,22 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#oob-score">
-   4.1.4. OOB score
+   4.2.3. OOB score
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-forests">
-   4.1.5. Random Forests
+   4.2.4. Random Forests
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#extra-trees">
-     4.1.5.1. Extra-trees
+     4.2.4.1. Extra-trees
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#gini-importance">
-     4.1.5.2. Gini importance
+     4.2.4.2. Gini importance
     </a>
    </li>
   </ul>
@@ -507,7 +507,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Random Forest</h1>
+                <h1>Bootstrap aggregating</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -518,18 +518,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#voting-classifier">
-   4.1.1. Voting classifier
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#basic-bagging">
-   4.1.2. Basic bagging
+   4.2.1. Basic bagging
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-sklearn">
-   4.1.3. Using
+   4.2.2. Using
    <code class="docutils literal notranslate">
     <span class="pre">
      sklearn
@@ -539,22 +534,22 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#oob-score">
-   4.1.4. OOB score
+   4.2.3. OOB score
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-forests">
-   4.1.5. Random Forests
+   4.2.4. Random Forests
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#extra-trees">
-     4.1.5.1. Extra-trees
+     4.2.4.1. Extra-trees
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#gini-importance">
-     4.1.5.2. Gini importance
+     4.2.4.2. Gini importance
     </a>
    </li>
   </ul>
@@ -569,14 +564,10 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="random-forest">
-<h1><span class="section-number">4.1. </span>Random Forest<a class="headerlink" href="#random-forest" title="Permalink to this headline">#</a></h1>
-<section id="voting-classifier">
-<h2><span class="section-number">4.1.1. </span>Voting classifier<a class="headerlink" href="#voting-classifier" title="Permalink to this headline">#</a></h2>
-<p>Assume that we have several trained classifiers. The easiest way to make a better classifer out of what we already have is to build a voting system. That is, each classifier give its own prediction, and it will be considered as a vote, and finally the highest vote will be the prediction of the system.</p>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="bootstrap-aggregating">
+<h1><span class="section-number">4.2. </span>Bootstrap aggregating<a class="headerlink" href="#bootstrap-aggregating" title="Permalink to this headline">#</a></h1>
 <section id="basic-bagging">
-<h2><span class="section-number">4.1.2. </span>Basic bagging<a class="headerlink" href="#basic-bagging" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2.1. </span>Basic bagging<a class="headerlink" href="#basic-bagging" title="Permalink to this headline">#</a></h2>
 <p>One approach to get many estimators is to use the same training algorithm for every predictor and train them on different random subsets of the training set. When sampling is performed with replacement, this method is called <em>bagging</em> (short for <em>bootstrap aggregating</em>). When sampling is performed without replacement, it is called <em>pasting</em>.</p>
 <p>Consider the following example. The dataset is the one we used in Chpater 3: <code class="docutils literal notranslate"><span class="pre">make_moon</span></code>. We split the dataset into training and test sets.</p>
 <div class="cell docutils container">
@@ -635,7 +626,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8033199999999999
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7979346666666668
 </pre></div>
 </div>
 </div>
@@ -659,14 +650,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8706666666666667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8593333333333333
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="using-sklearn">
-<h2><span class="section-number">4.1.3. </span>Using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#using-sklearn" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2.2. </span>Using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#using-sklearn" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> to directly perform bagging or pasting. The code is as follows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -692,14 +683,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8706666666666667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.856
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="oob-score">
-<h2><span class="section-number">4.1.4. </span>OOB score<a class="headerlink" href="#oob-score" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2.3. </span>OOB score<a class="headerlink" href="#oob-score" title="Permalink to this headline">#</a></h2>
 <p>When we use <code class="docutils literal notranslate"><span class="pre">bagging</span></code>, it is possible that some of the training data are not used. In this case, we could record which data are not used, and just use them as the test set, instead of providing extra data for test. The data that are not used is called <em>out-of-bag</em> instances, or <em>oob</em> for short. The accuracy over the oob data is called the oob score.</p>
 <p>We could set <code class="docutils literal notranslate"><span class="pre">oob_score=True</span></code> to enable the function when creating a <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code>, and use <code class="docutils literal notranslate"><span class="pre">.oob_score_</span></code> to get the oob score after training.</p>
 <div class="cell docutils container">
@@ -715,14 +706,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8636470588235294
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8667058823529412
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="random-forests">
-<h2><span class="section-number">4.1.5. </span>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2.4. </span>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h2>
 <p>When the classifiers used in a bagging classifier are all Decision Trees, the bagging classifier is called a <code class="docutils literal notranslate"><span class="pre">random</span> <span class="pre">forest</span></code>. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provide <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> class. It is almost the same as <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> + <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifer</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -736,14 +727,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8706666666666667
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8553333333333333
 </pre></div>
 </div>
 </div>
 </div>
 <p>When we use the Decision Tree as our base estimators, the class <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> provides more control over growing the random forest, with a certain optimizations. If you would like to use other estimators, then <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> should be used.</p>
 <section id="extra-trees">
-<h3><span class="section-number">4.1.5.1. </span>Extra-trees<a class="headerlink" href="#extra-trees" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.2.4.1. </span>Extra-trees<a class="headerlink" href="#extra-trees" title="Permalink to this headline">#</a></h3>
 <p>When growing a Decision Tree, our method is to search through all possible ways to find the best split point that get the lowest Gini impurity. Anohter method is to use a random split. Of course a random tree performs much worse, but if we use it to form a random forest, the voting system can help to increase the accuracy. On the other hand, random split is much faster than a regular Decision Tree.</p>
 <p>This type of forest is called <em>Extremely Randomized Trees</em>, or <em>Extra-Trees</em> for short. In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> there is an <code class="docutils literal notranslate"><span class="pre">ExtraTreesClassifier</span></code> to create such a classifier. It is hard to say which random forest is better beforehand. What we can do is to test and calculate the cross-validation scores (with grid search for hyperparameters tuning).</p>
 <div class="cell docutils container">
@@ -758,7 +749,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.864
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8533333333333334
 </pre></div>
 </div>
 </div>
@@ -782,17 +773,17 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Frorest: 10.134837627410889
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Frorest: 4.231271743774414
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extremely Randomized Trees: 3.6392595767974854
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extremely Randomized Trees: 1.3573291301727295
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="gini-importance">
-<h3><span class="section-number">4.1.5.2. </span>Gini importance<a class="headerlink" href="#gini-importance" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.2.4.2. </span>Gini importance<a class="headerlink" href="#gini-importance" title="Permalink to this headline">#</a></h3>
 <p>After training a Decision Tree, we could look at each node. Each split is against a feature, which decrease the Gini impurity the most. In other words, we could say that the feature is the most important during the split.</p>
 <p>Using the average Gini impurity decreased as a metric, we could measure the importance of each feature. This is called <em>Gini importance</em>. If the feature is useful, it tends to split mixed labeled nodes into pure single class nodes.</p>
 <p>In the case of random forest, since there are many trees, we might compute the weighted average of the Gini importance across all trees. The weight depends on how many times the feature is used in a specific node.</p>
@@ -805,7 +796,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43160866, 0.56839134])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43765231, 0.56234769])
 </pre></div>
 </div>
 </div>
@@ -842,17 +833,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="morevoting.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4. </span>Ensemble method</p>
+            <p class="prev-next-title"><span class="section-number">4.1. </span>Voting machine</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="adaboost.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.2. </span><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code></p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code></p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

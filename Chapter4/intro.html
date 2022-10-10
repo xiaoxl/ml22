@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4. Ensemble method &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>4. Ensemble methods &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.1. Random Forest" href="randomforest.html" />
+    <link rel="next" title="4.1. Voting machine" href="morevoting.html" />
     <link rel="prev" title="3.5. Exercises and Projects" href="../Chapter3/project.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -252,23 +252,23 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="morevoting.html">
+     4.1. Voting machine
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="randomforest.html">
-     4.1. Random Forest
+     4.2. Bootstrap aggregating
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="adaboost.html">
-     4.2.
+     4.3.
      <code class="docutils literal notranslate">
       <span class="pre">
        AdaBoost
       </span>
      </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="XGBoost.html">
-     4.3. XGBoost
     </a>
    </li>
    <li class="toctree-l2">
@@ -417,7 +417,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Ensemble method</h1>
+                <h1>Ensemble methods</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -429,10 +429,10 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="ensemble-method">
-<h1><span class="section-number">4. </span>Ensemble method<a class="headerlink" href="#ensemble-method" title="Permalink to this headline">#</a></h1>
-<p>After we get some relatively simple classifiers, we might put them together to form a more complicated classifier. This type of method is called an ensemble method.</p>
-<p>There are mainly two ways to ensemble classifiers.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="ensemble-methods">
+<h1><span class="section-number">4. </span>Ensemble methods<a class="headerlink" href="#ensemble-methods" title="Permalink to this headline">#</a></h1>
+<p>After we get some relatively simple classifiers (sometimes also called <em>weak classifiers</em>), we might put them together to form a more complicated classifier. This type of methods is called an <em>ensemble method</em>. The basic way to ``ensemble’’ classifiers together to through the voting machine.</p>
+<p>There are mainly two ways to generate many classifiers.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">bagging</span></code>: This is also called <em>bootstrap aggregating</em>. The idea is</p>
 <ul>
@@ -481,10 +481,10 @@ title="Print to PDF"
             <p class="prev-next-title"><span class="section-number">3.5. </span>Exercises and Projects</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="randomforest.html" title="next page">
+    <a class='right-next' id="next-link" href="morevoting.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.1. </span>Random Forest</p>
+        <p class="prev-next-title"><span class="section-number">4.1. </span>Voting machine</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4.2. AdaBoost &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>4.3. AdaBoost &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -56,8 +56,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.3. XGBoost" href="XGBoost.html" />
-    <link rel="prev" title="4.1. Random Forest" href="randomforest.html" />
+    <link rel="next" title="4.4. Exercises and Projects" href="project.html" />
+    <link rel="prev" title="4.2. Bootstrap aggregating" href="randomforest.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -254,23 +254,23 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul class="current">
    <li class="toctree-l2">
+    <a class="reference internal" href="morevoting.html">
+     4.1. Voting machine
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="randomforest.html">
-     4.1. Random Forest
+     4.2. Bootstrap aggregating
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.2.
+     4.3.
      <code class="docutils literal notranslate">
       <span class="pre">
        AdaBoost
       </span>
      </code>
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="XGBoost.html">
-     4.3. XGBoost
     </a>
    </li>
    <li class="toctree-l2">
@@ -460,17 +460,17 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#weighted-dataset">
-   4.2.1. Weighted dataset
+   4.3.1. Weighted dataset
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#general-process">
-   4.2.2. General process
+   4.3.2. General process
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#example-1-the-iris-dataset">
-   4.2.3. Example 1: the
+   4.3.3. Example 1: the
    <code class="docutils literal notranslate">
     <span class="pre">
      iris
@@ -480,8 +480,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-2">
-   4.2.4. Example 2
+  <a class="reference internal nav-link" href="#example-2-the-horse-colic-dataset">
+   4.3.4. Example 2: the Horse Colic dataset
   </a>
  </li>
 </ul>
@@ -505,17 +505,17 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#weighted-dataset">
-   4.2.1. Weighted dataset
+   4.3.1. Weighted dataset
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#general-process">
-   4.2.2. General process
+   4.3.2. General process
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#example-1-the-iris-dataset">
-   4.2.3. Example 1: the
+   4.3.3. Example 1: the
    <code class="docutils literal notranslate">
     <span class="pre">
      iris
@@ -525,8 +525,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-2">
-   4.2.4. Example 2
+  <a class="reference internal nav-link" href="#example-2-the-horse-colic-dataset">
+   4.3.4. Example 2: the Horse Colic dataset
   </a>
  </li>
 </ul>
@@ -540,10 +540,10 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="adaboost">
-<h1><span class="section-number">4.2. </span><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code><a class="headerlink" href="#adaboost" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">4.3. </span><code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code><a class="headerlink" href="#adaboost" title="Permalink to this headline">#</a></h1>
 <p>This is the first algorithm that successfully implements the boosting idea. <code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code> is short for <em>Adaptive Boosting</em>.</p>
 <section id="weighted-dataset">
-<h2><span class="section-number">4.2.1. </span>Weighted dataset<a class="headerlink" href="#weighted-dataset" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.3.1. </span>Weighted dataset<a class="headerlink" href="#weighted-dataset" title="Permalink to this headline">#</a></h2>
 <p>We firstly talk about training a Decision Tree on a weighted dataset. The idea is very simple. When building a Decision Tree, we use some method to determine the split. In this course the Gini impurity is used. There are at least two other methods: cross-entropy and misclassified rate. For all three, the count of the elemnts in some classes is the essnetial part. To train the model over the weighted dataset, we just need to upgrade the count of the elements by the weighted count.</p>
 <div class="proof example admonition" id="example-0">
 <p class="admonition-title"><span class="caption-number">Example 4.1 </span></p>
@@ -601,7 +601,7 @@ title="Print to PDF"
 </section>
 </div></section>
 <section id="general-process">
-<h2><span class="section-number">4.2.2. </span>General process<a class="headerlink" href="#general-process" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.3.2. </span>General process<a class="headerlink" href="#general-process" title="Permalink to this headline">#</a></h2>
 <p>Here is the rough description of <code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code>.</p>
 <ol class="simple">
 <li><p>Assign weights to each data point. At the begining we could assign weights equally.</p></li>
@@ -634,7 +634,7 @@ w^{(i)}_{\text{new}}\leftarrow\text{normalization} \leftarrow w^{(i)}\leftarrow\
 </div>
 </section>
 <section id="example-1-the-iris-dataset">
-<h2><span class="section-number">4.2.3. </span>Example 1: the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#example-1-the-iris-dataset" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.3.3. </span>Example 1: the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#example-1-the-iris-dataset" title="Permalink to this headline">#</a></h2>
 <p>Similar to all previous models, <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code>. The way to use it is similar to previous models. Note that although we are able to use any classifiers for <code class="docutils literal notranslate"><span class="pre">AdaBoost</span></code>, the most popular choice is Decision Tree with <code class="docutils literal notranslate"><span class="pre">max_depth=1</span></code>. This type of Decision Trees are also called <em>Decision Stumps</em>.</p>
 <p>In the following examples, we initialize an <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code> with 500 Decision Stumps and <code class="docutils literal notranslate"><span class="pre">learning_rate=0.5</span></code>.</p>
 <div class="cell docutils container">
@@ -667,8 +667,40 @@ w^{(i)}_{\text{new}}\leftarrow\text{normalization} \leftarrow w^{(i)}\leftarrow\
 </div>
 </div>
 </section>
-<section id="example-2">
-<h2><span class="section-number">4.2.4. </span>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">#</a></h2>
+<section id="example-2-the-horse-colic-dataset">
+<h2><span class="section-number">4.3.4. </span>Example 2: the Horse Colic dataset<a class="headerlink" href="#example-2-the-horse-colic-dataset" title="Permalink to this headline">#</a></h2>
+<p>This dataset is from UCI Machine Learning Repository. The data is about whether horses survive if they get a disease called Colic. The dataset is preprocessed as follows. Note that there are a few missing values inside, and we replace them with <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://archive.ics.uci.edu/ml/machine-learning-databases/horse-colic/horse-colic.data&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5777777777777777
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -703,13 +735,13 @@ w^{(i)}_{\text{new}}\leftarrow\text{normalization} \leftarrow w^{(i)}\leftarrow\
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4.1. </span>Random Forest</p>
+            <p class="prev-next-title"><span class="section-number">4.2. </span>Bootstrap aggregating</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="XGBoost.html" title="next page">
+    <a class='right-next' id="next-link" href="project.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.3. </span>XGBoost</p>
+        <p class="prev-next-title"><span class="section-number">4.4. </span>Exercises and Projects</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
