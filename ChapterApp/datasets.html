@@ -514,6 +514,11 @@ title="Print to PDF"
    dataset
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plant-survival-data-with-salt-and-microbe-treatments">
+   5.1.8. Plant survival data with salt and microbe treatments
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -590,6 +595,11 @@ title="Print to PDF"
     </span>
    </code>
    dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plant-survival-data-with-salt-and-microbe-treatments">
+   5.1.8. Plant survival data with salt and microbe treatments
   </a>
  </li>
 </ul>
@@ -793,6 +803,159 @@ title="Print to PDF"
 
 <span class="n">getdf</span><span class="p">(</span><span class="n">dftest</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;result.csv&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+</section>
+<section id="plant-survival-data-with-salt-and-microbe-treatments">
+<h2><span class="section-number">5.1.8. </span>Plant survival data with salt and microbe treatments<a class="headerlink" href="#plant-survival-data-with-salt-and-microbe-treatments" title="Permalink to this headline">#</a></h2>
+<p>This dataset is supported by DART SEED grant. It is provided by Dr. Suresh Subedi from ATU. The dataset is about the outcomes of certain treatments applied to plants. We would like to predict whether the plants survive based on the status of the plants and the treatments. The datafile can be downloaded from <a class="reference download internal" download="" href="../_downloads/cf9f1887499f2b7a093a867bf253ad56/plants.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a>.</p>
+<p>We could use the following code to read the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;assests/datasets/plants.xlsx&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;openpyxl&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SN</th>
+      <th>Endophyte</th>
+      <th>Treatment</th>
+      <th>Tree_Replicate</th>
+      <th>Salt Orgins</th>
+      <th>Leaf_number</th>
+      <th>height</th>
+      <th>node number</th>
+      <th>Branching</th>
+      <th>Stem diameter</th>
+      <th>Outcome_after 12 months</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>I+</td>
+      <td>Salt</td>
+      <td>T2</td>
+      <td>17.7</td>
+      <td>9</td>
+      <td>33.5</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5.68</td>
+      <td>survived</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>I-</td>
+      <td>Salt</td>
+      <td>T2</td>
+      <td>17.7</td>
+      <td>8</td>
+      <td>24.0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>5.16</td>
+      <td>dead</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5</td>
+      <td>I+</td>
+      <td>Salt</td>
+      <td>T3</td>
+      <td>17.7</td>
+      <td>10</td>
+      <td>37.4</td>
+      <td>4</td>
+      <td>2</td>
+      <td>5.57</td>
+      <td>dead</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6</td>
+      <td>I-</td>
+      <td>Salt</td>
+      <td>T1</td>
+      <td>8.9</td>
+      <td>13</td>
+      <td>40.1</td>
+      <td>5</td>
+      <td>2</td>
+      <td>4.02</td>
+      <td>dead</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7</td>
+      <td>I-</td>
+      <td>Salt</td>
+      <td>T3</td>
+      <td>17.7</td>
+      <td>9</td>
+      <td>30.6</td>
+      <td>5</td>
+      <td>2</td>
+      <td>4.36</td>
+      <td>dead</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>There are a few missing values. The missing values in <code class="docutils literal notranslate"><span class="pre">Outcome_after</span> <span class="pre">12</span> <span class="pre">months</span></code> are all <code class="docutils literal notranslate"><span class="pre">dead</span></code>. These are not recorded as <code class="docutils literal notranslate"><span class="pre">dead</span></code> because the cause of the death is more complicated and needs to be studied separatedly. In our case we could simply fill it with <code class="docutils literal notranslate"><span class="pre">dead</span></code>.</p>
+<p>There are two more missing values in <code class="docutils literal notranslate"><span class="pre">Stem</span> <span class="pre">diameter</span></code>. For simplicity we drop them directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Outcome_after 12 months&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;dead&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then we would like to transform the data. Here are the rules.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Endophyte</span></code>: <code class="docutils literal notranslate"><span class="pre">I+</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">I-</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">-1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Treatment</span></code>: <code class="docutils literal notranslate"><span class="pre">Salt</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">Fresh</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tree_Replicate</span></code>: <code class="docutils literal notranslate"><span class="pre">T1</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">T2</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">T3</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Outcome_after</span> <span class="pre">12</span> <span class="pre">months</span></code>: <code class="docutils literal notranslate"><span class="pre">survived</span></code>-&gt;<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">dead</span></code>-&gt;0</p></li>
+</ul>
+<p>Column <code class="docutils literal notranslate"><span class="pre">SN</span></code> will be dropped.</p>
+<p>Finally we put these together to get the features <code class="docutils literal notranslate"><span class="pre">X</span></code> and the label <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Endophyte &#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Endophyte &#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;I+&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;I-&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Treatment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Treatment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;Fresh&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Salt&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tree_Replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tree_Replicate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Outcome_after 12 months&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Outcome_after 12 months&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;survived&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;dead&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Outcome_after 12 months&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>
