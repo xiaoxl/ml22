@@ -134,7 +134,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 # In[4]:
 
 
-clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=50, learning_rate=0.1)
+clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=50, learning_rate=0.2)
 clf.fit(X_train, y_train)
 clf.score(X_test, y_test)
+
+
+# In[ ]:
+
+
+
 

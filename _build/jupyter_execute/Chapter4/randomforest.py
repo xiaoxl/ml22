@@ -26,7 +26,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 # 
 # Note that `ShuffleSplit` is originally used to shuffle data into training and test sets. We would only use the shuffle function out of it, so we will set `test_size` to be `1` and use `_` later in the `for` loop since we won't use that part of the information.
 # 
-# What we finally get is a list consists of tuples of mini set of `X_train` and `y_train`.
+# What we finally get is a generator `rs` that produces indexes of subsets of `X_train` and `y_train`. 
 
 # In[2]:
 
@@ -34,32 +34,31 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 from sklearn.model_selection import ShuffleSplit
 n_trees = 1000
 n_instances = 100
-rs = ShuffleSplit(n_splits=n_trees, test_size=1, train_size=n_instances)
-mini_sets = list()
-for mini_train_index, _ in rs.split(X_train):
-    mini_sets.append((X_train[mini_train_index], y_train[mini_train_index]))
+rs = ShuffleSplit(n_splits=n_trees, test_size=1, train_size=n_instances).split(X_train)
 
 
 # Now we would like to generate a list of Decision Trees. We could use the hyperparameters we get from Chapter 3. We train each tree over a certain mini set, and then evaluate the trained model over the test set. The average accuracy is around 80%.
+# 
+# Note that `rs` is a generator. We put it in a for loop, and during each loop it will produce a list of indexes which gives a subset. We will directly train our model over the subset and use it to predict the test set. The result of each tree is put in the list `y_pred_list` and the accuracy is stored in the list `acc_list`. The mean of the accuracy is then computed by `np.mean(acc_list)`.
 
 # In[3]:
 
 
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.base import clone
 from sklearn.metrics import accuracy_score
 import numpy as np
 
-tree_list = [clone(DecisionTreeClassifier(min_samples_split=2, max_leaf_nodes=17))
-             for _ in range(n_trees)]
+y_pred_list = list()
 acc_list = list()
-for i in range(n_trees):
-    tree = tree_list[i]
-    (X_mini_train, y_mini_train) = mini_sets[i]
-    tree.fit(X_mini_train, y_mini_train)
-
-    y_pred = tree.predict(X_test)
+for mini_train_index, _ in rs:
+    X_subset = X_train[mini_train_index]
+    y_subset = y_train[mini_train_index]
+    clf_ind = DecisionTreeClassifier(min_samples_split=2, max_leaf_nodes=17)
+    clf_ind.fit(X_subset, y_subset)
+    y_pred = clf_ind.predict(X_test)
+    y_pred_list.append(y_pred)
     acc_list.append(accuracy_score(y_pred, y_test))
+
 np.mean(acc_list)
 
 
@@ -69,8 +68,9 @@ np.mean(acc_list)
 
 
 from scipy.stats import mode
-voting = np.array([tree.predict(X_test) for tree in tree_list])
+voting = np.array(y_pred_list)
 y_pred_mode, _ = mode(voting, axis=0)
+y_pred_mode = y_pred_mode.reshape(-1)
 
 
 # Since the output of `mode` is a tuple where the first entry is a 2D array, we need to reshape `y_pred_mode`. This is the result using this voting system. Then we are able to compute the accuracy, and find that it is increased from the previous prediction.
@@ -78,15 +78,91 @@ y_pred_mode, _ = mode(voting, axis=0)
 # In[5]:
 
 
-y_pred_mode = y_pred_mode.reshape(y_pred_mode.size)
 accuracy_score(y_pred_mode, y_test)
 
+
+# ## Some rough analysis
+# The point of `Bagging` is to let every classifier study part of the data, and then gather the opinions from everyone. If the performance are almost the same between individual classifers and the Bagging classifiers, this means that the majority of the individual classifiers have the same opinions. One possible reason is that the randomized subsets already catch the main features of the dataset that every individual classifiers behave similar.
+# 
+# ### Case 1
+# Let us continue with the previous dataset. We start from using Decision Tree with `max_depth=1`. In other words each tree only split once.
+
+# In[6]:
+
+
+n_trees = 500
+n_instances = 1000
+rs = ShuffleSplit(n_splits=n_trees, test_size=1, train_size=n_instances).split(X_train)
+y_pred_list = list()
+acc_list = list()
+for mini_train_index, _ in rs:
+    X_subset = X_train[mini_train_index]
+    y_subset = y_train[mini_train_index]
+    clf_ind = DecisionTreeClassifier(max_depth=1)
+    clf_ind.fit(X_subset, y_subset)
+    y_pred = clf_ind.predict(X_test)
+    y_pred_list.append(y_pred)
+    acc_list.append(accuracy_score(y_pred, y_test))
+print('The mean of individual accuracy: {}'.format(np.mean(acc_list)))
+
+voting = np.array(y_pred_list)
+y_pred_mode, _ = mode(voting, axis=0)
+y_pred_mode = y_pred_mode.reshape(-1)
+print('The accuracy of the bagging classifier: {}'.format(accuracy_score(y_pred_mode, y_test)))
+
+
+# The two accuracy has some differences, but not much. This is due to the fact that the sample size of the subset is too large: 1000 can already help the individual classifers to capture the major ideas of the datasets. Let us see the first 1000 data points. The scattering plot is very similar to that of the whole dataset shown above.
+
+# In[7]:
+
+
+Npiece = 1000
+plt.scatter(x=X[:Npiece, 0], y=X[:Npiece, 1], c=y[:Npiece])
+
+
+# ### Case 2
+# If we reduce the sample size to be very small, for example, 20, the sampled subset will lose a lot of information and it will be much harder to capture the idea of the original dataset. See the scattering plot of the first 20 data points.
+
+# In[8]:
+
+
+Npiece = 20
+plt.scatter(x=X[:Npiece, 0], y=X[:Npiece, 1], c=y[:Npiece])
+
+
+# In this case, let us see the performance comparison between multiple decision trees and the bagging classifier.
+
+# In[9]:
+
+
+n_trees = 500
+n_instances = 20
+rs = ShuffleSplit(n_splits=n_trees, test_size=1, train_size=n_instances).split(X_train)
+y_pred_list = list()
+acc_list = list()
+for mini_train_index, _ in rs:
+    X_subset = X_train[mini_train_index]
+    y_subset = y_train[mini_train_index]
+    clf_ind = DecisionTreeClassifier(max_depth=1)
+    clf_ind.fit(X_subset, y_subset)
+    y_pred = clf_ind.predict(X_test)
+    y_pred_list.append(y_pred)
+    acc_list.append(accuracy_score(y_pred, y_test))
+print('The mean of individual accuracy: {}'.format(np.mean(acc_list)))
+
+voting = np.array(y_pred_list)
+y_pred_mode, _ = mode(voting, axis=0)
+y_pred_mode = y_pred_mode.reshape(-1)
+print('The accuracy of the bagging classifier: {}'.format(accuracy_score(y_pred_mode, y_test)))
+
+
+# This time you may see a significant increase in the performance.
 
 # ## Using `sklearn`
 # 
 # `sklearn` provides `BaggingClassifier` to directly perform bagging or pasting. The code is as follows.
 
-# In[6]:
+# In[10]:
 
 
 from sklearn.ensemble import BaggingClassifier
@@ -103,7 +179,7 @@ bag_clf = BaggingClassifier(DecisionTreeClassifier(),
 # This `bag_clf` also has `.fit()` and `.predict()` methods. It is used the same as our previous classifiers. Let us try the `make_moon` dataset.
 # 
 
-# In[7]:
+# In[11]:
 
 
 bag_clf.fit(X_train, y_train)
@@ -116,7 +192,7 @@ accuracy_score(y_pred_bag, y_test)
 # 
 # We could set `oob_score=True` to enable the function when creating a `BaggingClassifier`, and use `.oob_score_` to get the oob score after training. 
 
-# In[8]:
+# In[12]:
 
 
 bag_clf_oob = BaggingClassifier(DecisionTreeClassifier(),
@@ -132,7 +208,7 @@ bag_clf_oob.oob_score_
 # When the classifiers used in a bagging classifier are all Decision Trees, the bagging classifier is called a `random forest`. `sklearn` provide `RandomForestClassifier` class. It is almost the same as `BaggingClassifier` + `DecisionTreeClassifer`.
 # 
 
-# In[9]:
+# In[13]:
 
 
 from sklearn.ensemble import RandomForestClassifier
@@ -148,11 +224,54 @@ accuracy_score(y_pred_rnd, y_test)
 # 
 # 
 # ### Extra-trees
-# When growing a Decision Tree, our method is to search through all possible ways to find the best split point that get the lowest Gini impurity. Anohter method is to use a random split. Of course a random tree performs much worse, but if we use it to form a random forest, the voting system can help to increase the accuracy. On the other hand, random split is much faster than a regular Decision Tree.
+# When growing a Decision Tree, our method is to search through all possible ways to find the best split point that get the lowest Gini impurity. Anohter method is to use a random split. Of course a random tree performs much worse, but if we use it to form a random forest, the voting system can help to increase the accuracy. On the other hand, random split is much faster than a regular Decision Tree. 
 # 
-# This type of forest is called *Extremely Randomized Trees*, or *Extra-Trees* for short. In `sklearn` there is an `ExtraTreesClassifier` to create such a classifier. It is hard to say which random forest is better beforehand. What we can do is to test and calculate the cross-validation scores (with grid search for hyperparameters tuning).
+# This type of forest is called *Extremely Randomized Trees*, or *Extra-Trees* for short. We could modify the above random forest classifier code to implement the extra-tree algorithm. The key point is that we don't apply the Decision Tree algorithm to `X_subset`. Instead we perform a random split.
 
-# In[10]:
+# In[14]:
+
+
+n_trees = 500
+n_instances = 20
+rs = ShuffleSplit(n_splits=n_trees, test_size=1, train_size=n_instances).split(X_train)
+y_pred_list = list()
+acc_list = list()
+for mini_train_index, _ in rs:
+    X_subset = X_train[mini_train_index]
+    y_subset = y_train[mini_train_index]
+    clf_ind = DecisionTreeClassifier(max_depth=1)
+# random split
+    i = np.random.randint(0, X_subset.shape[0])
+    j = np.random.randint(0, X_subset.shape[1])
+    split_threshold = X_subset[i, j]
+    lsetindex = np.where(X_subset[:, j]<split_threshold)[0]
+
+    if len(lsetindex) == 0:
+        rsetindex = np.where(X_subset[:, j]>=split_threshold)
+        rmode, _ = mode(y_subset[rsetindex])
+        rmode = rmode[0]
+        lmode = 1 - rmode
+    else:
+        lmode, _ = mode(y_subset[lsetindex])
+        lmode = lmode[0]
+        rmode = 1 - lmode
+    y_pred = np.where(X_test[:, j] < split_threshold, lmode, rmode).reshape(-1)
+# The above code is used to use the random split to classify the data points
+    y_pred_list.append(y_pred)
+    acc_list.append(accuracy_score(y_pred, y_test))
+print('The mean of individual accuracy: {}'.format(np.mean(acc_list)))
+
+voting = np.array(y_pred_list)
+y_pred_mode, _ = mode(voting, axis=0)
+y_pred_mode = y_pred_mode.reshape(-1)
+print('The accuracy of the bagging classifier: {}'.format(accuracy_score(y_pred_mode, y_test)))
+
+
+# From the above example, you may find a significant increase in the performace from the mean individual accuracy to the Extra-tree classifier accuracy. The accuracy of the Extra-tree classifier is also very close to what we get from the original data points, although its base classifier is much simpler.
+
+# In `sklearn` there is an `ExtraTreesClassifier` to create such a classifier. It is hard to say which random forest is better beforehand. What we can do is to test and calculate the cross-validation scores (with grid search for hyperparameters tuning).
+
+# In[15]:
 
 
 from sklearn.ensemble import ExtraTreesClassifier
@@ -165,7 +284,7 @@ accuracy_score(y_pred_rnd, y_test)
 
 # In the above example, `RandomForestClassifier` and `ExtraTreesClassifier` get similar accuracy. However from the code below, you will see that in this example `ExtraTreesClassifier` is much faster than `RandomForestClassifier`.
 
-# In[11]:
+# In[16]:
 
 
 from time import time
@@ -192,7 +311,7 @@ print('Extremely Randomized Trees: {}'.format(t1 - t0))
 # 
 # Using `RandomForestClassifier`, we can directly get access to the Gini importance of each feature by `.feature_importance_`. Please see the following example.
 
-# In[12]:
+# In[17]:
 
 
 rnd_clf.fit(X_train, y_train)

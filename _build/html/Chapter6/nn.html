@@ -6,55 +6,58 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>References &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>6.1. Neural network &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Introduction" href="Chapter1/intro.html" />
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.2. project" href="project.html" />
+    <link rel="prev" title="6. introduction" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -89,29 +92,29 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="bd-sidebar noprint" id="site-navigation">
     <div class="bd-sidebar__content">
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+    <a class="navbar-brand text-wrap" href="../index.html">
       
       
       
       <h1 class="site-logo" id="site-title">Machine Learning Notes - 2022 Fall</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../references.html">
                     References
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Chapter1/intro.html">
+  <a class="reference internal" href="../Chapter1/intro.html">
    1. Introduction
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -121,29 +124,29 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter1/what.html">
+    <a class="reference internal" href="../Chapter1/what.html">
      1.1. What is Machine Learning?
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter1/data.html">
+    <a class="reference internal" href="../Chapter1/data.html">
      1.2. Basic setting for Machine learning problems
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter1/pynotebook.html">
+    <a class="reference internal" href="../Chapter1/pynotebook.html">
      1.3. Python quick guide
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter1/project.html">
+    <a class="reference internal" href="../Chapter1/project.html">
      1.4. Exercises
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Chapter2/intro.html">
+  <a class="reference internal" href="../Chapter2/intro.html">
    2. k-NN
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -153,12 +156,12 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter2/knn.html">
+    <a class="reference internal" href="../Chapter2/knn.html">
      2.1. k-Nearest Neighbors Algorithm (k-NN)
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter2/knnproj1.html">
+    <a class="reference internal" href="../Chapter2/knnproj1.html">
      2.2. k-NN Project 1:
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -169,12 +172,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter2/knnproj2.html">
+    <a class="reference internal" href="../Chapter2/knnproj2.html">
      2.3. k-NN Project 2: Dating Classification
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter2/knnproj3.html">
+    <a class="reference internal" href="../Chapter2/knnproj3.html">
      2.4. k-NN Project 3:
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -185,14 +188,14 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter2/project.html">
+    <a class="reference internal" href="../Chapter2/project.html">
      2.5. Exercises and Projects
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Chapter3/intro.html">
+  <a class="reference internal" href="../Chapter3/intro.html">
    3. Decision Tree
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -202,17 +205,17 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter3/gini.html">
+    <a class="reference internal" href="../Chapter3/gini.html">
      3.1. Gini impurity
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter3/code.html">
+    <a class="reference internal" href="../Chapter3/code.html">
      3.2. CART Algorithms
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter3/dt.html">
+    <a class="reference internal" href="../Chapter3/dt.html">
      3.3. Decision Tree Project 1: the
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -223,7 +226,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter3/dt2.html">
+    <a class="reference internal" href="../Chapter3/dt2.html">
      3.4. Decision Tree Project 2:
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -234,14 +237,14 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter3/project.html">
+    <a class="reference internal" href="../Chapter3/project.html">
      3.5. Exercises and Projects
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Chapter4/intro.html">
+  <a class="reference internal" href="../Chapter4/intro.html">
    4. Ensemble methods
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
@@ -251,17 +254,17 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter4/morevoting.html">
+    <a class="reference internal" href="../Chapter4/morevoting.html">
      4.1. Voting machine
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter4/randomforest.html">
+    <a class="reference internal" href="../Chapter4/randomforest.html">
      4.2. Bootstrap aggregating
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter4/adaboost.html">
+    <a class="reference internal" href="../Chapter4/adaboost.html">
      4.3.
      <code class="docutils literal notranslate">
       <span class="pre">
@@ -271,15 +274,15 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter4/project.html">
+    <a class="reference internal" href="../Chapter4/project.html">
      4.4. Exercises and Projects
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Chapter5/intro.html">
-   5. Logistic Regression
+  <a class="reference internal" href="../Chapter5/intro.html">
+   5. Regression
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -288,25 +291,52 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Chapter5/regression.html">
-     5.1. Basic idea
+    <a class="reference internal" href="../Chapter5/regression.html">
+     5.1. regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/project.html">
+     5.2. project
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   6. NN
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     6.1. Neural network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="project.html">
+     6.2. project
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="ChapterApp/intro.html">
-   6. Appendix
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   7. Appendix
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="ChapterApp/datasets.html">
-     6.1. Datasets
+    <a class="reference internal" href="../ChapterApp/datasets.html">
+     7.1. Datasets
     </a>
    </li>
   </ul>
@@ -384,7 +414,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="_sources/references.md"
+        <a href="../_sources/Chapter6/nn.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -433,7 +463,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>References</h1>
+                <h1>Neural network</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -445,27 +475,12 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h1>
-<p>This course consults the following materials.</p>
-<div class="docutils container" id="id1">
-<dl class="citation">
-<dt class="label" id="id40"><span class="brackets">1</span></dt>
-<dd><p>Francois Chollet. <em>Deep Learning with Python, Second Edition</em>. MANNING PUBN, December 2021. ISBN 9781617296864. URL: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">https://www.manning.com/books/deep-learning-with-python-second-edition</a>.</p>
-</dd>
-<dt class="label" id="id33"><span class="brackets">2</span></dt>
-<dd><p>Aurélien Géron. <em>Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow Concepts, Tools, and Techniques to Build Intelligent Systems</em>. O'Reilly Media, 2nd edition, 2019. ISBN 9781492032649.</p>
-</dd>
-<dt class="label" id="id28"><span class="brackets">3</span></dt>
-<dd><p>Peter Harrington. <em>Machine Learning in Action</em>. MANNING PUBN, April 2012. ISBN 9781617290183. URL: <a class="reference external" href="https://www.manning.com/books/machine-learning-in-action">https://www.manning.com/books/machine-learning-in-action</a>.</p>
-</dd>
-<dt class="label" id="id25"><span class="brackets">4</span></dt>
-<dd><p>Stephen Klosterman. <em>Data Science Projects with Python</em>. Packt Publishing, Limited, 2021. ISBN 978-1800564480. URL: <a class="reference external" href="https://www.packtpub.com/product/data-science-projects-with-python/9781838551025">https://www.packtpub.com/product/data-science-projects-with-python/9781838551025</a>.</p>
-</dd>
-</dl>
-</div>
-<div class="toctree-wrapper compound">
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="neural-network">
+<h1><span class="section-number">6.1. </span>Neural network<a class="headerlink" href="#neural-network" title="Permalink to this headline">#</a></h1>
+<div class="math notranslate nohighlight">
+\[\int_0^9 f(x)\,dx\]</div>
+<div class="math notranslate nohighlight">
+\[\int_0^9\]</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -481,7 +496,7 @@ title="Print to PDF"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./."
+            path: "./Chapter6"
         },
         predefinedOutput: true
     }
@@ -495,10 +510,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="Chapter1/intro.html" title="next page">
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">6. </span>introduction</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="project.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>Introduction</p>
+        <p class="prev-next-title"><span class="section-number">6.2. </span>project</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -523,7 +545,7 @@ title="Print to PDF"
     </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
 
   </body>

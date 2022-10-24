@@ -45,7 +45,8 @@ _ = plt.ylim(0, 1)
 # Please answer the following questions.
 # 1. Please use grid search to find the good `max_leaf_nodes` and `max_depth`.
 # 2. Please record the accuracy (or cross-validation score) of your model and compare it with the models you learned before (kNN). 
-# 3. Please find some typical features and draw the Decision Boundary against the features you choose.
+# 3. Please find the two most important features and explane your reason.
+# 4. (Optional) Use the two most important features to draw the Decision Boundary if possible.
 # ```
 # 
 # 

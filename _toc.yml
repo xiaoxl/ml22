@@ -36,18 +36,17 @@ chapters:
       - file: Chapter4/morevoting.ipynb
       - file: Chapter4/randomforest.ipynb
       - file: Chapter4/adaboost.ipynb
-      # - file: Chapter4/XGBoost.md
       - file: Chapter4/project.md
+  - file: Chapter5/intro.md
+    title: Logistic Regression
+    sections:
+      - file: Chapter5/regression.ipynb
+  #     - file: Chapter5/project.md
   # - file: Chapter6/intro.md
-  #   title: Regression
-  #   sections:
-  #     - file: Chapter6/regression.md
-  #     - file: Chapter6/project.md
-  # - file: Chapter7/intro.md
   #   title: NN
   #   sections:
-  #     - file: Chapter7/nn.md
-  #     - file: Chapter7/project.md
+  #     - file: Chapter6/nn.md
+  #     - file: Chapter6/project.md
   - file: ChapterApp/intro.md
     title: Appendix
     sections:
