@@ -174,6 +174,7 @@ disp.ax_.scatter(X_test[:, 0], X_test[:, 1], c=y_test, edgecolor="k")
 disp.figure_.set_size_inches((10,7))
 
 
+# (section-cross-validation)=
 # ## k-Fold Cross-Validation
 # 
 # Previously we perform a random split and test our model in this case. What would happen if we fit our model on another split? We might get a different accuracy score. So in order to evaluate the performance of our model, it is natual to consider several different split and compute the accuracy socre for each case, and combine all these socres together to generate an index to indicate whehter our model is good or bad. This naive idea is called *k-Fold Cross-Validation*.

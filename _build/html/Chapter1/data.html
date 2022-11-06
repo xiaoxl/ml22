@@ -238,7 +238,83 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter3/project.html">
-     3.5. project
+     3.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter4/intro.html">
+   4. Ensemble methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/morevoting.html">
+     4.1. Voting machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/randomforest.html">
+     4.2. Bootstrap aggregating
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/adaboost.html">
+     4.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       AdaBoost
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/project.html">
+     4.4. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter5/intro.html">
+   5. Logistic Regression
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/regression.html">
+     5.1. Basic idea
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/regularization.html">
+     5.2. Bias and Variance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   6. Appendix
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ChapterApp/datasets.html">
+     6.1. Datasets
     </a>
    </li>
   </ul>
@@ -381,13 +457,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parameters-and-hyperparameters">
+   1.2.2. Parameters and hyperparameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#evaluate-a-machine-learning-model">
-   1.2.2. Evaluate a Machine Learning model
+   1.2.3. Evaluate a Machine Learning model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#workflow-in-developing-a-machine-learning-application">
-   1.2.3. Workflow in developing a machine learning application
+   1.2.4. Workflow in developing a machine learning application
   </a>
  </li>
 </ul>
@@ -415,13 +496,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parameters-and-hyperparameters">
+   1.2.2. Parameters and hyperparameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#evaluate-a-machine-learning-model">
-   1.2.2. Evaluate a Machine Learning model
+   1.2.3. Evaluate a Machine Learning model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#workflow-in-developing-a-machine-learning-application">
-   1.2.3. Workflow in developing a machine learning application
+   1.2.4. Workflow in developing a machine learning application
   </a>
  </li>
 </ul>
@@ -540,15 +626,34 @@ title="Print to PDF"
 <p>Then the Supervised Learning problem is stated as follows: Given the features and the labels, we would like to find a model that can classify future data.</p>
 </section>
 </div></section>
+<section id="parameters-and-hyperparameters">
+<h2><span class="section-number">1.2.2. </span>Parameters and hyperparameters<a class="headerlink" href="#parameters-and-hyperparameters" title="Permalink to this headline">#</a></h2>
+<p>A model parameter is internal to the model and its value is learned from the data.</p>
+<p>A model hyperparameter is external to the model and its value is set by people.</p>
+<p>For example, assume that we would like to use Logistic regression to fit the data. We set the learning rate is <code class="docutils literal notranslate"><span class="pre">0.1</span></code> and the maximal iteration is <code class="docutils literal notranslate"><span class="pre">100</span></code>. After the computations are done, we get a the model</p>
+<div class="math notranslate nohighlight">
+\[
+y = \sigma(0.8+0.7x).
+\]</div>
+<p>The two cofficients <span class="math notranslate nohighlight">\(0.8\)</span> and <span class="math notranslate nohighlight">\(0.7\)</span> are the parameters of the model. The model <code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">regression</span></code>, the learning rate <code class="docutils literal notranslate"><span class="pre">0.1</span></code> and the maximal iteration <code class="docutils literal notranslate"><span class="pre">100</span></code> are all hyperparametrs. If we change to a different set of hyperparameters, we may get a different model, with a different set of parameters.</p>
+<p>The details of Logistic regression will be discussed in <a class="reference internal" href="../Chapter5/intro.html#chapter-log-reg"><span class="std std-numref">Chapter 5</span></a>.</p>
+</section>
 <section id="evaluate-a-machine-learning-model">
-<h2><span class="section-number">1.2.2. </span>Evaluate a Machine Learning model<a class="headerlink" href="#evaluate-a-machine-learning-model" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">1.2.3. </span>Evaluate a Machine Learning model<a class="headerlink" href="#evaluate-a-machine-learning-model" title="Permalink to this headline">#</a></h2>
 <p>Once the model is built, how do we know that it is good or not? The naive idea is to test the model on some brand new data and check whether it is able to get the desired results. The usual way to achieve it is to split the input dataset into three pieces: <em>training set</em>, <em>validation set</em> and <em>test set</em>.</p>
-<p>The model is initially fit on the training set. After the first stage of the training is done, the fitted model is used to predict the responses on the validation set. These two results will tell use many information about the model, and there will be some modifications of the model accordingly. It is possible that the model is retrained.</p>
-<p>Finally the test set is a data set that is never used during the above process, and is used to provide an unbiased evaluation of a final model fit on the training set.</p>
-<p>The sizes and strategies for dataset division depends on the problem and data available. It is often recommanded that more training data should be used. The typical distribution of training, validation and test is <span class="math notranslate nohighlight">\((6:3:1)\)</span>, <span class="math notranslate nohighlight">\((7:2:1)\)</span> or <span class="math notranslate nohighlight">\((8:1:1)\)</span>. Sometimes test set is discarded and only training set and validation set are used. In this case the distribution of training and validation data is usually <span class="math notranslate nohighlight">\((7:3)\)</span>, <span class="math notranslate nohighlight">\((8:2)\)</span> or <span class="math notranslate nohighlight">\((9:1)\)</span>.</p>
+<p>The model is initially fit on the training set, with some arbitrary selections of hyperparameters. Then hyperparameters will be changed, and new model is fitted over the training set. Which set of hyperparameters is better? We then test their performance over the validation set. We could run through a lot of different combinations of hyperparameters, and find the best performance over the validation set. After we get the best hyperparameters, the model is selcted, and we fit it over the training set to get our model to use.</p>
+<p>To compare our model with our models, either our own model using other algorithms, or models built by others, we need some new data. We can no longer use the training set and the validation set since all data in them are used, either for training or for hyperparameters tuning. We need to use the test set to evaluate the “real performance” of our data.</p>
+<p>To summarize:</p>
+<ul class="simple">
+<li><p>Training set: used to fit the model;</p></li>
+<li><p>Validation set: used to tune the hyperparameters;</p></li>
+<li><p>Test set: used to check the overall performance of the model.</p></li>
+</ul>
+<p>The validation set is not always required. If we use cross-validation technique for hyperparameters tuning, like <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.GridSearchCV()</span></code>, we don’t need a separated validation set. In this case, we will only need the training set and the test set, and run <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> over the training set. The cross-validation will be discussed in <a class="reference internal" href="../Chapter2/knnproj1.html#section-cross-validation"><span class="std std-numref">Section 2.2.6</span></a>.</p>
+<p>The sizes and strategies for dataset division depends on the problem and data available. It is often recommanded that more training data should be used. The typical distribution of training, validation and test is <span class="math notranslate nohighlight">\((6:3:1)\)</span>, <span class="math notranslate nohighlight">\((7:2:1)\)</span> or <span class="math notranslate nohighlight">\((8:1:1)\)</span>. Sometimes validation set is discarded and only training set and test set are used. In this case the distribution of training and test set is usually <span class="math notranslate nohighlight">\((7:3)\)</span>, <span class="math notranslate nohighlight">\((8:2)\)</span> or <span class="math notranslate nohighlight">\((9:1)\)</span>.</p>
 </section>
 <section id="workflow-in-developing-a-machine-learning-application">
-<h2><span class="section-number">1.2.3. </span>Workflow in developing a machine learning application<a class="headerlink" href="#workflow-in-developing-a-machine-learning-application" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">1.2.4. </span>Workflow in developing a machine learning application<a class="headerlink" href="#workflow-in-developing-a-machine-learning-application" title="Permalink to this headline">#</a></h2>
 <p>The workflow described below is from <span id="id2">[<a class="reference internal" href="../references.html#id28" title="Peter Harrington. Machine Learning in Action. MANNING PUBN, April 2012. ISBN 9781617290183. URL: https://www.manning.com/books/machine-learning-in-action.">3</a>]</span>.</p>
 <ol class="simple">
 <li><p>Collect data.</p></li>

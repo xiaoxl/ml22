@@ -295,6 +295,16 @@ const thebe_selector_output = ".output, .cell_output"
      5.1. Basic idea
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regularization.html">
+     5.2. Bias and Variance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="project.html">
+     5.3. project
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -449,7 +459,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="logistic-regression">
-<h1><span class="section-number">5. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">#</a></h1>
+<span id="chapter-log-reg"></span><h1><span class="section-number">5. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">#</a></h1>
 <p>Consider a set of training data <span class="math notranslate nohighlight">\((x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \ldots\)</span>, where <span class="math notranslate nohighlight">\(x^{(i)}=(x^{(i)}_1, x^{(i)}_2, \ldots, x^{(i)}_n)\)</span> is a <span class="math notranslate nohighlight">\(n\)</span>-dim vector, and <span class="math notranslate nohighlight">\(y^{(i)}\)</span> is a real number. We would like to use Linear regression to find the relation between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <p>In this case, we assume that <span class="math notranslate nohighlight">\(y\)</span> is a linear function of <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="math notranslate nohighlight">

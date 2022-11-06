@@ -41,7 +41,8 @@ chapters:
     title: Logistic Regression
     sections:
       - file: Chapter5/regression.ipynb
-  #     - file: Chapter5/project.md
+      - file: Chapter5/regularization.ipynb
+      - file: Chapter5/project.md
   # - file: Chapter6/intro.md
   #   title: NN
   #   sections:

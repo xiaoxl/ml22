@@ -1,4 +1,7 @@
-# Logistic regression
+
+(chapter-log-reg)=
+# Logistic regression 
+
 
 Consider a set of training data $(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \ldots$, where $x^{(i)}=(x^{(i)}_1, x^{(i)}_2, \ldots, x^{(i)}_n)$ is a $n$-dim vector, and $y^{(i)}$ is a real number. We would like to use Linear regression to find the relation between $x$ and $y$. 
 

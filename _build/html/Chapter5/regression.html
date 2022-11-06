@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Appendix :numbering-format:" href="../ChapterApp/intro.html" />
+    <link rel="next" title="5.2. Bias and Variance" href="regularization.html" />
     <link rel="prev" title="5. Logistic regression" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -295,6 +295,16 @@ const thebe_selector_output = ".output, .cell_output"
      5.1. Basic idea
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regularization.html">
+     5.2. Bias and Variance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="project.html">
+     5.3. project
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -490,6 +500,33 @@ title="Print to PDF"
    5.1.3. The Formulas
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#codes">
+   5.1.4. Codes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#several-important-side-topics">
+   5.1.5. Several important side topics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#epochs">
+     5.1.5.1. Epochs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#batch-gradient-descent-vs-sgd-vs-minibatch">
+     5.1.5.2. Batch Gradient Descent vs SGD vs Minibatch
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regularization">
+     5.1.5.3. Regularization
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
     </nav>
@@ -523,6 +560,33 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#the-formulas">
    5.1.3. The Formulas
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#codes">
+   5.1.4. Codes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#several-important-side-topics">
+   5.1.5. Several important side topics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#epochs">
+     5.1.5.1. Epochs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#batch-gradient-descent-vs-sgd-vs-minibatch">
+     5.1.5.2. Batch Gradient Descent vs SGD vs Minibatch
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regularization">
+     5.1.5.3. Regularization
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -606,10 +670,8 @@ J(\Theta)=-\frac1m\sum_{i=1}^m\left[y^{(i)}\log(p^{(i)})+(1-y^{(i)})\log(1-p^{(i
 <p class="admonition-title"><span class="caption-number">Theorem 5.1 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>The gradient of <span class="math notranslate nohighlight">\(J\)</span> is computed by</p>
-<div class="math notranslate nohighlight">
-\[
-\nabla J =\frac1m(\textbf{p}-\textbf{y})^T\hat{\textbf{X}}.
-\]</div>
+<div class="math notranslate nohighlight" id="equation-eqn-nablaj">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-eqn-nablaj" title="Permalink to this equation">#</a></span>\[\nabla J =\frac1m(\textbf{p}-\textbf{y})^T\hat{\textbf{X}}.\]</div>
 </section>
 </div><div class="toggle docutils container">
 <div class="proof admonition" id="proof">
@@ -654,13 +716,98 @@ p(1-p)x_k&amp;\text{ otherwise}.
 \[
 \nabla J =\frac1m(\textbf{p}-\textbf{y})^T\hat{\textbf{X}}.
 \]</div>
-</div>
-</div>
 <p>After the gradient can be computed, we can start to use the gradient descent method. Note that, although <span class="math notranslate nohighlight">\(\Theta\)</span> are not explicitly presented in the formula of <span class="math notranslate nohighlight">\(\nabla J\)</span>, this is used to modify <span class="math notranslate nohighlight">\(\Theta\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 \Theta_{s+1} = \Theta_s - \alpha\nabla J.
 \]</div>
+</div>
+</div>
+</section>
+<section id="codes">
+<h2><span class="section-number">5.1.4. </span>Codes<a class="headerlink" href="#codes" title="Permalink to this headline">#</a></h2>
+<p>We will only talk about using packages. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides two methods to implement the Logistic regression. The API interface is very similar to other models.</p>
+<p>Let’s still take <code class="docutils literal notranslate"><span class="pre">iris</span></code> as an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The first method is <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.LogisticRegression</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.782608695652174
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that this method has an option <code class="docutils literal notranslate"><span class="pre">solver</span></code> that will set the way to solve the Logistic regression problem, and there is no “stochastic gradient descent” provided. The default solver for this <code class="docutils literal notranslate"><span class="pre">LogsiticRegression</span></code> is <code class="docutils literal notranslate"><span class="pre">lbfgs</span></code> which will NOT be discussed in lectures.</p>
+<p>The second method is <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.SGDClassifier</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="n">sgd_clf</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sgd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">sgd_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5652173913043478
+</pre></div>
+</div>
+</div>
+</div>
+<p>This method is the one we discussed in lectures. The <code class="docutils literal notranslate"><span class="pre">log_loss</span></code> loss function is the binary entropy function we mentioned in lectures. If you change to other loss functions it will become other models.</p>
+<p>From the above example, you may notice that <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code> doesn’t perform as well as <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>. This is due to the algorithm. To make <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code> better you need to tune the hyperparameters, like <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>, <code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>/<code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">penalty</span></code>, etc..</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that for both methods, regularization (which will be discussed later) is applied by default.</p>
+</div>
+</section>
+<section id="several-important-side-topics">
+<h2><span class="section-number">5.1.5. </span>Several important side topics<a class="headerlink" href="#several-important-side-topics" title="Permalink to this headline">#</a></h2>
+<section id="epochs">
+<h3><span class="section-number">5.1.5.1. </span>Epochs<a class="headerlink" href="#epochs" title="Permalink to this headline">#</a></h3>
+<p>We use epoch to describe feeding data into the model. One <em>Epoch</em> is when an entire dataset is passed through the model once. When using gradient descent, we tend to run several epochs. The number of maximal epochs is one important hyperparameter of this model.</p>
+<p>The general idea is that more epochs are better for the score of the model, but it will definitely be slower. In addition, sometimes due to many other factors, after a few epochs, the model becomes stall. To train for more epochs cannot improve the model. In this case you have to turn to other methods.</p>
+</section>
+<section id="batch-gradient-descent-vs-sgd-vs-minibatch">
+<h3><span class="section-number">5.1.5.2. </span>Batch Gradient Descent vs SGD vs Minibatch<a class="headerlink" href="#batch-gradient-descent-vs-sgd-vs-minibatch" title="Permalink to this headline">#</a></h3>
+<p>Recall the Formula <a class="reference internal" href="#equation-eqn-nablaj">(5.1)</a>:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J =\frac1m(\textbf{p}-\textbf{y})^T\hat{\textbf{X}}.
+\]</div>
+<p>We could rewrite this formula:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J =\frac1m(\textbf{p}-\textbf{y})^T\hat{\textbf{X}}=\frac1m\sum_{i=1}^m\left[(p^{(i)}-y^{(i)})\hat{x}^{(i)}\right].
+\]</div>
+<p>This new formula can be understood in the following way: For every data point, we could get one gradient direction. Then <span class="math notranslate nohighlight">\(\nabla J\)</span> is the average of all gradient directions. So this algorithm can be expressed as that compute the gradient for every data points and then take the average, and finally update the parameters once. This algorithm is called <em>batch gradient descent</em>.</p>
+<p>Following the idea, there is another way to update the model. For every data point, we could compute one gradient direction, and we could use the gradient direction to update the parameters of the model. This algorithm is called <em>stochastic gradient descent</em>.</p>
+<p>Then there is an algrothm living in the middle, called <em>mini-batch gradient descent</em>. In this case, we will group the data set into a collection of subsets of a fiexed number of training examples. Each subset is called a <em>mini-batch</em>, and the fixed number of elements of each mini-batch is called the <em>batch size</em>. Using this method, we will just go through mini-batches one at a time, compute the average of the gradient for these data, and then update the parameters of the model after we finish one mini-batch. Assume that the total number of the dataset is <code class="docutils literal notranslate"><span class="pre">N</span></code>, the mini-batch size is <code class="docutils literal notranslate"><span class="pre">m</span></code>. Then there are <code class="docutils literal notranslate"><span class="pre">N/m</span></code> mini-batches, and during one epoch we will update the model <code class="docutils literal notranslate"><span class="pre">N/m</span></code> times.</p>
+<p>Mini-batch size is one important hyperparameters of this model. Usually the larger the batch size is, the less variance the model has. Then it tends to behave more smoothly, but it will also be slower, and might be stuck to a local minimal. The smaller batch size is more chaotic. It might go faster, but it tends not to converge.</p>
+</section>
+<section id="regularization">
+<h3><span class="section-number">5.1.5.3. </span>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -698,10 +845,10 @@ p(1-p)x_k&amp;\text{ otherwise}.
             <p class="prev-next-title"><span class="section-number">5. </span>Logistic regression</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../ChapterApp/intro.html" title="next page">
+    <a class='right-next' id="next-link" href="regularization.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Appendix :numbering-format:</p>
+        <p class="prev-next-title"><span class="section-number">5.2. </span>Bias and Variance</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

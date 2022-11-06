@@ -79,14 +79,36 @@ Then the Supervised Learning problem is stated as follows: Given the features an
 ````
 
 
+## Parameters and hyperparameters
+A model parameter is internal to the model and its value is learned from the data. 
+
+A model hyperparameter is external to the model and its value is set by people.
+
+For example, assume that we would like to use Logistic regression to fit the data. We set the learning rate is `0.1` and the maximal iteration is `100`. After the computations are done, we get a the model 
+
+$$
+y = \sigma(0.8+0.7x).
+$$
+The two cofficients $0.8$ and $0.7$ are the parameters of the model. The model `Logistic regression`, the learning rate `0.1` and the maximal iteration `100` are all hyperparametrs. If we change to a different set of hyperparameters, we may get a different model, with a different set of parameters.
+
+The details of Logistic regression will be discussed in {numref}`Chapter %s<chapter-log-reg>`.
+
 ## Evaluate a Machine Learning model
 Once the model is built, how do we know that it is good or not? The naive idea is to test the model on some brand new data and check whether it is able to get the desired results. The usual way to achieve it is to split the input dataset into three pieces: *training set*, *validation set* and *test set*.
 
-The model is initially fit on the training set. After the first stage of the training is done, the fitted model is used to predict the responses on the validation set. These two results will tell use many information about the model, and there will be some modifications of the model accordingly. It is possible that the model is retrained.
+The model is initially fit on the training set, with some arbitrary selections of hyperparameters. Then hyperparameters will be changed, and new model is fitted over the training set. Which set of hyperparameters is better? We then test their performance over the validation set. We could run through a lot of different combinations of hyperparameters, and find the best performance over the validation set. After we get the best hyperparameters, the model is selcted, and we fit it over the training set to get our model to use.
 
-Finally the test set is a data set that is never used during the above process, and is used to provide an unbiased evaluation of a final model fit on the training set. 
+To compare our model with our models, either our own model using other algorithms, or models built by others, we need some new data. We can no longer use the training set and the validation set since all data in them are used, either for training or for hyperparameters tuning. We need to use the test set to evaluate the "real performance" of our data.
 
-The sizes and strategies for dataset division depends on the problem and data available. It is often recommanded that more training data should be used. The typical distribution of training, validation and test is $(6:3:1)$, $(7:2:1)$ or $(8:1:1)$. Sometimes test set is discarded and only training set and validation set are used. In this case the distribution of training and validation data is usually $(7:3)$, $(8:2)$ or $(9:1)$.
+To summarize: 
+
+- Training set: used to fit the model;
+- Validation set: used to tune the hyperparameters;
+- Test set: used to check the overall performance of the model.
+
+The validation set is not always required. If we use cross-validation technique for hyperparameters tuning, like `sklearn.model_selection.GridSearchCV()`, we don't need a separated validation set. In this case, we will only need the training set and the test set, and run `GridSearchCV` over the training set. The cross-validation will be discussed in {numref}`Section %s<section-cross-validation>`. 
+
+The sizes and strategies for dataset division depends on the problem and data available. It is often recommanded that more training data should be used. The typical distribution of training, validation and test is $(6:3:1)$, $(7:2:1)$ or $(8:1:1)$. Sometimes validation set is discarded and only training set and test set are used. In this case the distribution of training and test set is usually $(7:3)$, $(8:2)$ or $(9:1)$.
 
 
 ## Workflow in developing a machine learning application
