@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.2. Bias and Variance" href="regularization.html" />
+    <link rel="next" title="5.2. Regularization" href="regularization.html" />
     <link rel="prev" title="5. Logistic regression" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -297,7 +297,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="regularization.html">
-     5.2. Bias and Variance
+     5.2. Regularization
     </a>
    </li>
    <li class="toctree-l2">
@@ -520,11 +520,6 @@ title="Print to PDF"
      5.1.5.2. Batch Gradient Descent vs SGD vs Minibatch
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#regularization">
-     5.1.5.3. Regularization
-    </a>
-   </li>
   </ul>
  </li>
 </ul>
@@ -579,11 +574,6 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#batch-gradient-descent-vs-sgd-vs-minibatch">
      5.1.5.2. Batch Gradient Descent vs SGD vs Minibatch
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#regularization">
-     5.1.5.3. Regularization
     </a>
    </li>
   </ul>
@@ -769,13 +759,18 @@ p(1-p)x_k&amp;\text{ otherwise}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5652173913043478
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6521739130434783
 </pre></div>
 </div>
 </div>
 </div>
 <p>This method is the one we discussed in lectures. The <code class="docutils literal notranslate"><span class="pre">log_loss</span></code> loss function is the binary entropy function we mentioned in lectures. If you change to other loss functions it will become other models.</p>
 <p>From the above example, you may notice that <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code> doesn’t perform as well as <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>. This is due to the algorithm. To make <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code> better you need to tune the hyperparameters, like <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>, <code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>/<code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">penalty</span></code>, etc..</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The argument <code class="docutils literal notranslate"><span class="pre">warm_start</span></code> is used to set whether you want to use your previous model. When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, it will reuse the solution of the previous call to fit as initialization, otherwise, just erase the previous solution. The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>Repeatedly calling <code class="docutils literal notranslate"><span class="pre">fit</span></code> when <code class="docutils literal notranslate"><span class="pre">warm_start</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> can result in a different solution than when calling <code class="docutils literal notranslate"><span class="pre">fit</span></code> a single time because of the way the data is shuffled.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Note that for both methods, regularization (which will be discussed later) is applied by default.</p>
@@ -804,9 +799,6 @@ p(1-p)x_k&amp;\text{ otherwise}.
 <p>Following the idea, there is another way to update the model. For every data point, we could compute one gradient direction, and we could use the gradient direction to update the parameters of the model. This algorithm is called <em>stochastic gradient descent</em>.</p>
 <p>Then there is an algrothm living in the middle, called <em>mini-batch gradient descent</em>. In this case, we will group the data set into a collection of subsets of a fiexed number of training examples. Each subset is called a <em>mini-batch</em>, and the fixed number of elements of each mini-batch is called the <em>batch size</em>. Using this method, we will just go through mini-batches one at a time, compute the average of the gradient for these data, and then update the parameters of the model after we finish one mini-batch. Assume that the total number of the dataset is <code class="docutils literal notranslate"><span class="pre">N</span></code>, the mini-batch size is <code class="docutils literal notranslate"><span class="pre">m</span></code>. Then there are <code class="docutils literal notranslate"><span class="pre">N/m</span></code> mini-batches, and during one epoch we will update the model <code class="docutils literal notranslate"><span class="pre">N/m</span></code> times.</p>
 <p>Mini-batch size is one important hyperparameters of this model. Usually the larger the batch size is, the less variance the model has. Then it tends to behave more smoothly, but it will also be slower, and might be stuck to a local minimal. The smaller batch size is more chaotic. It might go faster, but it tends not to converge.</p>
-</section>
-<section id="regularization">
-<h3><span class="section-number">5.1.5.3. </span>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h3>
 </section>
 </section>
 </section>
@@ -848,7 +840,7 @@ p(1-p)x_k&amp;\text{ otherwise}.
     <a class='right-next' id="next-link" href="regularization.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5.2. </span>Bias and Variance</p>
+        <p class="prev-next-title"><span class="section-number">5.2. </span>Regularization</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

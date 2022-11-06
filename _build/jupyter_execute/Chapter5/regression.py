@@ -189,6 +189,14 @@ sgd_clf.score(X_test, y_test)
 # This method is the one we discussed in lectures. The `log_loss` loss function is the binary entropy function we mentioned in lectures. If you change to other loss functions it will become other models.
 # 
 # From the above example, you may notice that `SGDClassifier` doesn't perform as well as `LogisticRegression`. This is due to the algorithm. To make `SGDClassifier` better you need to tune the hyperparameters, like `max_iter`, `learning_rate`/`alpha`, `penalty`, etc..
+# 
+# 
+# ```{note}
+# The argument `warm_start` is used to set whether you want to use your previous model. When set to `True`, it will reuse the solution of the previous call to fit as initialization, otherwise, just erase the previous solution. The default is `False`.  
+# 
+# Repeatedly calling `fit` when `warm_start` is `True` can result in a different solution than when calling `fit` a single time because of the way the data is shuffled. 
+# ```
+# 
 
 # ````{note}
 # Note that for both methods, regularization (which will be discussed later) is applied by default.
@@ -224,5 +232,7 @@ sgd_clf.score(X_test, y_test)
 # Mini-batch size is one important hyperparameters of this model. Usually the larger the batch size is, the less variance the model has. Then it tends to behave more smoothly, but it will also be slower, and might be stuck to a local minimal. The smaller batch size is more chaotic. It might go faster, but it tends not to converge.
 # 
 # 
-# ### Regularization
+# 
+# 
+
 # 

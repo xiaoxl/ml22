@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>5.2. Bias and Variance &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>5.2. Regularization &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -295,7 +295,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     5.2. Bias and Variance
+     5.2. Regularization
     </a>
    </li>
    <li class="toctree-l2">
@@ -484,18 +484,18 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#three-types-of-errors">
+   5.2.1. Three types of errors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#underfit-vs-overfit">
-   5.2.1. Underfit vs Overfit
+   5.2.2. Underfit vs Overfit
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-curves">
-   5.2.2. Learning curves
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using">
-   5.2.3. Using
+  <a class="reference internal nav-link" href="#learning-curves-training-size">
+   5.2.3. Learning curves (training size)
   </a>
  </li>
 </ul>
@@ -507,7 +507,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Bias and Variance</h1>
+                <h1>Regularization</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -518,18 +518,18 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#three-types-of-errors">
+   5.2.1. Three types of errors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#underfit-vs-overfit">
-   5.2.1. Underfit vs Overfit
+   5.2.2. Underfit vs Overfit
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-curves">
-   5.2.2. Learning curves
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using">
-   5.2.3. Using
+  <a class="reference internal nav-link" href="#learning-curves-training-size">
+   5.2.3. Learning curves (training size)
   </a>
  </li>
 </ul>
@@ -542,11 +542,15 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="bias-and-variance">
-<h1><span class="section-number">5.2. </span>Bias and Variance<a class="headerlink" href="#bias-and-variance" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="regularization">
+<h1><span class="section-number">5.2. </span>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h1>
+<section id="three-types-of-errors">
+<h2><span class="section-number">5.2.1. </span>Three types of errors<a class="headerlink" href="#three-types-of-errors" title="Permalink to this headline">#</a></h2>
 <p>Every estimator has its advantages and drawbacks. Its generalization error can be decomposed in terms of bias, variance and noise. The <strong>bias</strong> of an estimator is its average error for different training sets. The <strong>variance</strong> of an estimator indicates how sensitive it is to varying training sets. Noise is a property of the data.</p>
+</section>
 <section id="underfit-vs-overfit">
-<h2><span class="section-number">5.2.1. </span>Underfit vs Overfit<a class="headerlink" href="#underfit-vs-overfit" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.2.2. </span>Underfit vs Overfit<a class="headerlink" href="#underfit-vs-overfit" title="Permalink to this headline">#</a></h2>
+<p>When fit a model to data, it is highly possible that the model is underfit or overfit.</p>
 <p>Roughly speaking, <strong>underfit</strong> means the model is not sufficient to fit the training samples, and <strong>overfit</strong> means that the models learns too many noise from the data. In many cases, high bias is related to underfit, and high variance is related to overfit.</p>
 <p>The following example is from <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_underfitting_overfitting.html#sphx-glr-auto-examples-model-selection-plot-underfitting-overfitting-py">the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> guide</a>. Although it is a polynomial regression example, it grasps the key idea of underfit and overfit.</p>
 <div class="cell tag_remove-input docutils container">
@@ -555,13 +559,18 @@ title="Print to PDF"
 </div>
 </div>
 </section>
-<section id="learning-curves">
-<h2><span class="section-number">5.2.2. </span>Learning curves<a class="headerlink" href="#learning-curves" title="Permalink to this headline">#</a></h2>
-<p>A learning curve shows the validation and training score of an estimator for varying a key hyperparameter. In most cases the key hyperparameter is the sample size of the number of iterations. It is a tool to find out how much we benefit from altering the hyperparameter by adding more training data or training for more iterations, and whether the estimator suffers more from a variance error or a bias error.</p>
+<section id="learning-curves-training-size">
+<h2><span class="section-number">5.2.3. </span>Learning curves (training size)<a class="headerlink" href="#learning-curves-training-size" title="Permalink to this headline">#</a></h2>
+<p>A learning curve shows the validation and training score of an estimator for varying a key hyperparameter. In most cases the key hyperparameter is the training size or the number of epochs. It is a tool to find out how much we benefit from altering the hyperparameter by training more data or training for more epochs, and whether the estimator suffers more from a variance error or a bias error.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.learning_curve()</span></code> to generate the values that are required to plot such a learning curve. However this function is just related to the sample size. If we would like to talk about epochs, we need other packages.</p>
-</section>
-<section id="using">
-<h2><span class="section-number">5.2.3. </span>Using<a class="headerlink" href="#using" title="Permalink to this headline">#</a></h2>
+<p>Let us first look at the learning curve about sample size. The official document page is <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.learning_curve.html">here</a>. The function takes input <code class="docutils literal notranslate"><span class="pre">estimator</span></code>, dataset <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and an arry-like argument <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code>. For each train_size,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 

@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Bias and Variance
+# # Regularization
 # 
-# Every estimator has its advantages and drawbacks. Its generalization error can be decomposed in terms of bias, variance and noise. The **bias** of an estimator is its average error for different training sets. The **variance** of an estimator indicates how sensitive it is to varying training sets. Noise is a property of the data.
+# ## Three types of errors
+# Every estimator has its advantages and drawbacks. Its generalization error can be decomposed in terms of bias, variance and noise. The **bias** of an estimator is its average error for different training sets. The **variance** of an estimator indicates how sensitive it is to varying training sets. Noise is a property of the data. 
 
 # ## Underfit vs Overfit
+# 
+# When fit a model to data, it is highly possible that the model is underfit or overfit. 
+# 
 # Roughly speaking, **underfit** means the model is not sufficient to fit the training samples, and **overfit** means that the models learns too many noise from the data. In many cases, high bias is related to underfit, and high variance is related to overfit.
 # 
 # The following example is from [the `sklearn` guide](https://scikit-learn.org/stable/auto_examples/model_selection/plot_underfitting_overfitting.html#sphx-glr-auto-examples-model-selection-plot-underfitting-overfitting-py). Although it is a polynomial regression example, it grasps the key idea of underfit and overfit.
@@ -70,13 +74,19 @@ for i in range(len(degrees)):
 plt.show()
 
 
-# ## Learning curves
+# ## Learning curves (training size)
 # 
-# A learning curve shows the validation and training score of an estimator for varying a key hyperparameter. In most cases the key hyperparameter is the sample size of the number of iterations. It is a tool to find out how much we benefit from altering the hyperparameter by adding more training data or training for more iterations, and whether the estimator suffers more from a variance error or a bias error. 
+# A learning curve shows the validation and training score of an estimator for varying a key hyperparameter. In most cases the key hyperparameter is the training size or the number of epochs. It is a tool to find out how much we benefit from altering the hyperparameter by training more data or training for more epochs, and whether the estimator suffers more from a variance error or a bias error. 
 # 
 # `sklearn` provides `sklearn.model_selection.learning_curve()` to generate the values that are required to plot such a learning curve. However this function is just related to the sample size. If we would like to talk about epochs, we need other packages.
 # 
-# ## Using 
+# Let us first look at the learning curve about sample size. The official document page is [here](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.learning_curve.html). The function takes input `estimator`, dataset `X`, `y`, and an arry-like argument `train_sizes`. For each train_size, 
+# 
+# 
 # 
 
-# 
+# In[2]:
+
+
+from sklearn.model_selection import learning_curve
+

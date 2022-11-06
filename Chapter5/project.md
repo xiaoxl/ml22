@@ -1,10 +1,14 @@
 # project
 
 
+```{exercise}
+Please hand write a report about the details of the math formulas for Logistic regression.
+```
+
 
 
 ```{exercise}
-CHOOSE ONE: Please use `sklearn` to apply the LogisticRegression to one of the following datasets.
+CHOOSE ONE: Please use `sklearn` to apply the LogisticRegression to one of the following datasets. You may either use `LogisticRegression` or `SGDClassifier`.
 - the `iris` dataset.
 - the dating dataset.
 - the `titanic` dataset.
@@ -12,6 +16,7 @@ CHOOSE ONE: Please use `sklearn` to apply the LogisticRegression to one of the f
 Please in addition answer the following questions.
 1. What is your accuracy score?
 2. How many epochs do you use?
+3. Plot the learning curve (accuracy vs training sizes).
 ```
 
 
