@@ -279,8 +279,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../ChapterApp/intro.html">
-   5. Appendix
+  <a class="reference internal" href="../Chapter5/intro.html">
+   5. Logistic Regression
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -289,8 +289,25 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/regression.html">
+     5.1. Basic idea
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   6. Appendix
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
     <a class="reference internal" href="../ChapterApp/datasets.html">
-     5.1. Datasets
+     6.1. Datasets
     </a>
    </li>
   </ul>
@@ -462,8 +479,25 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#some-rough-analysis">
+   4.2.2. Some rough analysis
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-1">
+     4.2.2.1. Case 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-2">
+     4.2.2.2. Case 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-sklearn">
-   4.2.2. Using
+   4.2.3. Using
    <code class="docutils literal notranslate">
     <span class="pre">
      sklearn
@@ -473,22 +507,22 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#oob-score">
-   4.2.3. OOB score
+   4.2.4. OOB score
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-forests">
-   4.2.4. Random Forests
+   4.2.5. Random Forests
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#extra-trees">
-     4.2.4.1. Extra-trees
+     4.2.5.1. Extra-trees
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#gini-importance">
-     4.2.4.2. Gini importance
+     4.2.5.2. Gini importance
     </a>
    </li>
   </ul>
@@ -518,8 +552,25 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#some-rough-analysis">
+   4.2.2. Some rough analysis
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-1">
+     4.2.2.1. Case 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-2">
+     4.2.2.2. Case 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-sklearn">
-   4.2.2. Using
+   4.2.3. Using
    <code class="docutils literal notranslate">
     <span class="pre">
      sklearn
@@ -529,22 +580,22 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#oob-score">
-   4.2.3. OOB score
+   4.2.4. OOB score
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-forests">
-   4.2.4. Random Forests
+   4.2.5. Random Forests
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#extra-trees">
-     4.2.4.1. Extra-trees
+     4.2.5.1. Extra-trees
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#gini-importance">
-     4.2.4.2. Gini importance
+     4.2.5.2. Gini importance
     </a>
    </li>
   </ul>
@@ -584,44 +635,42 @@ title="Print to PDF"
 <p>We would like to sample from the dataset to get some smaller minisets. We will use <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.ShuffleSplit</span></code> to perform the action.</p>
 <p>The output of <code class="docutils literal notranslate"><span class="pre">ShuffleSplit</span></code> is a generator. To get the index out of it we need a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. You may check out the following code.</p>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">ShuffleSplit</span></code> is originally used to shuffle data into training and test sets. We would only use the shuffle function out of it, so we will set <code class="docutils literal notranslate"><span class="pre">test_size</span></code> to be <code class="docutils literal notranslate"><span class="pre">1</span></code> and use <code class="docutils literal notranslate"><span class="pre">_</span></code> later in the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop since we won’t use that part of the information.</p>
-<p>What we finally get is a list consists of tuples of mini set of <code class="docutils literal notranslate"><span class="pre">X_train</span></code> and <code class="docutils literal notranslate"><span class="pre">y_train</span></code>.</p>
+<p>What we finally get is a generator <code class="docutils literal notranslate"><span class="pre">rs</span></code> that produces indexes of subsets of <code class="docutils literal notranslate"><span class="pre">X_train</span></code> and <code class="docutils literal notranslate"><span class="pre">y_train</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span>
 <span class="n">n_trees</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">n_instances</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">rs</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_trees</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">n_instances</span><span class="p">)</span>
-<span class="n">mini_sets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">mini_train_index</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">rs</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">):</span>
-    <span class="n">mini_sets</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">X_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]))</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_trees</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">n_instances</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Now we would like to generate a list of Decision Trees. We could use the hyperparameters we get from Chapter 3. We train each tree over a certain mini set, and then evaluate the trained model over the test set. The average accuracy is around 80%.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">rs</span></code> is a generator. We put it in a for loop, and during each loop it will produce a list of indexes which gives a subset. We will directly train our model over the subset and use it to predict the test set. The result of each tree is put in the list <code class="docutils literal notranslate"><span class="pre">y_pred_list</span></code> and the accuracy is stored in the list <code class="docutils literal notranslate"><span class="pre">acc_list</span></code>. The mean of the accuracy is then computed by <code class="docutils literal notranslate"><span class="pre">np.mean(acc_list)</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">tree_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">clone</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">17</span><span class="p">))</span>
-             <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trees</span><span class="p">)]</span>
+<span class="n">y_pred_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 <span class="n">acc_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trees</span><span class="p">):</span>
-    <span class="n">tree</span> <span class="o">=</span> <span class="n">tree_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="p">(</span><span class="n">X_mini_train</span><span class="p">,</span> <span class="n">y_mini_train</span><span class="p">)</span> <span class="o">=</span> <span class="n">mini_sets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_mini_train</span><span class="p">,</span> <span class="n">y_mini_train</span><span class="p">)</span>
-
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">mini_train_index</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">:</span>
+    <span class="n">X_subset</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">y_subset</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">clf_ind</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+    <span class="n">clf_ind</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_subset</span><span class="p">,</span> <span class="n">y_subset</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_ind</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">y_pred_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
     <span class="n">acc_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_list</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7979346666666668
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7997573333333333
 </pre></div>
 </div>
 </div>
@@ -630,8 +679,9 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">mode</span>
-<span class="n">voting</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">tree_list</span><span class="p">])</span>
+<span class="n">voting</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred_list</span><span class="p">)</span>
 <span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mode</span><span class="p">(</span><span class="n">voting</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y_pred_mode</span> <span class="o">=</span> <span class="n">y_pred_mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -639,20 +689,124 @@ title="Print to PDF"
 <p>Since the output of <code class="docutils literal notranslate"><span class="pre">mode</span></code> is a tuple where the first entry is a 2D array, we need to reshape <code class="docutils literal notranslate"><span class="pre">y_pred_mode</span></code>. This is the result using this voting system. Then we are able to compute the accuracy, and find that it is increased from the previous prediction.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_mode</span> <span class="o">=</span> <span class="n">y_pred_mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y_pred_mode</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8593333333333333
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8666666666666667
 </pre></div>
 </div>
 </div>
 </div>
 </section>
+<section id="some-rough-analysis">
+<h2><span class="section-number">4.2.2. </span>Some rough analysis<a class="headerlink" href="#some-rough-analysis" title="Permalink to this headline">#</a></h2>
+<p>The point of <code class="docutils literal notranslate"><span class="pre">Bagging</span></code> is to let every classifier study part of the data, and then gather the opinions from everyone. If the performance are almost the same between individual classifers and the Bagging classifiers, this means that the majority of the individual classifiers have the same opinions. One possible reason is that the randomized subsets already catch the main features of the dataset that every individual classifiers behave similar.</p>
+<section id="case-1">
+<h3><span class="section-number">4.2.2.1. </span>Case 1<a class="headerlink" href="#case-1" title="Permalink to this headline">#</a></h3>
+<p>Let us continue with the previous dataset. We start from using Decision Tree with <code class="docutils literal notranslate"><span class="pre">max_depth=1</span></code>. In other words each tree only split once.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_trees</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">n_instances</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_trees</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">n_instances</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_pred_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">acc_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">mini_train_index</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">:</span>
+    <span class="n">X_subset</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">y_subset</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">clf_ind</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">clf_ind</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_subset</span><span class="p">,</span> <span class="n">y_subset</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_ind</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">y_pred_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">acc_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The mean of individual accuracy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_list</span><span class="p">)))</span>
+
+<span class="n">voting</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred_list</span><span class="p">)</span>
+<span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mode</span><span class="p">(</span><span class="n">voting</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y_pred_mode</span> <span class="o">=</span> <span class="n">y_pred_mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The accuracy of the bagging classifier: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of individual accuracy: 0.7518146666666666
+The accuracy of the bagging classifier: 0.7553333333333333
+</pre></div>
+</div>
+</div>
+</div>
+<p>The two accuracy has some differences, but not much. This is due to the fact that the sample size of the subset is too large: 1000 can already help the individual classifers to capture the major ideas of the datasets. Let us see the first 1000 data points. The scattering plot is very similar to that of the whole dataset shown above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Npiece</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:</span><span class="n">Npiece</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[:</span><span class="n">Npiece</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">[:</span><span class="n">Npiece</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x22dccd1b790&gt;
+</pre></div>
+</div>
+<img alt="../_images/randomforest_13_1.png" src="../_images/randomforest_13_1.png" />
+</div>
+</div>
+</section>
+<section id="case-2">
+<h3><span class="section-number">4.2.2.2. </span>Case 2<a class="headerlink" href="#case-2" title="Permalink to this headline">#</a></h3>
+<p>If we reduce the sample size to be very small, for example, 20, the sampled subset will lose a lot of information and it will be much harder to capture the idea of the original dataset. See the scattering plot of the first 20 data points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Npiece</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:</span><span class="n">Npiece</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[:</span><span class="n">Npiece</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">[:</span><span class="n">Npiece</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x22dcdd60940&gt;
+</pre></div>
+</div>
+<img alt="../_images/randomforest_15_1.png" src="../_images/randomforest_15_1.png" />
+</div>
+</div>
+<p>In this case, let us see the performance comparison between multiple decision trees and the bagging classifier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_trees</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">n_instances</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_trees</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">n_instances</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_pred_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">acc_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">mini_train_index</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">:</span>
+    <span class="n">X_subset</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">y_subset</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">clf_ind</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">clf_ind</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_subset</span><span class="p">,</span> <span class="n">y_subset</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_ind</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">y_pred_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">acc_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The mean of individual accuracy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_list</span><span class="p">)))</span>
+
+<span class="n">voting</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred_list</span><span class="p">)</span>
+<span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mode</span><span class="p">(</span><span class="n">voting</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y_pred_mode</span> <span class="o">=</span> <span class="n">y_pred_mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The accuracy of the bagging classifier: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of individual accuracy: 0.7173986666666667
+The accuracy of the bagging classifier: 0.7866666666666666
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time you may see a significant increase in the performance.</p>
+</section>
+</section>
 <section id="using-sklearn">
-<h2><span class="section-number">4.2.2. </span>Using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#using-sklearn" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2.3. </span>Using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#using-sklearn" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> to directly perform bagging or pasting. The code is as follows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -678,14 +832,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.856
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8653333333333333
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="oob-score">
-<h2><span class="section-number">4.2.3. </span>OOB score<a class="headerlink" href="#oob-score" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2.4. </span>OOB score<a class="headerlink" href="#oob-score" title="Permalink to this headline">#</a></h2>
 <p>When we use <code class="docutils literal notranslate"><span class="pre">bagging</span></code>, it is possible that some of the training data are not used. In this case, we could record which data are not used, and just use them as the test set, instead of providing extra data for test. The data that are not used is called <em>out-of-bag</em> instances, or <em>oob</em> for short. The accuracy over the oob data is called the oob score.</p>
 <p>We could set <code class="docutils literal notranslate"><span class="pre">oob_score=True</span></code> to enable the function when creating a <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code>, and use <code class="docutils literal notranslate"><span class="pre">.oob_score_</span></code> to get the oob score after training.</p>
 <div class="cell docutils container">
@@ -701,14 +855,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8667058823529412
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8634117647058823
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="random-forests">
-<h2><span class="section-number">4.2.4. </span>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">4.2.5. </span>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h2>
 <p>When the classifiers used in a bagging classifier are all Decision Trees, the bagging classifier is called a <code class="docutils literal notranslate"><span class="pre">random</span> <span class="pre">forest</span></code>. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provide <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> class. It is almost the same as <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> + <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifer</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -722,16 +876,64 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8553333333333333
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.86
 </pre></div>
 </div>
 </div>
 </div>
 <p>When we use the Decision Tree as our base estimators, the class <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> provides more control over growing the random forest, with a certain optimizations. If you would like to use other estimators, then <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code> should be used.</p>
 <section id="extra-trees">
-<h3><span class="section-number">4.2.4.1. </span>Extra-trees<a class="headerlink" href="#extra-trees" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.2.5.1. </span>Extra-trees<a class="headerlink" href="#extra-trees" title="Permalink to this headline">#</a></h3>
 <p>When growing a Decision Tree, our method is to search through all possible ways to find the best split point that get the lowest Gini impurity. Anohter method is to use a random split. Of course a random tree performs much worse, but if we use it to form a random forest, the voting system can help to increase the accuracy. On the other hand, random split is much faster than a regular Decision Tree.</p>
-<p>This type of forest is called <em>Extremely Randomized Trees</em>, or <em>Extra-Trees</em> for short. In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> there is an <code class="docutils literal notranslate"><span class="pre">ExtraTreesClassifier</span></code> to create such a classifier. It is hard to say which random forest is better beforehand. What we can do is to test and calculate the cross-validation scores (with grid search for hyperparameters tuning).</p>
+<p>This type of forest is called <em>Extremely Randomized Trees</em>, or <em>Extra-Trees</em> for short. We could modify the above random forest classifier code to implement the extra-tree algorithm. The key point is that we don’t apply the Decision Tree algorithm to <code class="docutils literal notranslate"><span class="pre">X_subset</span></code>. Instead we perform a random split.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_trees</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">n_instances</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_trees</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">n_instances</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_pred_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">acc_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">mini_train_index</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">:</span>
+    <span class="n">X_subset</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">y_subset</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mini_train_index</span><span class="p">]</span>
+    <span class="n">clf_ind</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># random split</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X_subset</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X_subset</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">split_threshold</span> <span class="o">=</span> <span class="n">X_subset</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="n">lsetindex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X_subset</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">split_threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lsetindex</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">rsetindex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X_subset</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">split_threshold</span><span class="p">)</span>
+        <span class="n">rmode</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mode</span><span class="p">(</span><span class="n">y_subset</span><span class="p">[</span><span class="n">rsetindex</span><span class="p">])</span>
+        <span class="n">rmode</span> <span class="o">=</span> <span class="n">rmode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">lmode</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">rmode</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lmode</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mode</span><span class="p">(</span><span class="n">y_subset</span><span class="p">[</span><span class="n">lsetindex</span><span class="p">])</span>
+        <span class="n">lmode</span> <span class="o">=</span> <span class="n">lmode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">rmode</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">lmode</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">split_threshold</span><span class="p">,</span> <span class="n">lmode</span><span class="p">,</span> <span class="n">rmode</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># The above code is used to use the random split to classify the data points</span>
+    <span class="n">y_pred_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">acc_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The mean of individual accuracy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acc_list</span><span class="p">)))</span>
+
+<span class="n">voting</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred_list</span><span class="p">)</span>
+<span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mode</span><span class="p">(</span><span class="n">voting</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y_pred_mode</span> <span class="o">=</span> <span class="n">y_pred_mode</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The accuracy of the bagging classifier: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred_mode</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of individual accuracy: 0.6327840000000001
+The accuracy of the bagging classifier: 0.822
+</pre></div>
+</div>
+</div>
+</div>
+<p>From the above example, you may find a significant increase in the performace from the mean individual accuracy to the Extra-tree classifier accuracy. The accuracy of the Extra-tree classifier is also very close to what we get from the original data points, although its base classifier is much simpler.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> there is an <code class="docutils literal notranslate"><span class="pre">ExtraTreesClassifier</span></code> to create such a classifier. It is hard to say which random forest is better beforehand. What we can do is to test and calculate the cross-validation scores (with grid search for hyperparameters tuning).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
@@ -744,7 +946,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8533333333333334
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8526666666666667
 </pre></div>
 </div>
 </div>
@@ -768,17 +970,17 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Frorest: 4.231271743774414
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Frorest: 4.575860977172852
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extremely Randomized Trees: 1.3573291301727295
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extremely Randomized Trees: 1.5438199043273926
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="gini-importance">
-<h3><span class="section-number">4.2.4.2. </span>Gini importance<a class="headerlink" href="#gini-importance" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">4.2.5.2. </span>Gini importance<a class="headerlink" href="#gini-importance" title="Permalink to this headline">#</a></h3>
 <p>After training a Decision Tree, we could look at each node. Each split is against a feature, which decrease the Gini impurity the most. In other words, we could say that the feature is the most important during the split.</p>
 <p>Using the average Gini impurity decreased as a metric, we could measure the importance of each feature. This is called <em>Gini importance</em>. If the feature is useful, it tends to split mixed labeled nodes into pure single class nodes.</p>
 <p>In the case of random forest, since there are many trees, we might compute the weighted average of the Gini importance across all trees. The weight depends on how many times the feature is used in a specific node.</p>
@@ -791,7 +993,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43765231, 0.56234769])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.43065334, 0.56934666])
 </pre></div>
 </div>
 </div>

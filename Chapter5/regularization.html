@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5.2. Regularization &#8212; Machine Learning Notes - 2022 Fall</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.3. Neural network implement of Logistic regression" href="nn.html" />
+    <link rel="prev" title="5.1. Basic idea" href="regression.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Notes - 2022 Fall</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../references.html">
+                    References
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter1/intro.html">
+   1. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/what.html">
+     1.1. What is Machine Learning?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/data.html">
+     1.2. Basic setting for Machine learning problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/pynotebook.html">
+     1.3. Python quick guide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/project.html">
+     1.4. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter2/intro.html">
+   2. k-NN
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knn.html">
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj1.html">
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj2.html">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/project.html">
+     2.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter3/intro.html">
+   3. Decision Tree
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/gini.html">
+     3.1. Gini impurity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/code.html">
+     3.2. CART Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/dt.html">
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/dt2.html">
+     3.4. Decision Tree Project 2:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       make_moons
+      </span>
+     </code>
+     dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/project.html">
+     3.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter4/intro.html">
+   4. Ensemble methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/morevoting.html">
+     4.1. Voting machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/randomforest.html">
+     4.2. Bootstrap aggregating
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/adaboost.html">
+     4.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       AdaBoost
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/project.html">
+     4.4. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   5. Logistic Regression
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="regression.html">
+     5.1. Basic idea
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.2. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nn.html">
+     5.3. Neural network implement of Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="project.html">
+     5.4. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   6. Appendix
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ChapterApp/datasets.html">
+     6.1. Datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/xiaoxl/ml22/master?urlpath=tree/docs/Chapter5/regularization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/Chapter5/regularization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#three-types-of-errors">
+   5.2.1. Three types of errors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#underfit-vs-overfit">
+   5.2.2. Underfit vs Overfit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-curves-accuracy-vs-training-size">
+   5.2.3. Learning curves (accuracy vs training size)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   5.2.4. Regularization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-math-of-regularization">
+     5.2.4.1. The math of regularization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-code">
+     5.2.4.2. The code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Regularization</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#three-types-of-errors">
+   5.2.1. Three types of errors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#underfit-vs-overfit">
+   5.2.2. Underfit vs Overfit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#learning-curves-accuracy-vs-training-size">
+   5.2.3. Learning curves (accuracy vs training size)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   5.2.4. Regularization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-math-of-regularization">
+     5.2.4.1. The math of regularization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-code">
+     5.2.4.2. The code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="regularization">
+<h1><span class="section-number">5.2. </span>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h1>
+<section id="three-types-of-errors">
+<h2><span class="section-number">5.2.1. </span>Three types of errors<a class="headerlink" href="#three-types-of-errors" title="Permalink to this headline">#</a></h2>
+<p>Every estimator has its advantages and drawbacks. Its generalization error can be decomposed in terms of bias, variance and noise. The <strong>bias</strong> of an estimator is its average error for different training sets. The <strong>variance</strong> of an estimator indicates how sensitive it is to varying training sets. Noise is a property of the data.</p>
+</section>
+<section id="underfit-vs-overfit">
+<h2><span class="section-number">5.2.2. </span>Underfit vs Overfit<a class="headerlink" href="#underfit-vs-overfit" title="Permalink to this headline">#</a></h2>
+<p>When fit a model to data, it is highly possible that the model is underfit or overfit.</p>
+<p>Roughly speaking, <strong>underfit</strong> means the model is not sufficient to fit the training samples, and <strong>overfit</strong> means that the models learns too many noise from the data. In many cases, high bias is related to underfit, and high variance is related to overfit.</p>
+<p>The following example is from <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_underfitting_overfitting.html#sphx-glr-auto-examples-model-selection-plot-underfitting-overfitting-py">the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> guide</a>. Although it is a polynomial regression example, it grasps the key idea of underfit and overfit.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/regularization_2_0.png" src="../_images/regularization_2_0.png" />
+</div>
+</div>
+</section>
+<section id="learning-curves-accuracy-vs-training-size">
+<h2><span class="section-number">5.2.3. </span>Learning curves (accuracy vs training size)<a class="headerlink" href="#learning-curves-accuracy-vs-training-size" title="Permalink to this headline">#</a></h2>
+<p>A learning curve shows the validation and training score of an estimator for varying a key hyperparameter. In most cases the key hyperparameter is the training size or the number of epochs. It is a tool to find out how much we benefit from altering the hyperparameter by training more data or training for more epochs, and whether the estimator suffers more from a variance error or a bias error.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.learning_curve()</span></code> to generate the values that are required to plot such a learning curve. However this function is just related to the sample size. If we would like to talk about epochs, we need other packages.</p>
+<p>Let us first look at the learning curve about sample size. The official document page is <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.learning_curve.html">here</a>. The function takes input <code class="docutils literal notranslate"><span class="pre">estimator</span></code>, dataset <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and an arry-like argument <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code>. The dataset <code class="docutils literal notranslate"><span class="pre">(X,</span> <span class="pre">y)</span></code> will be split into pieces using the cross-validation technique. The number of pieces is set by the argument <code class="docutils literal notranslate"><span class="pre">cv</span></code>. The default value is <code class="docutils literal notranslate"><span class="pre">cv=5</span></code>. For details about cross-validation please see <a class="reference internal" href="../Chapter2/knnproj1.html#section-cross-validation"><span class="std std-numref">Section 2.2.6</span></a>.</p>
+<p>Then the model is trained over a random sample of the training set, and evaluate the score over the test set. The size of the sample of the training set is set by the argument <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code>. This argument is array-like. Therefore the process will be repeated several times, and we can see the impact of increasing the training size.</p>
+<p>The output contains three pieces. The first is <code class="docutils literal notranslate"><span class="pre">train_sizes_abs</span></code> which is the number of elements in each training set. This output is mainly for reference. The difference between the output and the input <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code> is that the input can be float which represents the percentagy. The output is always the exact number of elements.</p>
+<p>The second output is <code class="docutils literal notranslate"><span class="pre">train_scores</span></code> and the third is <code class="docutils literal notranslate"><span class="pre">test_scores</span></code>, both of which are the scores we get from the training and testing process. Note that both are 2D <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays, of the size <code class="docutils literal notranslate"><span class="pre">(number</span> <span class="pre">of</span> <span class="pre">different</span> <span class="pre">sizes,</span> <span class="pre">cv)</span></code>. Each row is a 1D <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array representing the cross-validation scores, which is corresponding to a train size. If we want the mean as the cross-validation score, we could use <code class="docutils literal notranslate"><span class="pre">train_scores.mean(axis=1)</span></code>.</p>
+<p>After understanding the input and output, we could plot the learning curve. We still use the <code class="docutils literal notranslate"><span class="pre">horse</span> <span class="pre">colic</span></code> as the example. The details about the dataset can be found in <a class="reference internal" href="../ChapterApp/datasets.html#section-dataset-horsecolic"><span class="std std-numref">Appendix 6.1.3</span></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://archive.ics.uci.edu/ml/machine-learning-databases/horse-colic/horse-colic.data&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">27</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We use the model <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>. The following code plot the learning curve for this model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scalar&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">clf</span><span class="p">)]</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                                                        <span class="n">train_sizes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x23c4811ce20&gt;
+</pre></div>
+</div>
+<img alt="../_images/regularization_6_1.png" src="../_images/regularization_6_1.png" />
+</div>
+</div>
+<p>The learning curve is a primary tool for us to study the bias and variance. Usually</p>
+<ul class="simple">
+<li><p>If the two training curve and the testing curve are very close to each other, this means that the variance is low. Otherwise the variance is high, and this means that the model probabily suffer from overfitting.</p></li>
+<li><p>If the absolute training curve score is high, this means that the bias is low. Otherwise the bias is high, and this means that the model probabily suffer from underfitting.</p></li>
+</ul>
+<p>In the above example, although regularization is applied by default, you may still notice some overfitting there.</p>
+</section>
+<section id="id1">
+<h2><span class="section-number">5.2.4. </span>Regularization<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>Regularization is a technique to deal with overfitting. Here we only talk about the simplest method: ridge regression, also known as Tikhonov regularizaiton. Because of the formula given below, it is also called <em><span class="math notranslate nohighlight">\(L_2\)</span> regularization</em>. The idea is to add an additional term <span class="math notranslate nohighlight">\(\dfrac{\alpha}{2m}\sum_{i=1}^m\theta_i^2\)</span> to the original cost function. When training with the new cost function, this additional term will force the parameters in the original term to be as small as possible. After finishing training, the additional term will be dropped, and we use the original cost function for validation and testing. Note that in the additional term <span class="math notranslate nohighlight">\(\theta_0\)</span> is not presented.</p>
+<p>The hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> is the <em>regularization strength</em>. If <span class="math notranslate nohighlight">\(\alpha=0\)</span>, the new cost function becomes the original one; If <span class="math notranslate nohighlight">\(\alpha\)</span> is very large, the additional term dominates, and it will force all parameters to be almost <span class="math notranslate nohighlight">\(0\)</span>. In different context, the regularization strength is also given by <span class="math notranslate nohighlight">\(C=\dfrac{1}{2\alpha}\)</span>, called <em>inverse of regularization strength</em>.</p>
+<section id="the-math-of-regularization">
+<h3><span class="section-number">5.2.4.1. </span>The math of regularization<a class="headerlink" href="#the-math-of-regularization" title="Permalink to this headline">#</a></h3>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 5.2 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>The gradient of the ridge regression cost function is</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J=\frac1m(\textbf{p}-\textbf{y})^T\hat{\textbf{X}}+\frac{\alpha}{m}\Theta.
+\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\Theta\)</span> doesn’t contain <span class="math notranslate nohighlight">\(\theta_0\)</span>, or you may treat <span class="math notranslate nohighlight">\(\theta_0=0\)</span>.</p>
+</section>
+</div><p>The computation is straightforward.</p>
+</section>
+<section id="the-code">
+<h3><span class="section-number">5.2.4.2. </span>The code<a class="headerlink" href="#the-code" title="Permalink to this headline">#</a></h3>
+<p>Regularization is directly provided by the logistic regression functions.</p>
+<ul class="simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, the regularization is given by the argument <code class="docutils literal notranslate"><span class="pre">penalty</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code>. <code class="docutils literal notranslate"><span class="pre">penalty</span></code> specifies the regularizaiton method. It is <code class="docutils literal notranslate"><span class="pre">l2</span></code> by default, which is the method above. <code class="docutils literal notranslate"><span class="pre">C</span></code> is the inverse of regularization strength, whose default value is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code>, the regularization is given by the argument <code class="docutils literal notranslate"><span class="pre">penalty</span></code> and <code class="docutils literal notranslate"><span class="pre">alpha</span></code>. <code class="docutils literal notranslate"><span class="pre">penalty</span></code> is the same as that in <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, and <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is the regularization strength, whose default value is <code class="docutils literal notranslate"><span class="pre">0.0001</span></code>.</p></li>
+</ul>
+<p>Let us see the above example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scalar&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">clf</span><span class="p">)]</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                                                        <span class="n">train_sizes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x23c4819d430&gt;
+</pre></div>
+</div>
+<img alt="../_images/regularization_9_1.png" src="../_images/regularization_9_1.png" />
+</div>
+</div>
+<p>After we reduce <code class="docutils literal notranslate"><span class="pre">C</span></code> from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, the regularization strength is increased. Then you may find that the gap between the two curves are reduced. However the overall performace is also reduced, from 85%~90% in <code class="docutils literal notranslate"><span class="pre">C=1</span></code> case to around 80% in <code class="docutils literal notranslate"><span class="pre">C=0.1</span></code> case. This means that the model doesn’t fit the data well as the previous one. Therefore this is a trade-off: decrease the variance but increase the bias.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="regression.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">5.1. </span>Basic idea</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="nn.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.3. </span>Neural network implement of Logistic regression</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Xinli Xiao<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

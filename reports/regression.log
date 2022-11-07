@@ -1,0 +1,60 @@
+Traceback (most recent call last):
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
+    executenb(
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\asyncio\base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from sklearn.model_selection import learning_curve
+import numpy as np
+xx = np.array(list(range(10, 100)))
+a,b,c = learning_curve(log_reg, X_train, y_train, train_sizes=x)
+
+
+------------------
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mValueError[0m                                Traceback (most recent call last)
+Input [1;32mIn [5][0m, in [0;36m<cell line: 4>[1;34m()[0m
+[0;32m      2[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
+[0;32m      3[0m xx [38;5;241m=[39m np[38;5;241m.[39marray([38;5;28mlist[39m([38;5;28mrange[39m([38;5;241m10[39m, [38;5;241m100[39m)))
+[1;32m----> 4[0m a,b,c [38;5;241m=[39m [43mlearning_curve[49m[43m([49m[43mlog_reg[49m[43m,[49m[43m [49m[43mX_train[49m[43m,[49m[43m [49m[43my_train[49m[43m,[49m[43m [49m[43mtrain_sizes[49m[38;5;241;43m=[39;49m[43mx[49m[43m)[49m
+
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\sklearn\model_selection\_validation.py:1522[0m, in [0;36mlearning_curve[1;34m(estimator, X, y, groups, train_sizes, cv, scoring, exploit_incremental_learning, n_jobs, pre_dispatch, verbose, shuffle, random_state, error_score, return_times, fit_params)[0m
+[0;32m   1518[0m n_max_training_samples [38;5;241m=[39m [38;5;28mlen[39m(cv_iter[[38;5;241m0[39m][[38;5;241m0[39m])
+[0;32m   1519[0m [38;5;66;03m# Because the lengths of folds can be significantly different, it is[39;00m
+[0;32m   1520[0m [38;5;66;03m# not guaranteed that we use all of the available training data when we[39;00m
+[0;32m   1521[0m [38;5;66;03m# use the first 'n_max_training_samples' samples.[39;00m
+[1;32m-> 1522[0m train_sizes_abs [38;5;241m=[39m [43m_translate_train_sizes[49m[43m([49m[43mtrain_sizes[49m[43m,[49m[43m [49m[43mn_max_training_samples[49m[43m)[49m
+[0;32m   1523[0m n_unique_ticks [38;5;241m=[39m train_sizes_abs[38;5;241m.[39mshape[[38;5;241m0[39m]
+[0;32m   1524[0m [38;5;28;01mif[39;00m verbose [38;5;241m>[39m [38;5;241m0[39m:
+
+File [1;32m~\anaconda3\envs\ml22\lib\site-packages\sklearn\model_selection\_validation.py:1624[0m, in [0;36m_translate_train_sizes[1;34m(train_sizes, n_max_training_samples)[0m
+[0;32m   1622[0m [38;5;28;01mif[39;00m np[38;5;241m.[39missubdtype(train_sizes_abs[38;5;241m.[39mdtype, np[38;5;241m.[39mfloating):
+[0;32m   1623[0m     [38;5;28;01mif[39;00m n_min_required_samples [38;5;241m<[39m[38;5;241m=[39m [38;5;241m0.0[39m [38;5;129;01mor[39;00m n_max_required_samples [38;5;241m>[39m [38;5;241m1.0[39m:
+[1;32m-> 1624[0m         [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[0;32m   1625[0m             [38;5;124m"[39m[38;5;124mtrain_sizes has been interpreted as fractions [39m[38;5;124m"[39m
+[0;32m   1626[0m             [38;5;124m"[39m[38;5;124mof the maximum number of training samples and [39m[38;5;124m"[39m
+[0;32m   1627[0m             [38;5;124m"[39m[38;5;124mmust be within (0, 1], but is within [[39m[38;5;132;01m%f[39;00m[38;5;124m, [39m[38;5;132;01m%f[39;00m[38;5;124m].[39m[38;5;124m"[39m
+[0;32m   1628[0m             [38;5;241m%[39m (n_min_required_samples, n_max_required_samples)
+[0;32m   1629[0m         )
+[0;32m   1630[0m     train_sizes_abs [38;5;241m=[39m (train_sizes_abs [38;5;241m*[39m n_max_training_samples)[38;5;241m.[39mastype(
+[0;32m   1631[0m         dtype[38;5;241m=[39m[38;5;28mint[39m, copy[38;5;241m=[39m[38;5;28;01mFalse[39;00m
+[0;32m   1632[0m     )
+[0;32m   1633[0m     train_sizes_abs [38;5;241m=[39m np[38;5;241m.[39mclip(train_sizes_abs, [38;5;241m1[39m, n_max_training_samples)
+
+[1;31mValueError[0m: train_sizes has been interpreted as fractions of the maximum number of training samples and must be within (0, 1], but is within [-6.000000, 6.000000].
+ValueError: train_sizes has been interpreted as fractions of the maximum number of training samples and must be within (0, 1], but is within [-6.000000, 6.000000].
+
