@@ -52,9 +52,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.3. project" href="project.html" />
+    <link rel="next" title="5.3. Neural network implement of Logistic regression" href="nn.html" />
     <link rel="prev" title="5.1. Basic idea" href="regression.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -299,8 +301,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="nn.html">
+     5.3. Neural network implement of Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     5.3. project
+     5.4. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -494,9 +501,26 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-curves-training-size">
-   5.2.3. Learning curves (training size)
+  <a class="reference internal nav-link" href="#learning-curves-accuracy-vs-training-size">
+   5.2.3. Learning curves (accuracy vs training size)
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   5.2.4. Regularization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-math-of-regularization">
+     5.2.4.1. The math of regularization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-code">
+     5.2.4.2. The code
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -528,9 +552,26 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-curves-training-size">
-   5.2.3. Learning curves (training size)
+  <a class="reference internal nav-link" href="#learning-curves-accuracy-vs-training-size">
+   5.2.3. Learning curves (accuracy vs training size)
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   5.2.4. Regularization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-math-of-regularization">
+     5.2.4.1. The math of regularization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-code">
+     5.2.4.2. The code
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -559,18 +600,126 @@ title="Print to PDF"
 </div>
 </div>
 </section>
-<section id="learning-curves-training-size">
-<h2><span class="section-number">5.2.3. </span>Learning curves (training size)<a class="headerlink" href="#learning-curves-training-size" title="Permalink to this headline">#</a></h2>
+<section id="learning-curves-accuracy-vs-training-size">
+<h2><span class="section-number">5.2.3. </span>Learning curves (accuracy vs training size)<a class="headerlink" href="#learning-curves-accuracy-vs-training-size" title="Permalink to this headline">#</a></h2>
 <p>A learning curve shows the validation and training score of an estimator for varying a key hyperparameter. In most cases the key hyperparameter is the training size or the number of epochs. It is a tool to find out how much we benefit from altering the hyperparameter by training more data or training for more epochs, and whether the estimator suffers more from a variance error or a bias error.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.learning_curve()</span></code> to generate the values that are required to plot such a learning curve. However this function is just related to the sample size. If we would like to talk about epochs, we need other packages.</p>
-<p>Let us first look at the learning curve about sample size. The official document page is <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.learning_curve.html">here</a>. The function takes input <code class="docutils literal notranslate"><span class="pre">estimator</span></code>, dataset <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and an arry-like argument <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code>. For each train_size,</p>
+<p>Let us first look at the learning curve about sample size. The official document page is <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.learning_curve.html">here</a>. The function takes input <code class="docutils literal notranslate"><span class="pre">estimator</span></code>, dataset <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and an arry-like argument <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code>. The dataset <code class="docutils literal notranslate"><span class="pre">(X,</span> <span class="pre">y)</span></code> will be split into pieces using the cross-validation technique. The number of pieces is set by the argument <code class="docutils literal notranslate"><span class="pre">cv</span></code>. The default value is <code class="docutils literal notranslate"><span class="pre">cv=5</span></code>. For details about cross-validation please see <a class="reference internal" href="../Chapter2/knnproj1.html#section-cross-validation"><span class="std std-numref">Section 2.2.6</span></a>.</p>
+<p>Then the model is trained over a random sample of the training set, and evaluate the score over the test set. The size of the sample of the training set is set by the argument <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code>. This argument is array-like. Therefore the process will be repeated several times, and we can see the impact of increasing the training size.</p>
+<p>The output contains three pieces. The first is <code class="docutils literal notranslate"><span class="pre">train_sizes_abs</span></code> which is the number of elements in each training set. This output is mainly for reference. The difference between the output and the input <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code> is that the input can be float which represents the percentagy. The output is always the exact number of elements.</p>
+<p>The second output is <code class="docutils literal notranslate"><span class="pre">train_scores</span></code> and the third is <code class="docutils literal notranslate"><span class="pre">test_scores</span></code>, both of which are the scores we get from the training and testing process. Note that both are 2D <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays, of the size <code class="docutils literal notranslate"><span class="pre">(number</span> <span class="pre">of</span> <span class="pre">different</span> <span class="pre">sizes,</span> <span class="pre">cv)</span></code>. Each row is a 1D <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array representing the cross-validation scores, which is corresponding to a train size. If we want the mean as the cross-validation score, we could use <code class="docutils literal notranslate"><span class="pre">train_scores.mean(axis=1)</span></code>.</p>
+<p>After understanding the input and output, we could plot the learning curve. We still use the <code class="docutils literal notranslate"><span class="pre">horse</span> <span class="pre">colic</span></code> as the example. The details about the dataset can be found in <a class="reference internal" href="../ChapterApp/datasets.html#section-dataset-horsecolic"><span class="std std-numref">Appendix 6.1.3</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://archive.ics.uci.edu/ml/machine-learning-databases/horse-colic/horse-colic.data&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">27</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>We use the model <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>. The following code plot the learning curve for this model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scalar&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">clf</span><span class="p">)]</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                                                        <span class="n">train_sizes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x23c4811ce20&gt;
+</pre></div>
+</div>
+<img alt="../_images/regularization_6_1.png" src="../_images/regularization_6_1.png" />
+</div>
+</div>
+<p>The learning curve is a primary tool for us to study the bias and variance. Usually</p>
+<ul class="simple">
+<li><p>If the two training curve and the testing curve are very close to each other, this means that the variance is low. Otherwise the variance is high, and this means that the model probabily suffer from overfitting.</p></li>
+<li><p>If the absolute training curve score is high, this means that the bias is low. Otherwise the bias is high, and this means that the model probabily suffer from underfitting.</p></li>
+</ul>
+<p>In the above example, although regularization is applied by default, you may still notice some overfitting there.</p>
+</section>
+<section id="id1">
+<h2><span class="section-number">5.2.4. </span>Regularization<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>Regularization is a technique to deal with overfitting. Here we only talk about the simplest method: ridge regression, also known as Tikhonov regularizaiton. Because of the formula given below, it is also called <em><span class="math notranslate nohighlight">\(L_2\)</span> regularization</em>. The idea is to add an additional term <span class="math notranslate nohighlight">\(\dfrac{\alpha}{2m}\sum_{i=1}^m\theta_i^2\)</span> to the original cost function. When training with the new cost function, this additional term will force the parameters in the original term to be as small as possible. After finishing training, the additional term will be dropped, and we use the original cost function for validation and testing. Note that in the additional term <span class="math notranslate nohighlight">\(\theta_0\)</span> is not presented.</p>
+<p>The hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> is the <em>regularization strength</em>. If <span class="math notranslate nohighlight">\(\alpha=0\)</span>, the new cost function becomes the original one; If <span class="math notranslate nohighlight">\(\alpha\)</span> is very large, the additional term dominates, and it will force all parameters to be almost <span class="math notranslate nohighlight">\(0\)</span>. In different context, the regularization strength is also given by <span class="math notranslate nohighlight">\(C=\dfrac{1}{2\alpha}\)</span>, called <em>inverse of regularization strength</em>.</p>
+<section id="the-math-of-regularization">
+<h3><span class="section-number">5.2.4.1. </span>The math of regularization<a class="headerlink" href="#the-math-of-regularization" title="Permalink to this headline">#</a></h3>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 5.2 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>The gradient of the ridge regression cost function is</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J=\frac1m(\textbf{p}-\textbf{y})^T\hat{\textbf{X}}+\frac{\alpha}{m}\Theta.
+\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\Theta\)</span> doesn’t contain <span class="math notranslate nohighlight">\(\theta_0\)</span>, or you may treat <span class="math notranslate nohighlight">\(\theta_0=0\)</span>.</p>
+</section>
+</div><p>The computation is straightforward.</p>
+</section>
+<section id="the-code">
+<h3><span class="section-number">5.2.4.2. </span>The code<a class="headerlink" href="#the-code" title="Permalink to this headline">#</a></h3>
+<p>Regularization is directly provided by the logistic regression functions.</p>
+<ul class="simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, the regularization is given by the argument <code class="docutils literal notranslate"><span class="pre">penalty</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code>. <code class="docutils literal notranslate"><span class="pre">penalty</span></code> specifies the regularizaiton method. It is <code class="docutils literal notranslate"><span class="pre">l2</span></code> by default, which is the method above. <code class="docutils literal notranslate"><span class="pre">C</span></code> is the inverse of regularization strength, whose default value is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code>, the regularization is given by the argument <code class="docutils literal notranslate"><span class="pre">penalty</span></code> and <code class="docutils literal notranslate"><span class="pre">alpha</span></code>. <code class="docutils literal notranslate"><span class="pre">penalty</span></code> is the same as that in <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, and <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is the regularization strength, whose default value is <code class="docutils literal notranslate"><span class="pre">0.0001</span></code>.</p></li>
+</ul>
+<p>Let us see the above example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;scalar&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">clf</span><span class="p">)]</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                                                        <span class="n">train_sizes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x23c4819d430&gt;
+</pre></div>
+</div>
+<img alt="../_images/regularization_9_1.png" src="../_images/regularization_9_1.png" />
+</div>
+</div>
+<p>After we reduce <code class="docutils literal notranslate"><span class="pre">C</span></code> from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, the regularization strength is increased. Then you may find that the gap between the two curves are reduced. However the overall performace is also reduced, from 85%~90% in <code class="docutils literal notranslate"><span class="pre">C=1</span></code> case to around 80% in <code class="docutils literal notranslate"><span class="pre">C=0.1</span></code> case. This means that the model doesn’t fit the data well as the previous one. Therefore this is a trade-off: decrease the variance but increase the bias.</p>
+</section>
 </section>
 </section>
 
@@ -608,10 +757,10 @@ title="Print to PDF"
             <p class="prev-next-title"><span class="section-number">5.1. </span>Basic idea</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="project.html" title="next page">
+    <a class='right-next' id="next-link" href="nn.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5.3. </span>project</p>
+        <p class="prev-next-title"><span class="section-number">5.3. </span>Neural network implement of Logistic regression</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -301,8 +301,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="nn.html">
+     5.3. Neural network implement of Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     5.3. project
+     5.4. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -717,6 +722,7 @@ p(1-p)x_k&amp;\text{ otherwise}.
 <section id="codes">
 <h2><span class="section-number">5.1.4. </span>Codes<a class="headerlink" href="#codes" title="Permalink to this headline">#</a></h2>
 <p>We will only talk about using packages. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> provides two methods to implement the Logistic regression. The API interface is very similar to other models.</p>
+<p>Note that Logistic regression is very sensitive to the scale of features. Therefore we need to normalize the features before throwing them into the model.</p>
 <p>Let’s still take <code class="docutils literal notranslate"><span class="pre">iris</span></code> as an example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -724,7 +730,7 @@ p(1-p)x_k&amp;\text{ otherwise}.
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
 </pre></div>
@@ -735,14 +741,20 @@ p(1-p)x_k&amp;\text{ otherwise}.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;normalize&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())]</span>
+
+<span class="n">log_reg</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
 <span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">log_reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.782608695652174
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
 </pre></div>
 </div>
 </div>
@@ -752,14 +764,20 @@ p(1-p)x_k&amp;\text{ otherwise}.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
-<span class="n">sgd_clf</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;normalize&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+         <span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">))]</span>
+
+<span class="n">sgd_clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
 <span class="n">sgd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">sgd_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6521739130434783
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
 </pre></div>
 </div>
 </div>

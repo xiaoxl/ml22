@@ -148,6 +148,8 @@ _ = plt.plot(x, y)
 # ## Codes
 # We will only talk about using packages. `sklearn` provides two methods to implement the Logistic regression. The API interface is very similar to other models. 
 # 
+# Note that Logistic regression is very sensitive to the scale of features. Therefore we need to normalize the features before throwing them into the model.
+# 
 # Let's still take `iris` as an example.
 
 # In[2]:
@@ -157,7 +159,7 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 
 iris = datasets.load_iris()
-X = iris.data[:, :2]
+X = iris.data
 y = iris.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 
@@ -168,7 +170,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 
 
 from sklearn.linear_model import LogisticRegression
-log_reg = LogisticRegression()
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MinMaxScaler
+
+steps = [('normalize', MinMaxScaler()),
+         ('log', LogisticRegression())]
+
+log_reg = Pipeline(steps=steps)
 log_reg.fit(X_train, y_train)
 log_reg.score(X_test, y_test)
 
@@ -181,7 +189,13 @@ log_reg.score(X_test, y_test)
 
 
 from sklearn.linear_model import SGDClassifier
-sgd_clf = SGDClassifier(loss='log_loss', max_iter=1000)
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MinMaxScaler
+
+steps = [('normalize', MinMaxScaler()),
+         ('log', SGDClassifier(loss='log_loss', max_iter=100))]
+
+sgd_clf = Pipeline(steps=steps)
 sgd_clf.fit(X_train, y_train)
 sgd_clf.score(X_test, y_test)
 

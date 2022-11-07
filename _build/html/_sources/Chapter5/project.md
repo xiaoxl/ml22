@@ -1,4 +1,4 @@
-# project
+# Exercises and Projects
 
 
 ```{exercise}
@@ -21,7 +21,7 @@ Please in addition answer the following questions.
 
 
 ```{exercise}
-CHOOSE ONE: Please use `tf.keras` to apply the LogisticRegression to one of the following datasets.
+CHOOSE ONE: Please use `keras` to apply the LogisticRegression to one of the following datasets.
 - the `iris` dataset.
 - the dating dataset.
 - the `titanic` dataset.
@@ -30,7 +30,7 @@ Please in addition answer the following questions.
 1. What is your accuracy score?
 2. How many epochs do you use?
 3. What is the batch size do you use?
-4. Plot the learning curve (loss vs epochs).
+4. Plot the learning curve (loss vs epochs, accuracy vs epochs).
 5. Analyze the bias / variance status.
 ```
 
