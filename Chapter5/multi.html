@@ -1,0 +1,1218 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5.4. Multi class case &#8212; Machine Learning Notes - 2022 Fall</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.5. Exercises and Projects" href="project.html" />
+    <link rel="prev" title="5.3. Neural network implement of Logistic regression" href="nn.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Notes - 2022 Fall</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../references.html">
+                    References
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter1/intro.html">
+   1. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/what.html">
+     1.1. What is Machine Learning?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/data.html">
+     1.2. Basic setting for Machine learning problems
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/pynotebook.html">
+     1.3. Python quick guide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter1/project.html">
+     1.4. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter2/intro.html">
+   2. k-NN
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knn.html">
+     2.1. k-Nearest Neighbors Algorithm (k-NN)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj1.html">
+     2.2. k-NN Project 1:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj2.html">
+     2.3. k-NN Project 2: Dating Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/knnproj3.html">
+     2.4. k-NN Project 3:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       MNIST
+      </span>
+     </code>
+     Handwritten recognition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter2/project.html">
+     2.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter3/intro.html">
+   3. Decision Tree
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/gini.html">
+     3.1. Gini impurity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/code.html">
+     3.2. CART Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/dt.html">
+     3.3. Decision Tree Project 1: the
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       iris
+      </span>
+     </code>
+     dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/dt2.html">
+     3.4. Decision Tree Project 2:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       make_moons
+      </span>
+     </code>
+     dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter3/project.html">
+     3.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Chapter4/intro.html">
+   4. Ensemble methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/morevoting.html">
+     4.1. Voting machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/randomforest.html">
+     4.2. Bootstrap aggregating
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/adaboost.html">
+     4.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       AdaBoost
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter4/project.html">
+     4.4. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   5. Logistic Regression
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="regression.html">
+     5.1. Basic idea
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regularization.html">
+     5.2. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nn.html">
+     5.3. Neural network implement of Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.4. Multi class case
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="project.html">
+     5.5. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   6. Appendix
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ChapterApp/datasets.html">
+     6.1. Datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/xiaoxl/ml22/master?urlpath=tree/docs/Chapter5/multi.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/Chapter5/multi.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naive-idea-one-vs-all">
+   5.4.1. Naive idea (one-vs-all)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#softmax-function">
+   5.4.2.
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Softmax
+    </span>
+   </code>
+   function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#codes">
+   5.4.3. Codes
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Multi class case</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naive-idea-one-vs-all">
+   5.4.1. Naive idea (one-vs-all)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#softmax-function">
+   5.4.2.
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Softmax
+    </span>
+   </code>
+   function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#codes">
+   5.4.3. Codes
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="multi-class-case">
+<h1><span class="section-number">5.4. </span>Multi class case<a class="headerlink" href="#multi-class-case" title="Permalink to this headline">#</a></h1>
+<section id="naive-idea-one-vs-all">
+<h2><span class="section-number">5.4.1. </span>Naive idea (one-vs-all)<a class="headerlink" href="#naive-idea-one-vs-all" title="Permalink to this headline">#</a></h2>
+<p>Assume that there are <span class="math notranslate nohighlight">\(N\)</span> classes. The naive idea is to decompose this <span class="math notranslate nohighlight">\(N\)</span>-class classification problem into <span class="math notranslate nohighlight">\(N\)</span> binary classification problems. The model will contains <span class="math notranslate nohighlight">\(N\)</span> classifiers. The <span class="math notranslate nohighlight">\(i\)</span>th classifer is used to classify whehter the given features has the label <code class="docutils literal notranslate"><span class="pre">i</span></code> or not.</p>
+<p>For example, asusme we are dealing with the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset. There are 3 classes. By the naive idea, we will modify the labels into <code class="docutils literal notranslate"><span class="pre">Setosa</span></code> and <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">Setosa</span></code>, and use it to train the first classifier. Similarly we can have two more classifiers to tell <code class="docutils literal notranslate"><span class="pre">Versicolour</span></code>/<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">Versicolour</span></code> and <code class="docutils literal notranslate"><span class="pre">Virginica</span></code>/<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">Virginica</span></code>. Then we combine all three classifiers to get a final classifier to put the data into one of the three classes.</p>
+</section>
+<section id="softmax-function">
+<h2><span class="section-number">5.4.2. </span><code class="docutils literal notranslate"><span class="pre">Softmax</span></code> function<a class="headerlink" href="#softmax-function" title="Permalink to this headline">#</a></h2>
+<p>A better method is mimic the sigmoid function. Recall that in binary classification problem, after</p>
+<div class="math notranslate nohighlight">
+\[
+z=L(x)=\theta_0+\sum_{i=1}^n\theta_ix_i,
+\]</div>
+<p>the sigmoid function is applied <span class="math notranslate nohighlight">\(p=\sigma(z)\)</span>. This <span class="math notranslate nohighlight">\(p\)</span> is interepreted as the probability for the data belonging to class <span class="math notranslate nohighlight">\(1\)</span>. For <span class="math notranslate nohighlight">\(N\)</span>-class problem, we could generalize the sigmoid function to <code class="docutils literal notranslate"><span class="pre">softmax</span></code> function, whose value is a <span class="math notranslate nohighlight">\(N\)</span>-dimensional vector <span class="math notranslate nohighlight">\(p=[p_k]_{i=1}^N\)</span>. Here <span class="math notranslate nohighlight">\(p_k\)</span> represents the probability for the data belonging to class <span class="math notranslate nohighlight">\(k\)</span>. Then after we get the vector <span class="math notranslate nohighlight">\(p\)</span>, we then find the highest probability and that indicates the class of the data point.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">softmax</span></code> function is defined in the following way:</p>
+<div class="math notranslate nohighlight">
+\[
+p_k=\sigma(z)=\dfrac{\exp(z_k)}{\sum_{i=1}^N\exp(z_i)},\quad \text{ for }z=[z_1, z_2,\ldots,z_N].
+\]</div>
+<p>In the model, each <span class="math notranslate nohighlight">\(z_i=L_i(x)=\theta^{(i)}_0+\sum_{i=1}^n\theta^{(i)}_ix_i,\)</span> has its own weights.</p>
+<p>The related cost function is also updated:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\Theta)=-\sum_{i=1}^Ny_k\ln(p_i).
+\]</div>
+<p>Therefore the same gradient descent algorithm can be applied.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code> function and the <code class="docutils literal notranslate"><span class="pre">binary</span> <span class="pre">crossentropy</span></code> cost functions are the special case of <code class="docutils literal notranslate"><span class="pre">softmax</span></code> function.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The labels are not recorded as labels, but as vectors. This is called dummy variables, or one-hot encodings.</p>
+</div>
+</section>
+<section id="codes">
+<h2><span class="section-number">5.4.3. </span>Codes<a class="headerlink" href="#codes" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Both <code class="docutils literal notranslate"><span class="pre">LogisticRegression()</span></code> and <code class="docutils literal notranslate"><span class="pre">SGDClassifier()</span></code> by default uses the one-vs-all naive idea.</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">kears</span></code>, <code class="docutils literal notranslate"><span class="pre">softmax</span></code> can be implemented. The key configuration is the loss function <code class="docutils literal notranslate"><span class="pre">loss='categorical_crossentropy'</span></code> and the activation function <code class="docutils literal notranslate"><span class="pre">softmax</span></code>. Note that in this case the labels should be translated into one-hot vectors.</p></li>
+</ul>
+<p>We use <code class="docutils literal notranslate"><span class="pre">make_classification</span></code> as an example. To save time we won’t carefully tune the hyperparameters here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_repeated</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Although there are totally 10 features, the dataset can be visualized using the informative features. By description, the informative features are the first two.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x1c9d98ecca0&gt;
+</pre></div>
+</div>
+<img alt="../_images/multi_3_1.png" src="../_images/multi_3_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.92
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">()</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9
+</pre></div>
+</div>
+</div>
+</div>
+<p>To apply <code class="docutils literal notranslate"><span class="pre">keras</span></code> package, we should first change <code class="docutils literal notranslate"><span class="pre">y</span></code> into one-hot vectors. Here we use the function provided by <code class="docutils literal notranslate"><span class="pre">keras</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+<span class="n">vy_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">vy_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">layers</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">vy_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">vy_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 1/17 [&gt;.............................] - ETA: 5s - loss: 2.5168 - accuracy: 0.2400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 10ms/step - loss: 1.9279 - accuracy: 0.3259 - val_loss: 1.8760 - val_accuracy: 0.3200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.9907 - accuracy: 0.2800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.8471 - accuracy: 0.3341 - val_loss: 1.7982 - val_accuracy: 0.3333
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.8890 - accuracy: 0.3000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.7692 - accuracy: 0.3459 - val_loss: 1.7239 - val_accuracy: 0.3333
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.4511 - accuracy: 0.5200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.6944 - accuracy: 0.3541 - val_loss: 1.6526 - val_accuracy: 0.3333
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.5272 - accuracy: 0.3800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.6211 - accuracy: 0.3635 - val_loss: 1.5820 - val_accuracy: 0.3533
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.9408 - accuracy: 0.3200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.5492 - accuracy: 0.3729 - val_loss: 1.5139 - val_accuracy: 0.3533
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.8436 - accuracy: 0.3400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.4800 - accuracy: 0.3788 - val_loss: 1.4478 - val_accuracy: 0.3600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.3118 - accuracy: 0.5000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.4127 - accuracy: 0.3835 - val_loss: 1.3841 - val_accuracy: 0.3733
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.5984 - accuracy: 0.3600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.3474 - accuracy: 0.3988 - val_loss: 1.3227 - val_accuracy: 0.3867
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.2091 - accuracy: 0.4000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.2833 - accuracy: 0.4059 - val_loss: 1.2635 - val_accuracy: 0.3867
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.2652 - accuracy: 0.3800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.2240 - accuracy: 0.4153 - val_loss: 1.2058 - val_accuracy: 0.3867
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.2201 - accuracy: 0.4800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.1648 - accuracy: 0.4188 - val_loss: 1.1497 - val_accuracy: 0.4000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.2110 - accuracy: 0.4200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.1077 - accuracy: 0.4318 - val_loss: 1.0963 - val_accuracy: 0.4067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.9052 - accuracy: 0.6200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 1.0547 - accuracy: 0.4447 - val_loss: 1.0444 - val_accuracy: 0.4067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.8873 - accuracy: 0.4800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 3ms/step - loss: 1.0028 - accuracy: 0.4612 - val_loss: 0.9957 - val_accuracy: 0.4267
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 1.1236 - accuracy: 0.3800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.9548 - accuracy: 0.4718 - val_loss: 0.9482 - val_accuracy: 0.4400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.8258 - accuracy: 0.5600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.9083 - accuracy: 0.4965 - val_loss: 0.9038 - val_accuracy: 0.4467
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.8922 - accuracy: 0.4600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.8642 - accuracy: 0.5247 - val_loss: 0.8621 - val_accuracy: 0.4533
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.8861 - accuracy: 0.5200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.8230 - accuracy: 0.5424 - val_loss: 0.8220 - val_accuracy: 0.4933
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.7459 - accuracy: 0.5800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.7851 - accuracy: 0.5729 - val_loss: 0.7843 - val_accuracy: 0.5267
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 21/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.6960 - accuracy: 0.6800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.7489 - accuracy: 0.5988 - val_loss: 0.7494 - val_accuracy: 0.5600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 22/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.7047 - accuracy: 0.6800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.7152 - accuracy: 0.6329 - val_loss: 0.7166 - val_accuracy: 0.6000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 23/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.6286 - accuracy: 0.7000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.6840 - accuracy: 0.6541 - val_loss: 0.6855 - val_accuracy: 0.6333
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 24/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.7252 - accuracy: 0.5800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.6548 - accuracy: 0.6847 - val_loss: 0.6567 - val_accuracy: 0.6667
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 25/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.6578 - accuracy: 0.7200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.6280 - accuracy: 0.7271 - val_loss: 0.6295 - val_accuracy: 0.7267
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 26/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.5156 - accuracy: 0.7400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.6025 - accuracy: 0.7541 - val_loss: 0.6045 - val_accuracy: 0.7400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 27/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.5807 - accuracy: 0.7400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.5795 - accuracy: 0.7835 - val_loss: 0.5817 - val_accuracy: 0.7667
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 28/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.5574 - accuracy: 0.8200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.5579 - accuracy: 0.8129 - val_loss: 0.5612 - val_accuracy: 0.7800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 29/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4969 - accuracy: 0.8400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.5379 - accuracy: 0.8318 - val_loss: 0.5411 - val_accuracy: 0.8200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 30/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.5900 - accuracy: 0.7800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.5192 - accuracy: 0.8518 - val_loss: 0.5230 - val_accuracy: 0.8400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 31/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.5233 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.5021 - accuracy: 0.8729 - val_loss: 0.5065 - val_accuracy: 0.8600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 32/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4919 - accuracy: 0.9000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4859 - accuracy: 0.8871 - val_loss: 0.4911 - val_accuracy: 0.8800
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 33/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3470 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4711 - accuracy: 0.8965 - val_loss: 0.4764 - val_accuracy: 0.8867
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 34/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4373 - accuracy: 0.8600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4573 - accuracy: 0.9000 - val_loss: 0.4624 - val_accuracy: 0.8933
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 35/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3462 - accuracy: 0.9600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4444 - accuracy: 0.9071 - val_loss: 0.4499 - val_accuracy: 0.9000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 36/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3573 - accuracy: 0.9600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4323 - accuracy: 0.9118 - val_loss: 0.4385 - val_accuracy: 0.9000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 37/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3369 - accuracy: 0.9600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4210 - accuracy: 0.9200 - val_loss: 0.4281 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 38/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4283 - accuracy: 0.9000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4105 - accuracy: 0.9176 - val_loss: 0.4178 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 39/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4474 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.4006 - accuracy: 0.9247 - val_loss: 0.4084 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 40/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4866 - accuracy: 0.9000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3913 - accuracy: 0.9282 - val_loss: 0.3998 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 41/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3497 - accuracy: 0.9400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3826 - accuracy: 0.9318 - val_loss: 0.3917 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 42/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4038 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3744 - accuracy: 0.9353 - val_loss: 0.3842 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 43/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3153 - accuracy: 0.9600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3665 - accuracy: 0.9388 - val_loss: 0.3769 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 44/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3380 - accuracy: 0.9600
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3593 - accuracy: 0.9400 - val_loss: 0.3701 - val_accuracy: 0.9133
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 45/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3579 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3523 - accuracy: 0.9412 - val_loss: 0.3641 - val_accuracy: 0.9067
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 46/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3317 - accuracy: 0.9400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3458 - accuracy: 0.9424 - val_loss: 0.3579 - val_accuracy: 0.9133
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 47/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3723 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3396 - accuracy: 0.9435 - val_loss: 0.3526 - val_accuracy: 0.9133
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 48/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.4256 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3337 - accuracy: 0.9459 - val_loss: 0.3472 - val_accuracy: 0.9133
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 49/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3334 - accuracy: 0.9400
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3282 - accuracy: 0.9471 - val_loss: 0.3423 - val_accuracy: 0.9133
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 50/50
+
+ 1/17 [&gt;.............................] - ETA: 0s - loss: 0.3566 - accuracy: 0.9200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17/17 [==============================] - 0s 2ms/step - loss: 0.3229 - accuracy: 0.9482 - val_loss: 0.3375 - val_accuracy: 0.9133
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x1c9e1fab580&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="nn.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">5.3. </span>Neural network implement of Logistic regression</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="project.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.5. </span>Exercises and Projects</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Xinli Xiao<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
