@@ -139,3 +139,11 @@ plt.legend()
 
 
 # You may compare what we get here with the codes we get before.
+
+# 
+
+# In[ ]:
+
+
+
+

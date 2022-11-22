@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>6.2. project &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>6.3. Exercises and Projects &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="7. Appendix :numbering-format:" href="../ChapterApp/intro.html" />
-    <link rel="prev" title="6.1. Neural network" href="nn.html" />
+    <link rel="prev" title="6.2. Example" href="example.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -280,7 +280,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter5/intro.html">
-   5. Regression
+   5. Logistic Regression
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -290,12 +290,27 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter5/regression.html">
-     5.1. regression
+     5.1. Basic idea
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/regularization.html">
+     5.2. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/nn.html">
+     5.3. Neural network implement of Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/multi.html">
+     5.4. Multi class case
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter5/project.html">
-     5.2. project
+     5.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -312,12 +327,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="nn.html">
-     6.1. Neural network
+     6.1. Neural network: Back propagation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="example.html">
+     6.2. Example
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     6.2. project
+     6.3. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -461,7 +481,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>project</h1>
+                <h1>Exercises and Projects</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -473,8 +493,35 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="project">
-<h1><span class="section-number">6.2. </span>project<a class="headerlink" href="#project" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercises-and-projects">
+<h1><span class="section-number">6.3. </span>Exercises and Projects<a class="headerlink" href="#exercises-and-projects" title="Permalink to this headline">#</a></h1>
+<div class="exercise admonition" id="Chapter6/project-exercise-0">
+
+<p class="admonition-title"><span class="caption-number">Exercise 6.1 </span></p>
+<section id="exercise-content">
+<p>Please hand write a report about the details of back propagation.</p>
+</section>
+</div>
+<div class="exercise admonition" id="Chapter6/project-exercise-1">
+
+<p class="admonition-title"><span class="caption-number">Exercise 6.2 </span></p>
+<section id="exercise-content">
+<p>CHOOSE ONE: Please use netural network to one of the following datasets.</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset.</p></li>
+<li><p>the dating dataset.</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">titanic</span></code> dataset.</p></li>
+</ul>
+<p>Please in addition answer the following questions.</p>
+<ol class="simple">
+<li><p>What is your accuracy score?</p></li>
+<li><p>How many epochs do you use?</p></li>
+<li><p>What is the batch size do you use?</p></li>
+<li><p>Plot the learning curve (loss vs epochs, accuracy vs epochs).</p></li>
+<li><p>Analyze the bias / variance status.</p></li>
+</ol>
+</section>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -504,11 +551,11 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="nn.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="example.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6.1. </span>Neural network</p>
+            <p class="prev-next-title"><span class="section-number">6.2. </span>Example</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../ChapterApp/intro.html" title="next page">

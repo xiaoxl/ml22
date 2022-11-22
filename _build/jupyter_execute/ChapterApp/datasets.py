@@ -123,6 +123,35 @@ y = np.concatenate((y1, -y2 + 1))
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 
 
+# It can also be used to generate multiclass dataset.
+
+# In[7]:
+
+
+from sklearn.datasets import make_gaussian_quantiles
+from sklearn.model_selection import train_test_split
+
+X, y = make_gaussian_quantiles(cov=2.0, n_samples=200, n_features=2,
+                               n_classes=4, random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
+
+
+# - `make_classification`
+#   
+# This will create a multiclass dataset. Without shuffling, `X` horizontally stacks features in the following order: the primary `n_informative` features, followed by `n_redundant` linear combinations of the informative features, followed by `n_repeated` duplicates, drawn randomly with replacement from the informative and redundant features. 
+# 
+# For more details please see the [official document](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification).
+
+# In[8]:
+
+
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+X, y = make_classification(n_samples=1000, n_features=10, n_informative=2, n_redundant=2, n_repeated=2, n_classes=3, n_clusters_per_class=1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
+
+
 # 
 # ## `MNIST` dataset
 # 
@@ -130,19 +159,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15)
 # 
 # - `tensorflow` provides the data with the original split.
 
-# In[7]:
+# In[9]:
 
 
 import tensorflow.keras as keras
 (X_train, y_train), (X_test, y_test) = keras.datasets.mnist.load_data()
-
-
-# - asfasdfasfd
-
-# In[8]:
-
-
-print(1)
 
 
 # ## `titanic` dataset
@@ -155,7 +176,7 @@ print(1)
 # ```
 # 
 
-# In[9]:
+# In[10]:
 
 
 import pandas as pd
@@ -169,7 +190,7 @@ dftest = pd.read_csv('assests/datasets/titanic/test.csv')
 # 2. Fill the missing values in column `Age` and `Fare` by `0`.
 # 3. Replace the column `Sex` by the following map: `{'male': 0, 'female': 1}`.
 
-# In[10]:
+# In[11]:
 
 
 import pandas as pd
@@ -208,7 +229,7 @@ X_test, _ = getnp(dftest)
 # 
 # We could use the following code to read the data.
 
-# In[11]:
+# In[12]:
 
 
 import pandas as pd
@@ -220,7 +241,7 @@ df = pd.read_excel('assests/datasets/plants.xlsx', engine='openpyxl', sheet_name
 # 
 # There are two more missing values in `Stem diameter`. For simplicity we drop them directly.
 
-# In[12]:
+# In[13]:
 
 
 df['Outcome_after 12 months'].fillna('dead', inplace=True)
@@ -238,7 +259,7 @@ df = df.dropna()
 # 
 # Finally we put these together to get the features `X` and the label `y`.
 
-# In[13]:
+# In[14]:
 
 
 df['Endophyte '] = df['Endophyte '].map({'I+': 1, 'I-': -1})

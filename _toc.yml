@@ -43,12 +43,14 @@ chapters:
       - file: Chapter5/regression.ipynb
       - file: Chapter5/regularization.ipynb
       - file: Chapter5/nn.ipynb
+      - file: Chapter5/multi.ipynb
       - file: Chapter5/project.md
-  # - file: Chapter6/intro.md
-  #   title: NN
-  #   sections:
-  #     - file: Chapter6/nn.md
-  #     - file: Chapter6/project.md
+  - file: Chapter6/intro.md
+    title: Neural Network
+    sections:
+      - file: Chapter6/nn.md
+      - file: Chapter6/example.ipynb
+      - file: Chapter6/project.md
   - file: ChapterApp/intro.md
     title: Appendix
     sections:

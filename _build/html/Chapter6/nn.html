@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>6.1. Neural network &#8212; Machine Learning Notes - 2022 Fall</title>
+    <title>6.1. Neural network: Back propagation &#8212; Machine Learning Notes - 2022 Fall</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -56,8 +56,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.2. project" href="project.html" />
-    <link rel="prev" title="6. introduction" href="intro.html" />
+    <link rel="next" title="6.2. Exercises and Projects" href="project.html" />
+    <link rel="prev" title="6. Introduction" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -282,7 +282,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter5/intro.html">
-   5. Regression
+   5. Logistic Regression
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -292,12 +292,27 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter5/regression.html">
-     5.1. regression
+     5.1. Basic idea
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/regularization.html">
+     5.2. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/nn.html">
+     5.3. Neural network implement of Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter5/multi.html">
+     5.4. Multi class case
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter5/project.html">
-     5.2. project
+     5.5. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -314,12 +329,12 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     6.1. Neural network
+     6.1. Neural network: Back propagation
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     6.2. project
+     6.2. Exercises and Projects
     </a>
    </li>
   </ul>
@@ -463,7 +478,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Neural network</h1>
+                <h1>Neural network: Back propagation</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -475,13 +490,102 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="neural-network">
-<h1><span class="section-number">6.1. </span>Neural network<a class="headerlink" href="#neural-network" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="neural-network-back-propagation">
+<h1><span class="section-number">6.1. </span>Neural network: Back propagation<a class="headerlink" href="#neural-network-back-propagation" title="Permalink to this headline">#</a></h1>
 <div class="math notranslate nohighlight">
-\[\int_0^9 f(x)\,dx\]</div>
+\[\newcommand\diffp[2]{\dfrac{\partial #1}{\partial #2}}\]</div>
+<p>To train a MLP model, we still use gradient descent. Therefore it is very important to know how to compute the gradient. Actually the idea is the same as logistic regreesion. The only issue is that now the model is more complicated. The gradient computation is summrized as an algorithm called <code class="docutils literal notranslate"><span class="pre">back</span> <span class="pre">propagation</span></code>. It is described as follows.</p>
+<p>Here is an example of a Neural network with one hidden layer.</p>
+<p><img alt="" src="../_images/20221114232327.png" /></p>
+<p><span class="math notranslate nohighlight">\(\Theta\)</span> is the coefficients of the whole Neural network.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a^{(1)}=\hat{\textbf{x}}\)</span> is the input. <span class="math notranslate nohighlight">\(a_0^{(1)}\)</span> is added. This is an <span class="math notranslate nohighlight">\((n+1)\)</span>-dimension column vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Theta^{(1)}\)</span> is the coefficient matrix from the input layer to the hidden layer, of size <span class="math notranslate nohighlight">\(k\times(n+1)\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(2)}=\Theta^{(1)}a^{(1)}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a^{(2)}=\sigma(z^{(2)})\)</span>, and then add <span class="math notranslate nohighlight">\(a^{(2)}_0\)</span>. This is an <span class="math notranslate nohighlight">\((k+1)\)</span>-dimension column vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Theta^{(2)}\)</span> is the coefficient matrix from the hidden layer to the output layer, of size <span class="math notranslate nohighlight">\(r\times(k+1)\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(3)}=\Theta^{(2)}a^{(2)}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(a^{(3)}=\sigma(z^{(3)})\)</span>. Since this is the output layer, <span class="math notranslate nohighlight">\(a^{(3)}_0\)</span> won’t be added.</p>
+</li>
+</ul>
+<p>The dependency is as follows:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(J\)</span> depends on <span class="math notranslate nohighlight">\(z^{(3)}\)</span> and <span class="math notranslate nohighlight">\(a^{(3)}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(3)}\)</span> and <span class="math notranslate nohighlight">\(a^{(3)}\)</span> depends on <span class="math notranslate nohighlight">\(\Theta^{(2)}\)</span> and <span class="math notranslate nohighlight">\(a^{(2)}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(2)}\)</span> and <span class="math notranslate nohighlight">\(a^{(2)}\)</span> depends on <span class="math notranslate nohighlight">\(\Theta^{(1)}\)</span> and <span class="math notranslate nohighlight">\(a^{(1)}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(J\)</span> depends on <span class="math notranslate nohighlight">\(\Theta^{(1)}\)</span>, <span class="math notranslate nohighlight">\(\Theta^{(2)}\)</span> and <span class="math notranslate nohighlight">\(a^{(1)}\)</span>.</p></li>
+</ul>
+<p>Each layer is represented by the following diagram:</p>
+<p><img alt="" src="../_images/20221114232354.png" /></p>
+<p>The diagram says:</p>
 <div class="math notranslate nohighlight">
-\[\int_0^9\]</div>
+\[
+z^{(k+1)}=b^{(k)}+\Theta^{(k)}a^{(k)},\quad z^{(k+1)}_j=b^{(k)}_j+\sum \Theta^{(k)}_{jl}a^{(k)}_l,\quad a^{(k)}_j=\sigma(z^{(k)}_j).
+\]</div>
+<p>Assume <span class="math notranslate nohighlight">\(r,j\geq1\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\diffp{z^{(k+1)}_i}{a^{(k)}_r}&amp;=\diffp*{\left(b^{(k)}_i+\sum\Theta^{(k)}_{il}a^{(k)}_l\right)}{a^{(k)}_r}=\Theta_{ir}^{(k)},\\
+% \diffp{z^{(k+1)}_i}{\Theta^{(k)}_{ij}}&amp;=\diffp*{\qty(a^{(k)}_0+\sum\Theta^{(k)}_{il}a^{(k)}_l)}{\Theta^{(k)}_{ij}}=a^{(k)}_j,\\
+\diffp{z^{(k+1)}_i}{z^{(k)}_j}&amp;=\sum_r \diffp{z^{(k+1)}_i}{a^{k}_r}\diffp{a^{(k)}_r}{z^{(k)}_j}+\sum_{p,g}\diffp{z^{(k+1)}_i}{\Theta^{(k)}_{pq}}\diffp{\Theta^{(k)}_{pq}}{z^{(k)}_j}+\sum_r \diffp{z^{(k+1)}_i}{b^{k}_r}\diffp{b^{(k)}_r}{z^{(k)}_j}\\
+&amp;=\sum_r \Theta^{(k)}_{ir}\diffp{a^{(k)}_r}{z^{(k)}_j}=\Theta^{(k)}_{ij}\diffp{a^{(k)}_j}{z^{(k)}_j}=\Theta^{(k)}_{ij}\sigma'(z^{(k)}_j),\\
+\diffp{J}{z^{(k)}_j}&amp;=\sum_r \diffp{J}{z^{(k+1)}_r}\diffp{z^{(k+1)}_r}{z^{(k)}_j}=\sum_r\diffp{J}{z^{(k+1)}_r}\Theta^{(k)}_{rj}\sigma'(z^{(k)}_j).
+\end{aligned}
+\end{split}\]</div>
+<p>We set</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\delta^k_j=\diffp{J}{z^{(k)}_j}\)</span>, <span class="math notranslate nohighlight">\(\delta^k=\left[\delta^k_1,\delta_2^k,\ldots\right]^T\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{z}^k=\left[z^{(k)}_1,z^{(k)}_2,\ldots\right]^T\)</span>, <span class="math notranslate nohighlight">\(\mathbf{a}^k=\left[a^{(k)}_1,a^{(k)}_2,\ldots\right]^T\)</span>,
+<span class="math notranslate nohighlight">\(\hat{\mathbf{a}}^k=\left[a^{(k)}_0,a^{(k)}_1,\ldots\right]^T\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Theta^{k}=\left[\Theta^{(k)}_{ij}\right]\)</span>.</p></li>
+</ul>
+<p>Then we have the following formula. Note that there are ``<span class="math notranslate nohighlight">\(z_0\)</span>’’ terms.</p>
+<div class="math notranslate nohighlight">
+\[
+    \delta^k=\left[(\Theta^k)^T\delta^{k+1}\right]\circ \sigma'(\mathbf{z}^k).
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\diffp{z^{(k+1)}_r}{\Theta^{(k)}_{pq}}&amp;=\diffp*{\left(b^{(k)}_r+\sum_l\Theta^{(k)}_{rl}a^{(k)}_l\right)}{\Theta^{(k)}_{pq}}=\begin{cases}
+0&amp;\text{ for }r\neq q,\\
+a^{(k)}_q&amp;\text{ for }r=q,
+\end{cases}\\
+\diffp{J}{\Theta^{(k)}_{pq}}&amp;=\sum_{r}\diffp{J}{z^{(k+1)}_r}\diffp{z^{(k+1)}_r}{\Theta^{(k)}_{pq}}=\diffp{J}{z^{(k+1)}_p}\diffp{z^{(k+1)}_p}{\Theta^{(k)}_{pq}}=\delta^{k+1}_pa^{k}_q,\\
+\diffp{J}{b^{(k)}_{j}}&amp;=\sum_{r}\diffp{J}{z^{(k+1)}_r}\diffp{z^{(k+1)}_r}{b^{(k)}_{j}}=\diffp{J}{z^{(k+1)}_j}\diffp{z^{(k+1)}_j}{b^{(k)}_{j}}=\diffp{J}{z^{(k+1)}_j}=\delta^{k+1}_j.
+\end{aligned}
+\end{split}\]</div>
+<p>Extend <span class="math notranslate nohighlight">\(\hat{\Theta}=\left[b^{(k)},\Theta^{(k)}\right]\)</span>, and <span class="math notranslate nohighlight">\(\partial^k J=\left[\diffp{J}{\hat{\Theta}^{(k)}_{ij}}\right]\)</span>. Then
+$<span class="math notranslate nohighlight">\(
+    \partial^k J=\left[\delta^{k+1}, \delta^{k+1}(\mathbf{a}^k)^T\right].
+\)</span>$
+Then the algorithm is as follows.</p>
+<ol class="simple">
+<li><p>Starting from <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and some random <span class="math notranslate nohighlight">\(\Theta\)</span>.</p></li>
+<li><p>Forward computation: compute <span class="math notranslate nohighlight">\(z^{(k)}\)</span> and <span class="math notranslate nohighlight">\(a^{(k)}\)</span>. The last <span class="math notranslate nohighlight">\(a^{(n)}\)</span> is <span class="math notranslate nohighlight">\(h\)</span>.</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(\delta^n=\nabla J\circ\sigma'(z^{(n)})\)</span>. In the case of <span class="math notranslate nohighlight">\(J=\frac12||{h-y}||^2\)</span>, <span class="math notranslate nohighlight">\(\nabla J=(a^{(n)}-y)\)</span>, and then <span class="math notranslate nohighlight">\(\delta^n=(a^{(n)}-y)\circ\sigma'(z^{(n)})\)</span>.</p></li>
+<li><p>Backwards: <span class="math notranslate nohighlight">\(\delta^k=\left[(\Theta^k)^T\delta^{k+1}\right]\circ \sigma'(\mathbf{z}^k)\)</span>, and <span class="math notranslate nohighlight">\(\partial^k J=\left[\delta^{k+1}, \delta^{k+1}(\mathbf{a}^k)^T\right]\)</span> .</p></li>
+</ol>
+<div class="proof example admonition" id="example-0">
+<p class="admonition-title"><span class="caption-number">Example 6.1 </span></p>
+<section class="example-content" id="proof-content">
+<p>Consider there are 3 layers: input, hidden and output. There are <span class="math notranslate nohighlight">\(m+1\)</span> nodes in the input layer, <span class="math notranslate nohighlight">\(n+1\)</span> nodes in the hidden layer and <span class="math notranslate nohighlight">\(k\)</span> in the output layer. Therefore</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a^{(1)}\)</span> and <span class="math notranslate nohighlight">\(\delta^1\)</span> are <span class="math notranslate nohighlight">\(m\)</span>-dim column vectors.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(2)}\)</span>, <span class="math notranslate nohighlight">\(a^{(2)}\)</span> and <span class="math notranslate nohighlight">\(\delta^2\)</span> are <span class="math notranslate nohighlight">\(n\)</span>-dim column vectors.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(3)}\)</span>, <span class="math notranslate nohighlight">\(a^{(3)}\)</span> and <span class="math notranslate nohighlight">\(\delta^3\)</span> are <span class="math notranslate nohighlight">\(k\)</span>-dim column vectors.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\Theta}^1\)</span> is <span class="math notranslate nohighlight">\(n\times(m+1)\)</span>, <span class="math notranslate nohighlight">\(\hat{\Theta}^2\)</span> is <span class="math notranslate nohighlight">\(k\times(n+1)\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z^{(2)}=b^{(1)}+\Theta^{(1)}a^{(1)}=\hat{\Theta}^{(1)}\hat{a}^{(1)}\)</span>, <span class="math notranslate nohighlight">\(z^{(3)}=b^{(2)}+\Theta^{(2)}a^{(2)}=\hat{\Theta}^{(2)}\hat{a}^{(2)}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta^3=\nabla_aJ\circ\sigma'(z^{(3)})\)</span>. This is a <span class="math notranslate nohighlight">\(k\)</span>-dim column vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\partial^2 J=\left[\delta^3,\delta^3(a^{(2)})^T\right]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta^2=\left[(\Theta^2)^T\delta^3\right]\circ \sigma'(z^{(2)})\)</span>, where <span class="math notranslate nohighlight">\((\hat{\Theta^2})^T\delta^3=(\hat{\Theta^2})^T\delta^3\)</span> and then remove the first row.</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\partial^1 J=\left[\delta^2,\delta^2(a^{(1)})^T\right]\)</span>.</p></li>
+<li><p>When <span class="math notranslate nohighlight">\(J=-\frac1m\sum y\ln a+(1-y)\ln(1-a)\)</span>, <span class="math notranslate nohighlight">\(\delta^3=\frac1m(\sum a^{(3)}-\sum y)\)</span>.</p></li>
+</ul>
 </section>
+</div></section>
 
     <script type="text/x-thebe-config">
     {
@@ -514,13 +618,13 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6. </span>introduction</p>
+            <p class="prev-next-title"><span class="section-number">6. </span>Introduction</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="project.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6.2. </span>project</p>
+        <p class="prev-next-title"><span class="section-number">6.2. </span>Exercises and Projects</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
