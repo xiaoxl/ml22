@@ -306,15 +306,20 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="multi.html">
+     5.4. Multi class case
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="project.html">
-     5.4. Exercises and Projects
+     5.5. Exercises and Projects
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../ChapterApp/intro.html">
-   6. Appendix
+  <a class="reference internal" href="../Chapter6/intro.html">
+   6. Neural Network
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
@@ -323,8 +328,35 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter6/nn.html">
+     6.1. Neural network: Back propagation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter6/example.html">
+     6.2. Example
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter6/project.html">
+     6.3. Exercises and Projects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ChapterApp/intro.html">
+   7. Appendix
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
     <a class="reference internal" href="../ChapterApp/datasets.html">
-     6.1. Datasets
+     7.1. Datasets
     </a>
    </li>
   </ul>
@@ -608,7 +640,7 @@ title="Print to PDF"
 <p>Then the model is trained over a random sample of the training set, and evaluate the score over the test set. The size of the sample of the training set is set by the argument <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code>. This argument is array-like. Therefore the process will be repeated several times, and we can see the impact of increasing the training size.</p>
 <p>The output contains three pieces. The first is <code class="docutils literal notranslate"><span class="pre">train_sizes_abs</span></code> which is the number of elements in each training set. This output is mainly for reference. The difference between the output and the input <code class="docutils literal notranslate"><span class="pre">train_sizes</span></code> is that the input can be float which represents the percentagy. The output is always the exact number of elements.</p>
 <p>The second output is <code class="docutils literal notranslate"><span class="pre">train_scores</span></code> and the third is <code class="docutils literal notranslate"><span class="pre">test_scores</span></code>, both of which are the scores we get from the training and testing process. Note that both are 2D <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays, of the size <code class="docutils literal notranslate"><span class="pre">(number</span> <span class="pre">of</span> <span class="pre">different</span> <span class="pre">sizes,</span> <span class="pre">cv)</span></code>. Each row is a 1D <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array representing the cross-validation scores, which is corresponding to a train size. If we want the mean as the cross-validation score, we could use <code class="docutils literal notranslate"><span class="pre">train_scores.mean(axis=1)</span></code>.</p>
-<p>After understanding the input and output, we could plot the learning curve. We still use the <code class="docutils literal notranslate"><span class="pre">horse</span> <span class="pre">colic</span></code> as the example. The details about the dataset can be found in <a class="reference internal" href="../ChapterApp/datasets.html#section-dataset-horsecolic"><span class="std std-numref">Appendix 6.1.3</span></a>.</p>
+<p>After understanding the input and output, we could plot the learning curve. We still use the <code class="docutils literal notranslate"><span class="pre">horse</span> <span class="pre">colic</span></code> as the example. The details about the dataset can be found in <a class="reference internal" href="../ChapterApp/datasets.html#section-dataset-horsecolic"><span class="std std-numref">Appendix 7.1.3</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -654,7 +686,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x23c4811ce20&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x22f5bb08550&gt;
 </pre></div>
 </div>
 <img alt="../_images/regularization_6_1.png" src="../_images/regularization_6_1.png" />
@@ -712,7 +744,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x23c4819d430&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x22f5bb24550&gt;
 </pre></div>
 </div>
 <img alt="../_images/regularization_9_1.png" src="../_images/regularization_9_1.png" />
