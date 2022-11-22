@@ -1,39 +1,45 @@
 Traceback (most recent call last):
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 730, in _async_poll_for_reply
-    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\util.py", line 96, in ensure_async
-    result = await obj
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\jupyter_client\channels.py", line 230, in get_msg
-    raise Empty
-_queue.Empty
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
     executenb(
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 1204, in execute
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\site-packages\nbclient\client.py", line 1204, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\util.py", line 84, in wrapped
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\site-packages\nbclient\util.py", line 84, in wrapped
     return just_run(coro(*args, **kwargs))
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\util.py", line 62, in just_run
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\site-packages\nbclient\util.py", line 62, in just_run
     return loop.run_until_complete(coro)
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\asyncio\base_events.py", line 647, in run_until_complete
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\asyncio\base_events.py", line 646, in run_until_complete
     return future.result()
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 663, in async_execute
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\site-packages\nbclient\client.py", line 663, in async_execute
     await self.async_execute_cell(
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 949, in async_execute_cell
-    exec_reply = await self.task_poll_for_reply
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 754, in _async_poll_for_reply
-    await self._async_handle_timeout(timeout, cell)
-  File "C:\Users\Xinli\anaconda3\envs\ml22\lib\site-packages\nbclient\client.py", line 801, in _async_handle_timeout
-    raise CellTimeoutError.error_from_timeout_and_cell(
-nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
-The message was: Cell execution timed out.
-Here is a preview of the cell contents:
--------------------
-['from sklearn.pipeline import Pipeline', 'from sklearn.preprocessing import MinMaxScaler', 'from sklearn.neighbors import KNeighborsClassifier', 'from sklearn.metrics import accuracy_score', '']
-...
-['                                      metric="euclidean", algorithm=\'brute\'))]', 'pipe = Pipeline(steps=steps)', 'pipe.fit(X_train, y_train)', 'y_pipe = pipe.predict(X_test)', 'print(accuracy_score(y_pipe, y_test))']
--------------------
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\site-packages\nbclient\client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\Xinli\anaconda3\envs\base23\lib\site-packages\nbclient\client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from assests.codes.knn import classify_kNN
+from tqdm import tqdm
+import numpy as np
+
+n_neighbors = 10
+N_sample = 10
+X_test_sample = X_test_norm[0:N_sample]
+y_test_sample = y_test[0:N_sample]
+y_pred = np.array([classify_kNN(row, X_train_norm, y_train, k=n_neighbors)
+                   for row in tqdm(X_test_sample)])
+
+acc = np.mean(y_pred == y_test_sample)
+print(acc)
+------------------
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Input [1;32mIn [6][0m, in [0;36m<cell line: 2>[1;34m()[0m
+[0;32m      1[0m [38;5;28;01mfrom[39;00m [38;5;21;01massests[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcodes[39;00m[38;5;21;01m.[39;00m[38;5;21;01mknn[39;00m [38;5;28;01mimport[39;00m classify_kNN
+[1;32m----> 2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mtqdm[39;00m [38;5;28;01mimport[39;00m tqdm
+[0;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
+[0;32m      5[0m n_neighbors [38;5;241m=[39m [38;5;241m10[39m
+
+[1;31mModuleNotFoundError[0m: No module named 'tqdm'
+ModuleNotFoundError: No module named 'tqdm'
 

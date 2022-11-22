@@ -94,7 +94,7 @@ print(acc)
 
 # Now let us try to apply `sklearn` package. Note that we could run the code over the whole test set (which contains 10000 digits) and the speed is much faster comparing to our codes. To save time we won't grid search `k` here. The code is the same anyway.
 
-# In[7]:
+# In[9]:
 
 
 from sklearn.pipeline import Pipeline

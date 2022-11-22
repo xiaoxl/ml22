@@ -241,7 +241,7 @@ df = pd.read_excel('assests/datasets/plants.xlsx', engine='openpyxl', sheet_name
 # 
 # There are two more missing values in `Stem diameter`. For simplicity we drop them directly.
 
-# In[13]:
+# In[2]:
 
 
 df['Outcome_after 12 months'].fillna('dead', inplace=True)
@@ -259,7 +259,7 @@ df = df.dropna()
 # 
 # Finally we put these together to get the features `X` and the label `y`.
 
-# In[14]:
+# In[12]:
 
 
 df['Endophyte '] = df['Endophyte '].map({'I+': 1, 'I-': -1})
