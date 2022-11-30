@@ -50,7 +50,7 @@ Assume $r,j\geq1$. Then
 
 $$
 \begin{aligned}
-\diffp{z^{(k+1)}_i}{a^{(k)}_r}&=\diffp*{\left(b^{(k)}_i+\sum\Theta^{(k)}_{il}a^{(k)}_l\right)}{a^{(k)}_r}=\Theta_{ir}^{(k)},\\
+\diffp{z^{(k+1)}_i}{a^{(k)}_r}&=\diffp{\left(b^{(k)}_i+\sum\Theta^{(k)}_{il}a^{(k)}_l\right)}{a^{(k)}_r}=\Theta_{ir}^{(k)},\\
 % \diffp{z^{(k+1)}_i}{\Theta^{(k)}_{ij}}&=\diffp*{\qty(a^{(k)}_0+\sum\Theta^{(k)}_{il}a^{(k)}_l)}{\Theta^{(k)}_{ij}}=a^{(k)}_j,\\
 \diffp{z^{(k+1)}_i}{z^{(k)}_j}&=\sum_r \diffp{z^{(k+1)}_i}{a^{k}_r}\diffp{a^{(k)}_r}{z^{(k)}_j}+\sum_{p,g}\diffp{z^{(k+1)}_i}{\Theta^{(k)}_{pq}}\diffp{\Theta^{(k)}_{pq}}{z^{(k)}_j}+\sum_r \diffp{z^{(k+1)}_i}{b^{k}_r}\diffp{b^{(k)}_r}{z^{(k)}_j}\\
 &=\sum_r \Theta^{(k)}_{ir}\diffp{a^{(k)}_r}{z^{(k)}_j}=\Theta^{(k)}_{ij}\diffp{a^{(k)}_j}{z^{(k)}_j}=\Theta^{(k)}_{ij}\sigma'(z^{(k)}_j),\\
@@ -80,7 +80,7 @@ $$
 
 $$
 \begin{aligned}
-\diffp{z^{(k+1)}_r}{\Theta^{(k)}_{pq}}&=\diffp*{\left(b^{(k)}_r+\sum_l\Theta^{(k)}_{rl}a^{(k)}_l\right)}{\Theta^{(k)}_{pq}}=\begin{cases}
+\diffp{z^{(k+1)}_r}{\Theta^{(k)}_{pq}}&=\diffp{\left(b^{(k)}_r+\sum_l\Theta^{(k)}_{rl}a^{(k)}_l\right)}{\Theta^{(k)}_{pq}}=\begin{cases}
 0&\text{ for }r\neq q,\\
 a^{(k)}_q&\text{ for }r=q,
 \end{cases}\\
